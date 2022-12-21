@@ -39,13 +39,10 @@ const Signup = (props: Props) => {
             lname: '',
             phone: '',
         }, onSubmit: async values => {
-            console.log(values)
             const res = await register(values.email, values.password, values.fname, values.lname);
             //router.push('/');
         },
         validate: values => {
-            console.log(values.password)
-            console.log(values.confirmPassword)
             if (values.password !== values.confirmPassword) {
               return {'confirmPassword': 'Passwords do not match'}
             }

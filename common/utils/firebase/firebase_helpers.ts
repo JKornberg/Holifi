@@ -2,9 +2,6 @@ import { addDoc, collection, doc, DocumentData, DocumentReference, DocumentSnaps
 import { deleteObject, getBlob, getBytes, getStorage, ref, uploadBytes, UploadResult, uploadString } from "firebase/storage";
 import { firestore } from "./clientApp";
 import { ConfigurationType, ItemType as ItemType, FirebaseUserType, FormatUserType, PartType, QuoteType } from "../../types/firebase_types";
-import { Blob as BufferBlob } from "buffer";
-import { Quote } from "../../classes/quote";
-import { Part } from "../../classes/part";
 import { v4 as uuidv4 } from 'uuid';
 import { getAuth, User } from "firebase/auth";
 
@@ -37,44 +34,6 @@ export async function retrieveUser(uid: string) {
 
 
 
-
-export async function uploadModel(uid: string, file: File, quote: Quote) {
-    //Upload model to firebase storage
-    try {
-        const uploadResult = await saveBlobToFirebase(file, 'models/' + uid + '/' + uuidv4() + file.type);
-        return uploadResult?.ref.fullPath;
-    } catch (e) {
-        console.log("Error uploading model");
-        console.log(e);
-        return null;
-    }
-}
-
-export const saveBlobToFirebase = async function (blob: Blob | ArrayBuffer, filename: string): Promise<UploadResult | null> {
-    try {
-        const storage = getStorage();
-        const imageRef = ref(storage, filename);
-        let resp = await uploadBytes(imageRef, blob);
-        return resp;
-    }
-    catch (e) {
-        console.log(e);
-        return null;
-    }
-}
-
-export const removeBlobFromFirebase = async function (path: string) {
-    try {
-        const storage = getStorage();
-        const imageRef = ref(storage, path);
-        let resp = deleteObject(imageRef);
-        return resp;
-    }
-    catch (e) {
-        console.log(e);
-        return null;
-    }
-}
 
 
 

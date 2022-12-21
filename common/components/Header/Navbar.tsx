@@ -12,7 +12,7 @@ interface Props {
 const NavBar = (props: any) => {
   return (
     <>
-      <Grid container width={'100%'} xs={12} justifyContent='space-between' alignItems='center' {...props}>
+      <Grid container width={'100%'} justifyContent='space-between' alignItems='center' {...props}>
         <Grid item xs={4} textAlign='left'>
           <Link href='/'><IconButton children={<AiOutlineHome />} /></Link>
         </Grid>
