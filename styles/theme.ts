@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material";
-import { purple, orange, pink, grey} from '@mui/material/colors';
+import { purple, orange, pink, grey, green, red, blue} from '@mui/material/colors';
 
 
 
@@ -15,11 +15,11 @@ const app_theme = createTheme({
       contrastText: '#fff',
     },
     secondary: {
-      main: purple[400],
+      main: green[400],
     },
     text: {
       primary: '#fff',
-      secondary: purple[200],
+      secondary: red[400],
     },
     background: {
       default: '#1f1f1f',
@@ -39,11 +39,23 @@ const app_theme = createTheme({
           fontSize: '1.2rem',
           fontWeight: 700,
           color: '#000',
-          backgroundColor: purple[200],
+          backgroundColor: red['400'],
           margin: "1rem"
         },
       },
     },
+    MuiFormLabel: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+          '&.Mui-focused': {
+            color: "red['400']",
+          },
+        },
+      },
+    },
+          
+
     MuiTextField: {
       styleOverrides: {
         root: {
@@ -55,7 +67,7 @@ const app_theme = createTheme({
             boxShadow: '0 0 0 100px #222 inset'
           },
           '& .MuiOutlinedInput-input:invalid': {
-            boxShadow: '0 0 0 100px #444 inset'
+            boxShadow: '0 0 0 100px #222 inset'
           },
           '&.Mui-focused fieldset': {
             border: '1px solid red'
@@ -66,7 +78,7 @@ const app_theme = createTheme({
     MuiCheckbox: {
       styleOverrides: {
         root: {
-          color: purple[200],
+          color: green[200],
         },
         checked: {},
 

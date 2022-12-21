@@ -19,3 +19,20 @@ a {
   height: 10px;
   color: antiquewhite;
 }
+.MuiSlider-markLabel{
+  color: antiquewhite;
+  font-size: 2rem;
+}
+
+.MuiSlider-markLabel[data-index="0"]{
+  color: #ef5350;
+  font-size: 2rem;
+}
+.MuiSlider-markLabel[data-index="2"]{
+  color: #fff;
+  font-size: 2rem;
+}
+.MuiSlider-markLabel[data-index="4"]{
+  color: #00e676;
+  font-size: 2rem;
+}

@@ -17,7 +17,7 @@ const NavBar = (props: any) => {
           <Link href='/'><IconButton children={<AiOutlineHome />} /></Link>
         </Grid>
         <Grid item xs={4} textAlign='center'>
-          <Typography color='white' variant='h1' fontSize={'4xl'}>HoliFi</Typography>
+          <Typography color='white' variant='h1' fontSize={'4xl'}>HoliFi ❄️</Typography>
 
         </Grid>
         <Grid item xs={4} textAlign='right'>
