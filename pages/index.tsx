@@ -49,7 +49,10 @@ const Home = () => {
         method: 'POST', body: JSON.stringify(values)
       }).then(res => res.json()).then(data => {
         setSongData(JSON.parse(data));
+      }).catch(err => {
+        console.log(err);
       })
+
 
       // const res = await register(values.email, values.password, values.fname, values.lname);
       //router.push('/');

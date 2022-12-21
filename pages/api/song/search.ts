@@ -9,6 +9,7 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
         let song = body.song as string;
         let python = spawn('python', ['get_lyrics.py', artist, song]);
         let dataToSend = '';
+        let error = '';
         // console.log(python.stdout)
         python.stdout.on('data', (data: any) => {
             console.log(data.toString());
@@ -16,11 +17,16 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
         });
         python.stderr.on('data', (data: any) => {
             console.log(data.toString());
-            dataToSend += data.toString();
+            error += data.toString(); 
         });
         python.on('close', (code: any) => {
             // send data to browser
-            res.status(200).json(dataToSend)
+            console.log(error)
+            if (error.length > 0){
+                res.status(201).json(JSON.stringify({data: dataToSend, error: error}))
+            } else{
+                res.status(200).json(dataToSend)
+            }
         });
     });
 
