@@ -37,7 +37,6 @@ const Signup = (props: Props) => {
             confirmPassword: '',
             fname: '',
             lname: '',
-            phone: '',
         }, onSubmit: async values => {
             const res = await register(values.email, values.password, values.fname, values.lname);
             //router.push('/');
@@ -90,18 +89,6 @@ const Signup = (props: Props) => {
                         placeholder='email@example.com'
                         required
                         onChange={e => formik.setFieldValue('email', e.target.value)}
-                    />
-                </FormControl>
-
-                <FormControl id='phone'>
-                    <FormLabel>Phone Number</FormLabel>
-                    <TextField
-                        name='phone'
-                        type='phone'
-                        autoComplete='on'
-                        placeholder={"+1(123) 456-7890"}
-                        required
-                        onChange={e => formik.setFieldValue('phone', e.target.value)}
                     />
                 </FormControl>
 
