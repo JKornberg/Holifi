@@ -1,11 +1,11 @@
 import { CircularProgress, Container, Typography, Box, Button, Stack, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Slider } from '@mui/material'
 import Head from 'next/head'
-import { Fragment, useEffect } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import NavBar from '../common/components/Header/Navbar'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
-
+import { green, red } from '@mui/material/colors';
 // Used to include thumbnail data for safely rendering user models on dashboard
 
 
@@ -25,6 +25,11 @@ enum Protagonists {
   'Stone Cold Steve Austin' = 5
 }
 
+type SongDataType = {
+  artist: string,
+  song: string,
+  lyrics: string,
+} | null
 
 
 
@@ -40,7 +45,12 @@ const Home = () => {
       'artist': '',
       'song': '',
     }, onSubmit: async values => {
-      console.log(values)
+      fetch('/api/song/search', {
+        method: 'POST', body: JSON.stringify(values)
+      }).then(res => res.json()).then(data => {
+        setSongData(JSON.parse(data));
+      })
+
       // const res = await register(values.email, values.password, values.fname, values.lname);
       //router.push('/');
     }
@@ -66,17 +76,31 @@ const Home = () => {
       console.log("redirecting to login...");
       router.push('/login');
     }
-      
-      //I cannot figure out how to fix this typescript warning but it works
-      //This gets called if loadingUser does not yet have the twitterId (right after login)
-      // setLoadingUser((prevState) => ({
-      //   ...prevState,
-      //   user: { ...prevState.user, twitterId: data.user.access_token }
-      // }))
-      
+
   }, [loadingUser]);
 
-
+  let [songData, setSongData] = useState<SongDataType>(null);
+  let [naughtyLevel, setNaughtyLevel] = useState<number>(0);
+  let buttonColor;
+  let buttonText;
+  switch (naughtyLevel) {
+    case -2:
+      buttonColor = red[500];
+      buttonText = "Ho Ho Ho 👹"
+      break;
+    case -1: buttonColor = red[200];
+      buttonText = "Naughty"
+      break;
+    case 0: buttonColor = "#fff";
+      buttonText = "Submit 😐"
+      break;
+    case 1: buttonColor = green[300];
+      buttonText = "Aren't you sweet"
+      break;
+    case 2: buttonColor = green['A400'];
+      buttonText = "Santa's Little Helper 😇"
+      break;
+  }
 
   return (
     (loadingUser.isLoading) ? <Container><Box component="div" width='100%' margin={10} display="flex" alignItems={'center'} justifyContent='center'><CircularProgress /></Box> </Container> :
@@ -90,7 +114,6 @@ const Home = () => {
         <Container maxWidth='md'>
 
           <Box component="div" textAlign='center'>
-            {/* <NavBar /> */}
             <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='center' >
               <FormControl id='email'>
                 <TextField
@@ -114,31 +137,11 @@ const Home = () => {
                   onChange={e => songForm.setFieldValue('song', e.target.value)}
                 />
               </FormControl>
-              <Button sx={{'marginTop':'16px', 'marginBottom':'8px'}} onClick={songForm.submitForm}>Search</Button>
+              <Button sx={{ 'marginTop': '16px', 'marginBottom': '8px' }} onClick={songForm.submitForm}>Search</Button>
 
             </Stack>
-            {/* <Box component="div" textAlign='left' width={'500px'} margin={'0 auto'}>
-            Search Results...
-          </Box> */}
-            {/* <Grid container xs={9} justifyContent='center' margin='0 auto'>
-              <Grid item xs={3}>
-                <Card sx={{ padding: 1, backgroundColor: 'fff', height: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }} variant='outlined'>
-                  Queen
-                </Card>
-              </Grid>
-              <Grid item xs={4}>
-                <Card sx={{ padding: 1, backgroundColor: 'fff', height: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }} variant='outlined'>
-                  Bohemian Rhapsody
-                </Card>
-              </Grid>
-              <Grid item xs={2}>
-                <Card sx={{ padding: 1, backgroundColor: 'fff', height: '100%', alignItems: 'center', display: 'flex', justifyContent: 'center' }} variant='outlined'>
-                  <Button variant='contained'>Use</Button>
-                </Card>
-              </Grid>
-            </Grid> */}
             <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-              <Typography>Selected: Queen - Bohemian Rhapsody</Typography>
+              {songData !== null ? <Typography>Selected: {songData!.artist} - {songData!.song}</Typography> : <Typography>Search for song above</Typography>}
               <Stack direction={'column'}>
                 <Box margin={5}>
                   <FormControl>
@@ -178,19 +181,26 @@ const Home = () => {
                   </FormControl>
 
                 </Box>
-                <Box width={500} margin='0 auto'>
-                <Slider min={-2} max={2} step={1} marks={[
-                  { value: -2, label: 'Naughty' },
-                  { value: -1, label: '' },
-                  { value: 0, label: 'Neutral' },
-                  { value: 1, label: '' },
-                  { value: 2, label: 'Nice' },
-                ]}  />
+                <Box width={500} margin='0 auto' marginY={5}>
+                  <Slider min={-2} max={2} step={1} marks={[
+                    { value: -2, label: 'Naughty' },
+                    { value: -1, label: '' },
+                    { value: 0, label: 'Neutral' },
+                    { value: 1, label: '' },
+                    { value: 2, label: 'Nice' },
+                  ]}
+                    onChange={(e, value) => {
+                      setNaughtyLevel(value as number);
+                      optionsForm.setFieldValue('naughtyNice', value)
+                    }}
+                    defaultValue={0}
+
+                  />
                 </Box>
 
               </Stack>
 
-
+              <Button sx={{ 'backgroundColor': buttonColor }}>{buttonText}</Button>
             </Box>
           </Box>
         </Container>

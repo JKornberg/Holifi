@@ -22,7 +22,7 @@ const app_theme = createTheme({
       secondary: red[400],
     },
     background: {
-      default: '#1f1f1f',
+      default: '#090c24',
     },
     info: {
       main : orange[500]
@@ -40,8 +40,12 @@ const app_theme = createTheme({
           fontWeight: 700,
           color: '#000',
           backgroundColor: red['400'],
-          margin: "1rem"
+          margin: "1rem",
+          '&:hover': {
+            backgroundColor: grey['A100']
+          }
         },
+        //make white when hover
       },
     },
     MuiFormLabel: {
@@ -49,7 +53,7 @@ const app_theme = createTheme({
         root: {
           color: "#fff",
           '&.Mui-focused': {
-            color: "red['400']",
+            color: red['500'],
           },
         },
       },
@@ -74,6 +78,24 @@ const app_theme = createTheme({
           },
         }
       }
+    },
+    MuiRadio: {
+      styleOverrides: {
+        root: {
+          color: red[400],
+          '&.Mui-checked': {
+            color: green['A400'],
+          },
+        },
+      },
+    },
+
+    MuiSlider: {
+      styleOverrides: {
+        root: {
+          color: "#fff",
+        },
+      },
     },
     MuiCheckbox: {
       styleOverrides: {
