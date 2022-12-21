@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import {Stack, Link, IconButton, Typography, Unstable_Grid2} from "@mui/material";
+import { Stack, Link, IconButton, Typography, Unstable_Grid2, Grid } from "@mui/material";
 import { BsPersonCircle } from 'react-icons/bs';
 import { AiFillHome, AiOutlineHome } from 'react-icons/ai';
 import { getAuth } from "firebase/auth";
@@ -12,27 +12,21 @@ interface Props {
 const NavBar = (props: any) => {
   return (
     <>
-      <NavBarContainer {...props} p='10px'>
-        <Stack direction='row'>
-          <Link href='/'><IconButton  children={<AiOutlineHome />} /></Link>
-          
+      <Grid container width={'100%'} xs={12} justifyContent='space-between' alignItems='center' {...props}>
+        <Grid item xs={4} textAlign='left'>
+          <Link href='/'><IconButton children={<AiOutlineHome />} /></Link>
+        </Grid>
+        <Grid item xs={4} textAlign='center'>
+          <Typography color='white' variant='h1' fontSize={'4xl'}>HoliFi</Typography>
 
-        </Stack>
-
-        <Typography color='white' fontSize={'4xl'}></Typography>
-        <ProfileMenu />
-      </NavBarContainer>
+        </Grid>
+        <Grid item xs={4} textAlign='right'>
+          <ProfileMenu />
+        </Grid>
+      </Grid>
     </>
   );
 };
 
-const NavBarContainer: FC<Props> = ({ children, ...props }) => {
-  return (
-    <Stack direction='row' justifyContent='space-between' alignItems='center' {...props}>
-    
-      {children}
-    </Stack>
-  );
-};
 
 export default NavBar;

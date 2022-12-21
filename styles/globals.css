@@ -14,3 +14,8 @@ a {
 * {
   box-sizing: border-box;
 }
+
+.MuiSlider-mark{
+  height: 10px;
+  color: antiquewhite;
+}

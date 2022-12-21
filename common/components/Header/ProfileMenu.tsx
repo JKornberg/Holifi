@@ -26,7 +26,7 @@ const ProfileMenu = (props: Props) => {
     const { loadingUser, logout } = useAuth();
     const router = useRouter();
     return (
-        (loadingUser.user) ? (
+        // (loadingUser.user) ? (
           
             <PopupState variant="popover" popupId="demo-popup-menu">
             {(popupState) => (
@@ -36,14 +36,14 @@ const ProfileMenu = (props: Props) => {
                 </NavBarButton>
 
                 <Menu {...bindMenu(popupState)}>
-                  <MenuItem onClick={()=>{router.push('/profile')}}>Profile</MenuItem>
+                  {/* <MenuItem onClick={()=>{router.push('/profile')}}>Profile</MenuItem> */}
                   {/* <MenuItem onClick={popupState.close}>My account</MenuItem> */}
                   <MenuItem onClick={()=>{logout(); popupState.close()}}>Logout</MenuItem>
                 </Menu>
               </React.Fragment>
             )}
           </PopupState>
-        ) : (<Stack direction='row'><Navlink to='/login'>Login</Navlink><Navlink to='/register'>Register</Navlink></Stack>)
+        // ) : (<Stack direction='row'><Navlink to='/login'>Login</Navlink><Navlink to='/register'>Register</Navlink></Stack>)
     )
 }
 
