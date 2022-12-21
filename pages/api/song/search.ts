@@ -7,7 +7,7 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
         let body = JSON.parse(req.body);
         let artist = body.artist as string;
         let song = body.song as string;
-        let python = spawn('python', ['get_lyrics.py', artist, song]);
+        let python = spawn('python3', ['static/get_lyrics.py', artist, song]);
         let dataToSend = '';
         let error = '';
         // console.log(python.stdout)
