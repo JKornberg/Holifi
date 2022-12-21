@@ -24,8 +24,6 @@ export type FirebaseUserType = {
   email: string,
   fname: string,
   lname: string,
-  twitterId?: string,
-  active: boolean
 }
 
 export type FormatUserType = {
