@@ -14,6 +14,10 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
             console.log(data.toString());
             dataToSend += data.toString();
         });
+        python.stderr.on('data', (data: any) => {
+            console.log(data.toString());
+            dataToSend += data.toString();
+        });
         python.on('close', (code: any) => {
             // send data to browser
             res.status(200).json(dataToSend)
