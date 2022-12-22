@@ -6,7 +6,6 @@ import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import { green, grey, red } from '@mui/material/colors';
-import { WhiteTextField } from '../styles/theme'
 // Used to include thumbnail data for safely rendering user models on dashboard
 
 
@@ -50,7 +49,8 @@ const Home = () => {
       }).then(res => {
         if (res.status == 200) {
           return res.json().then(data => {
-            setSongData(JSON.parse(data));
+            console.log(data.lyrics);
+            setSongData(data);
           })
         } else {
           res.json().then(data => {
@@ -216,12 +216,13 @@ const Home = () => {
             <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
 
               <TextField
-                placeholder="MultiLine with rows: 2 and rowsMax: 4"
                 multiline
-                rows={2}
                 maxRows={Infinity}
                 fullWidth
-                sx={{ 'backgroundColor': grey[500] }}
+                sx={{ 'backgroundColor': grey[500] , 'color': 'white', 'boxShadow': 'none !important'}}
+                disabled
+                value={songData !== null ? songData.lyrics : "Lyrics will appear here"}
+
               />
             </Box>
           </Box>
