@@ -153,9 +153,7 @@ export default function AuthContextProvider(props: Props) {
   function signInWithGoogle() {
     setLoadingUser((prevState) => ({ user: null, isLoading: true }));
     const provider = new GoogleAuthProvider()
-    // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    // return signInWithPopup(auth, provider);
-    return signInWithRedirect(auth, provider);
+    return signInWithPopup(auth, provider);
 
   }
 
@@ -187,4 +185,3 @@ export default function AuthContextProvider(props: Props) {
   }
   return <AuthContext.Provider value={value}>{props.children}</AuthContext.Provider>
 }
-

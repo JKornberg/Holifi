@@ -1,4 +1,4 @@
-import { CircularProgress, Container, Typography, Box, Button, Stack, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Slider } from '@mui/material'
+import { CircularProgress, Container, Typography, Box, Button, Stack, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Slider, BottomNavigation, Paper } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
 import NavBar from '../common/components/Header/Navbar'
@@ -65,9 +65,9 @@ const Home = () => {
       }).catch(err => {
         console.log(err);
       })
-      .finally(() => {
-        setIsSubmitting(false);
-      });
+        .finally(() => {
+          setIsSubmitting(false);
+        });
 
 
       // const res = await register(values.email, values.password, values.fname, values.lname);
@@ -166,21 +166,21 @@ const Home = () => {
                 </Box>
               </Stack>
               <Box width={500} margin='0 auto' marginY={5}>
-                  <Slider min={-2} max={2} step={1} marks={[
-                    { value: -2, label: 'Naughty' },
-                    { value: -1, label: '' },
-                    { value: 0, label: 'Neutral' },
-                    { value: 1, label: '' },
-                    { value: 2, label: 'Nice' },
-                  ]}
-                    onChange={(e, value) => {
-                      setNaughtyLevel(value as number);
-                      songForm.setFieldValue('naughtyNice', value)
-                    }}
-                    defaultValue={0}
+                <Slider min={-2} max={2} step={1} marks={[
+                  { value: -2, label: 'Naughty' },
+                  { value: -1, label: '' },
+                  { value: 0, label: 'Neutral' },
+                  { value: 1, label: '' },
+                  { value: 2, label: 'Nice' },
+                ]}
+                  onChange={(e, value) => {
+                    setNaughtyLevel(value as number);
+                    songForm.setFieldValue('naughtyNice', value)
+                  }}
+                  defaultValue={0}
 
-                  />
-                </Box>
+                />
+              </Box>
             </Box>
             <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='center' >
               <FormControl id='email'>
@@ -205,11 +205,11 @@ const Home = () => {
                   onChange={e => songForm.setFieldValue('song', e.target.value)}
                 />
               </FormControl>
-             
+
 
             </Stack>
             {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
-              <Button sx={{ 'backgroundColor': buttonColor }} onClick={isSubmitting ? ()=>{} : songForm.submitForm}>{isSubmitting ? <CircularProgress /> : buttonText}</Button>
+            <Button sx={{ 'backgroundColor': buttonColor }} onClick={isSubmitting ? () => { } : songForm.submitForm}>{isSubmitting ? <CircularProgress /> : buttonText}</Button>
             <Box margin={4} width={'100%'} minHeight='400px'>
 
               <TextField
@@ -222,8 +222,15 @@ const Home = () => {
               />
             </Box>
           </Box>
-          
+
         </Container>
+        <Paper sx={{
+          width: '100%',
+          bottom: 0,
+          textAlign: 'center',
+          backgroundColor: 'black',
+          
+        }} component="footer" square ><Typography padding={5}>Created by Jonah Kornberg with 🍝</Typography></Paper>
       </Fragment>
 
   )

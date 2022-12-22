@@ -1,6 +1,6 @@
-import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField } from '@mui/material'
+import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField, CircularProgress, BottomNavigation } from '@mui/material'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import useMounted from '../common/hooks/useMounted'
 import { useFormik } from 'formik'
@@ -24,7 +24,16 @@ const Signup = (props: Props) => {
     const { register, loadingUser, signInWithGoogle } = useAuth();
     const mounted = useMounted()
     const router = useRouter()
+    const [isSubmitting, setIsSubmitting] = useState(false)
+    const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false)
 
+    useEffect(() => {
+        if (loadingUser.isLoading) {
+            setIsGoogleSubmitting(true);
+        } else {
+            setIsGoogleSubmitting(false);
+        }
+    }, [loadingUser.isLoading])
 
     useEffect(() => {
         if (loadingUser.user != null && loadingUser.isLoading == false) {
@@ -39,7 +48,12 @@ const Signup = (props: Props) => {
             fname: '',
             lname: '',
         }, onSubmit: async values => {
+            setIsSubmitting(true);
             const res = await register(values.email, values.password, values.fname, values.lname);
+            if (res.status == 200) {
+                router.push('/');
+            }
+            setIsSubmitting(false);
             //router.push('/');
         },
         validate: values => {
@@ -49,7 +63,16 @@ const Signup = (props: Props) => {
             return {}
         },
     });
-    //
+    // 
+    if (isGoogleSubmitting) {
+        return (
+            <Container maxWidth={'sm'}>
+                <Box sx={{ marginTop: 8, display: 'flex', justifyContent: 'center' }}>
+                    <CircularProgress />
+                </Box>
+            </Container>
+        )
+    }
     return (
         <Container maxWidth={'sm'}>
             <form onSubmit={formik.handleSubmit}>
@@ -119,8 +142,8 @@ const Signup = (props: Props) => {
                     <Box component='div' margin={'auto'}>
                         <Button
                             type='submit'
-                        >
-                            Sign Up
+                            disabled={(isSubmitting )|| Boolean(formik.errors.confirmPassword)}>
+                            {isSubmitting ? <CircularProgress /> : "Sign Up"}
                         </Button>
 
                     </Box>
@@ -128,7 +151,10 @@ const Signup = (props: Props) => {
                     <Box display={'flex'} marginTop={5}>
                         <Box margin='0 auto' display={'inline-block'}>
                             <GoogleButton
-                                onClick={() => { signInWithGoogle }}
+                                onClick={() => {
+                                    setIsGoogleSubmitting(true);
+                                    signInWithGoogle
+                                }}
                             />
                         </Box>
                     </Box>
@@ -136,7 +162,6 @@ const Signup = (props: Props) => {
 
                 </Stack>
             </form>
-
         </Container>
     )
 }
