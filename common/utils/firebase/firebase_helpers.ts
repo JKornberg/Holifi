@@ -51,7 +51,7 @@ export const formatUser = async (user: User): Promise<FormatUserType> => {
         };
 };
 
-export function firebaseUserFromFormattedUser(formatUser: FormatUserType, fname: string, lname: string, twitterId : string): FirebaseUserType {
+export function firebaseUserFromFormattedUser(formatUser: FormatUserType, fname: string, lname: string): FirebaseUserType {
     return {
         uid: formatUser.uid,
         email: formatUser.email,

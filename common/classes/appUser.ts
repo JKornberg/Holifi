@@ -12,8 +12,6 @@ export class AppUser {
     active: boolean | null;
     fName: string;
     lName: string;
-    twitterId: string | null;
-    twitterHandle: string | null;
     admin: boolean;
     token: string;
 
@@ -24,8 +22,6 @@ export class AppUser {
         this.active = user.active ?? false;
         this.fName = user.fname ?? "User";
         this.lName = user.lname ?? "User";
-        this.twitterId = user.twitterId ?? null;
-        this.twitterHandle = user.twitterHandle ?? null;
         this.admin = false;
     }
 
@@ -33,8 +29,6 @@ export class AppUser {
         this.active = data.active;
         this.fName = data.fName;
         this.lName = data.lName;
-        this.twitterId = data.twitterId;
-        this.twitterHandle = data.twitterHandle;
     }
 
     toObjectForFirebase() {
@@ -45,8 +39,6 @@ export class AppUser {
             active: this.active ?? false,
             fName: this.fName ?? "",
             lName: this.lName ?? "",
-            twitterId: this.twitterId ?? '',
-            twitterHandle: this.twitterHandle ?? ''
 
         }
     }
@@ -58,8 +50,7 @@ export class AppUser {
             active: this.active,
             fName: this.fName,
             lName: this.lName,
-            twitterId: this.twitterId,
-            twitterHandle: this.twitterHandle
+
         }
     }
 

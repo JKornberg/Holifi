@@ -38,10 +38,7 @@ export type FormatUserType = {
   active?: boolean
 }
 
-export type TwitterInfoType = {
-  twitterId: string,
-  twitterHandle: string
-}
+
 
 export type FBTimestamp = {
   _seconds: number,
