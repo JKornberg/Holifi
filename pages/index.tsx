@@ -5,7 +5,8 @@ import NavBar from '../common/components/Header/Navbar'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
-import { green, red } from '@mui/material/colors';
+import { green, grey, red } from '@mui/material/colors';
+import { WhiteTextField } from '../styles/theme'
 // Used to include thumbnail data for safely rendering user models on dashboard
 
 
@@ -26,8 +27,7 @@ enum Protagonists {
 }
 
 type SongDataType = {
-  artist: string,
-  song: string,
+  title: string,
   lyrics: string,
 } | null
 
@@ -47,8 +47,16 @@ const Home = () => {
     }, onSubmit: async values => {
       fetch('/api/song/search', {
         method: 'POST', body: JSON.stringify(values)
-      }).then(res => res.json()).then(data => {
-        setSongData(JSON.parse(data));
+      }).then(res => {
+        if (res.status == 200) {
+          return res.json().then(data => {
+            setSongData(JSON.parse(data));
+          })
+        } else {
+          res.json().then(data => {
+            console.log("Error getting song");
+          })
+        }
       }).catch(err => {
         console.log(err);
       })
@@ -144,7 +152,7 @@ const Home = () => {
 
             </Stack>
             <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-              {songData !== null ? <Typography>Selected: {songData!.artist} - {songData!.song}</Typography> : <Typography>Search for song above</Typography>}
+              {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
               <Stack direction={'column'}>
                 <Box margin={5}>
                   <FormControl>
@@ -204,6 +212,17 @@ const Home = () => {
               </Stack>
 
               <Button sx={{ 'backgroundColor': buttonColor }}>{buttonText}</Button>
+            </Box>
+            <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
+
+              <TextField
+                placeholder="MultiLine with rows: 2 and rowsMax: 4"
+                multiline
+                rows={2}
+                maxRows={Infinity}
+                fullWidth
+                sx={{ 'backgroundColor': grey[500] }}
+              />
             </Box>
           </Box>
         </Container>

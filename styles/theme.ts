@@ -1,6 +1,7 @@
-import { createTheme } from "@mui/material";
-import { purple, orange, pink, grey, green, red, blue} from '@mui/material/colors';
-
+import styled from "@emotion/styled";
+import { TextField } from "@mui/material";
+import { createTheme, InputBase } from "@mui/material";
+import { purple, orange, pink, grey, green, red, blue } from '@mui/material/colors';
 
 
 const app_theme = createTheme({
@@ -25,7 +26,7 @@ const app_theme = createTheme({
       default: '#090c24',
     },
     info: {
-      main : orange[500]
+      main: orange[500]
     },
     success: {
       main: pink[500]
@@ -58,7 +59,7 @@ const app_theme = createTheme({
         },
       },
     },
-          
+
 
     MuiTextField: {
       styleOverrides: {
@@ -76,7 +77,8 @@ const app_theme = createTheme({
           '&.Mui-focused fieldset': {
             border: '1px solid red'
           },
-        }
+        },
+
       }
     },
     MuiRadio: {
@@ -111,7 +113,7 @@ const app_theme = createTheme({
     fontFamily: [
       'Open Sans',
     ].join(','),
-    body1 : {
+    body1: {
       fontSize: '1.1rem',
       fontWeight: 500,
     },

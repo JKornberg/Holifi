@@ -3,32 +3,24 @@ import { NextRequestWithUid } from "../../../common/types/next_types";
 import fetch from 'isomorphic-unfetch';
 export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
     return new Promise<void>(async (resolve, reject) => {
-        const { spawn } = require('child_process');
         let body = JSON.parse(req.body);
         let artist = body.artist as string;
         let song = body.song as string;
-        let python = spawn('python3', ['static/get_lyrics.py', artist, song]);
-        let dataToSend = '';
-        let error = '';
-        // console.log(python.stdout)
-        python.stdout.on('data', (data: any) => {
-            console.log(data.toString());
-            dataToSend += data.toString();
-        });
-        python.stderr.on('data', (data: any) => {
-            console.log(data.toString());
-            error += data.toString(); 
-        });
-        python.on('close', (code: any) => {
-            // send data to browser
-            console.log(error)
-            if (error.length > 0){
-                res.status(201).json(JSON.stringify({data: dataToSend, error: error}))
-            } else{
-                res.status(200).json(dataToSend)
+        // fetch(`http://127.0.0.1:5000/song?artist=${artist}&title=${song}`)
+
+        fetch(`https://holifi-backend-jkornberg.vercel.app/song?artist=${artist}&title=${song}`)
+            .then((response: any) => {
+                console.log(response.body);
+                response.json().then((data: any) => {
+                    console.log(data);
+                    res.status(200).json(data);
+                    resolve();
+                })
             }
-        });
-    });
+
+            );
+    })
+
 
     // return res.status(200).json({ message: dataToSend})
     // let body = JSON.parse(req.body);
