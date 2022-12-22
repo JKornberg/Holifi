@@ -11,6 +11,7 @@ import {
   getAuth,
   User,
   UserCredential,
+  signInWithRedirect,
 } from 'firebase/auth'
 import { auth } from '../common/utils/firebase/clientApp'
 import nookies from 'nookies';
@@ -153,7 +154,9 @@ export default function AuthContextProvider(props: Props) {
     setLoadingUser((prevState) => ({ user: null, isLoading: true }));
     const provider = new GoogleAuthProvider()
     // provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-    return signInWithPopup(auth, provider);
+    // return signInWithPopup(auth, provider);
+    return signInWithRedirect(auth, provider);
+
   }
 
   function forgotPassword(email: string) {
