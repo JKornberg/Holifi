@@ -1,5 +1,5 @@
-import { styled } from "@mui/system";
+import { styled } from '@mui/system'
 
 export const NavBarButtonStyle = `
-margin: 0;
+margin-right: 10px;
 `

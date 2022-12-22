@@ -1,21 +1,30 @@
-import { InputProps, TextField, TextFieldProps } from "@mui/material";
-import { alpha, styled } from '@mui/material/styles';
+import { InputProps, TextField, TextFieldProps } from '@mui/material'
+import { alpha, styled } from '@mui/material/styles'
 
-import { createTheme, InputBase } from "@mui/material";
-import { purple, orange, pink, grey, green, red, blue } from '@mui/material/colors';
+import { createTheme, InputBase } from '@mui/material'
+import {
+  purple,
+  orange,
+  pink,
+  grey,
+  green,
+  red,
+  blue,
+} from '@mui/material/colors'
 
-
-export const InputTextField = styled(TextField)<TextFieldProps>(({ theme }) => ({
-  '& .MuiFilledInput-input': {
-    boxShadow: '0 0 0 100px #333 inset'
-  },
-  '& .MuiOutlinedInput-input': {
-    boxShadow: '0 0 0 100px #222 inset'
-  },
-  '& .MuiOutlinedInput-input:invalid': {
-    boxShadow: '0 0 0 100px #222 inset'
-  },
-}));
+export const InputTextField = styled(TextField)<TextFieldProps>(
+  ({ theme }) => ({
+    '& .MuiFilledInput-input': {
+      boxShadow: '0 0 0 100px #333 inset',
+    },
+    '& .MuiOutlinedInput-input': {
+      boxShadow: '0 0 0 100px #222 inset',
+    },
+    '& .MuiOutlinedInput-input:invalid': {
+      boxShadow: '0 0 0 100px #222 inset',
+    },
+  })
+)
 
 const app_theme = createTheme({
   status: {
@@ -39,11 +48,11 @@ const app_theme = createTheme({
       default: '#090c24',
     },
     info: {
-      main: orange[500]
+      main: orange[500],
     },
     success: {
-      main: pink[500]
-    }
+      main: pink[500],
+    },
   },
   components: {
     MuiButton: {
@@ -54,10 +63,10 @@ const app_theme = createTheme({
           fontWeight: 700,
           color: '#000',
           backgroundColor: red['400'],
-          margin: "1rem",
+          margin: '1rem',
           '&:hover': {
-            backgroundColor: grey['A100']
-          }
+            backgroundColor: grey['A100'],
+          },
         },
         //make white when hover
       },
@@ -65,14 +74,13 @@ const app_theme = createTheme({
     MuiFormLabel: {
       styleOverrides: {
         root: {
-          color: "#fff",
+          color: '#fff',
           '&.Mui-focused': {
             color: red['500'],
           },
         },
       },
     },
-
 
     // MuiTextField: {
     //   styleOverrides: {
@@ -108,7 +116,7 @@ const app_theme = createTheme({
     MuiSlider: {
       styleOverrides: {
         root: {
-          color: "#fff",
+          color: '#fff',
         },
       },
     },
@@ -118,14 +126,11 @@ const app_theme = createTheme({
           color: green[200],
         },
         checked: {},
-
       },
     },
   },
   typography: {
-    fontFamily: [
-      'Open Sans',
-    ].join(','),
+    fontFamily: ['Open Sans'].join(','),
     body1: {
       fontSize: '1.1rem',
       fontWeight: 500,
@@ -136,6 +141,6 @@ const app_theme = createTheme({
       lineHeight: 1.2,
     },
   },
-});
+})
 
-export default app_theme;
+export default app_theme

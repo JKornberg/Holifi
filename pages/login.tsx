@@ -1,14 +1,12 @@
-import { Button, FormControl, FormLabel, Stack, Input, Link, Typography, Card, Snackbar, Alert, Container, Box, FormControlLabel, Checkbox, Grid, TextField, CircularProgress } from '@mui/material'
+import { Button, FormControl, FormLabel, Stack, Input, Link, Typography, Card, Snackbar, Alert, Container, Box, FormControlLabel, Checkbox, Grid, TextField } from '@mui/material'
 import { LoadingButton } from '@mui/lab'
-import { getAuth, getRedirectResult, signInWithEmailAndPassword } from 'firebase/auth'
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
 import { Router, useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import useMounted from '../common/hooks/useMounted'
 import { useFormik, useFormikContext } from 'formik'
 import GoogleButton from 'react-google-button'
-import { auth } from '../common/utils/firebase/clientApp'
-import { firestore } from 'firebase-admin'
 
 type Props = {}
 
@@ -48,16 +46,6 @@ const Login = (props: Props) => {
   const router = useRouter()
   const [open, setOpen] = React.useState(false);
   const [checked, setChecked] = React.useState(false);
-  const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false)
-
-
-  useEffect(() => {
-    if (loadingUser.isLoading){
-      setIsGoogleSubmitting(true);
-    } else{
-      setIsGoogleSubmitting(false);
-    }
-  }, [loadingUser.isLoading])
 
 
   useEffect(() => {
@@ -66,16 +54,6 @@ const Login = (props: Props) => {
     }
   }, [loadingUser.user])
 
-
-  if (isGoogleSubmitting) {
-    return (
-      <Container maxWidth={'sm'}>
-        <Box sx={{ marginTop: 8, display: 'flex', justifyContent: 'center' }}>
-          <CircularProgress />
-        </Box>
-      </Container>
-    )
-  }
   return (
     <Container maxWidth={'sm'} component="main"><Snackbar open={open}><Alert>'Credentials not valid.'</Alert></Snackbar>
       <form onSubmit={formik.handleSubmit}>
@@ -143,11 +121,7 @@ const Login = (props: Props) => {
       <Box display={'flex'} marginTop={5}>
         <Box margin='0 auto' display={'inline-block'}>
           <GoogleButton
-            onClick={() => {
-              setIsGoogleSubmitting(true);
-              signInWithGoogle()
-
-            }}
+            onClick={() => { signInWithGoogle()}}
           />
         </Box>
       </Box>

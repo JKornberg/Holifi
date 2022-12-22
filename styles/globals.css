@@ -15,24 +15,38 @@ a {
   box-sizing: border-box;
 }
 
-.MuiSlider-mark{
+.MuiSlider-mark {
   height: 10px;
   color: antiquewhite;
 }
-.MuiSlider-markLabel{
+.MuiSlider-markLabel {
   color: antiquewhite;
-  font-size: 2rem;
 }
 
-.MuiSlider-markLabel[data-index="0"]{
+@media screen and (max-width: 400px) {
+  .MuiSlider-markLabel {
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 400px) and (max-width: 650px) {
+  .MuiSlider-markLabel {
+    font-size: 1.5rem;
+  }
+}
+
+@media screen and (min-width: 650px) {
+  .MuiSlider-markLabel {
+    font-size: 2rem;
+  }
+}
+
+.MuiSlider-markLabel[data-index='0'] {
   color: #ef5350;
-  font-size: 2rem;
 }
-.MuiSlider-markLabel[data-index="2"]{
+.MuiSlider-markLabel[data-index='2'] {
   color: #fff;
-  font-size: 2rem;
 }
-.MuiSlider-markLabel[data-index="4"]{
+.MuiSlider-markLabel[data-index='4'] {
   color: #00e676;
-  font-size: 2rem;
 }

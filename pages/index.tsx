@@ -1,20 +1,39 @@
-import { CircularProgress, Container, Typography, Box, Button, Stack, FormControl, TextField, FormLabel, RadioGroup, FormControlLabel, Radio, Slider, BottomNavigation, Paper } from '@mui/material'
+import {
+  CircularProgress,
+  Container,
+  Typography,
+  Box,
+  Button,
+  Stack,
+  FormControl,
+  TextField,
+  FormLabel,
+  RadioGroup,
+  FormControlLabel,
+  Radio,
+  Select,
+  Slider,
+  InputLabel,
+  MenuItem,
+  NativeSelect,
+} from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
 import NavBar from '../common/components/Header/Navbar'
 import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
-import { green, grey, red } from '@mui/material/colors';
+import { green, grey, red } from '@mui/material/colors'
+import { fontSize } from '@mui/system'
+import useWindowSize from '../common/hooks/useWindowSize'
 // Used to include thumbnail data for safely rendering user models on dashboard
-
 
 enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
   'Kwanzaa' = 2,
   'New Years' = 3,
-  'Non-Denominational' = 4
+  'Non-Denominational' = 4,
 }
 enum Protagonists {
   'Santa' = 0,
@@ -22,220 +41,391 @@ enum Protagonists {
   'Jesus' = 2,
   'Judah Macabee' = 3,
   'Moses' = 4,
-  'Stone Cold Steve Austin' = 5
+  'The Grinch' = 5,
 }
 
 type SongDataType = {
-  title: string,
-  lyrics: string,
+  title: string
+  lyrics: string
 } | null
-
-
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { loadingUser, setLoadingUser } = useAuth()
-  const router = useRouter();
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
-
 
   const songForm = useFormik({
     initialValues: {
-      'artist': '',
-      'song': '',
-      'niceScale': 0,
-      'holiday': 0,
-      'protagonist': 0
-    }, onSubmit: async values => {
-      setIsSubmitting(true);
-      console.log("sending");
+      artist: '',
+      song: '',
+      niceScale: 0,
+      holiday: 0,
+      protagonist: 0,
+    },
+    onSubmit: async (values) => {
+      setIsSubmitting(true)
+      console.log('sending')
       fetch('/api/song/search', {
-        method: 'POST', body: JSON.stringify(values)
-      }).then(res => {
-        if (res.status == 200) {
-          return res.json().then(data => {
-            // console.log(data.lyrics);
-            setSongData(data);
-          })
-        } else {
-          res.json().then(data => {
-            console.log("Error getting song");
-          })
-        }
-      }).catch(err => {
-        console.log(err);
+        method: 'POST',
+        body: JSON.stringify(values),
       })
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json().then((data) => {
+              // console.log(data.lyrics);
+              setSongData(data)
+            })
+          } else {
+            res.json().then((data) => {
+              console.log('Error getting song')
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
         .finally(() => {
-          setIsSubmitting(false);
-        });
-
+          setIsSubmitting(false)
+        })
 
       // const res = await register(values.email, values.password, values.fname, values.lname);
       //router.push('/');
-    }
-  });
-
-
+    },
+  })
 
   useEffect(() => {
     // console.log(loadingUser.isLoading);
     // console.log(loadingUser.user);
     if (loadingUser.isLoading) {
-      return;
-    }
-    else if ((!loadingUser.isLoading && !loadingUser.user)) {
+      return
+    } else if (!loadingUser.isLoading && !loadingUser.user) {
       // console.log("redirecting to login...");
-      router.push('/login');
+      router.push('/login')
     }
+  }, [loadingUser])
 
-  }, [loadingUser]);
+  const width = useWindowSize()
+  let [dropDown, setDropDown] = useState<boolean>(false)
+  let [sliderMargin, setSliderMargin] = useState<boolean>(false)
+  useEffect(() => {
+    if (width <= 860) {
+      if (width <= 650) {
+        setSliderMargin(true)
+      } else {
+        setSliderMargin(false)
+      }
+      setDropDown(true)
+    } else {
+      setSliderMargin(false)
+      setDropDown(false)
+    }
+  }, [width])
 
-  let [songData, setSongData] = useState<SongDataType>(null);
-  let [naughtyLevel, setNaughtyLevel] = useState<number>(0);
-  let buttonColor;
-  let buttonText;
+  let [songData, setSongData] = useState<SongDataType>(null)
+  let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
+  let buttonColor
+  let buttonText
   switch (naughtyLevel) {
     case -2:
-      buttonColor = red[500];
-      buttonText = "Ho Ho Ho 👹"
-      break;
-    case -1: buttonColor = red[200];
-      buttonText = "Naughty"
-      break;
-    case 0: buttonColor = "#fff";
-      buttonText = "Submit 😐"
-      break;
-    case 1: buttonColor = green[300];
+      buttonColor = red[500]
+      buttonText = 'Ho Ho Ho 👹'
+      break
+    case -1:
+      buttonColor = red[200]
+      buttonText = 'Naughty'
+      break
+    case 0:
+      buttonColor = '#fff'
+      buttonText = 'Submit 😐'
+      break
+    case 1:
+      buttonColor = green[300]
       buttonText = "Aren't you sweet"
-      break;
-    case 2: buttonColor = green['A400'];
+      break
+    case 2:
+      buttonColor = green['A400']
       buttonText = "Santa's Little Helper 😇"
-      break;
+      break
   }
 
-  return (
-    (loadingUser.isLoading) ? <Container><Box component="div" width='100%' margin={10} display="flex" alignItems={'center'} justifyContent='center'><CircularProgress /></Box> </Container> :
-      <Fragment>
-        <Head>
-          <title>HoliFi❄️</title>
-          <meta name="description" content="Generated by create next app" />
-          {/* <Link rel="icon" href="/favicon.ico" /> */}
-        </Head>
-        <NavBar bg='black' p={4} />
-        <Container maxWidth='md'>
-
-          <Box component="div" textAlign='center'>
-            <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-              <Stack direction={'column'}>
+  return loadingUser.isLoading ? (
+    <Container>
+      <Box
+        component='div'
+        width='100%'
+        margin={10}
+        display='flex'
+        alignItems={'center'}
+        justifyContent='center'
+      >
+        <CircularProgress />
+      </Box>{' '}
+    </Container>
+  ) : (
+    <Fragment>
+      <Head>
+        <title>HoliFi❄️</title>
+        <meta name='description' content='Generated by create next app' />
+        {/* <Link rel="icon" href="/favicon.ico" /> */}
+      </Head>
+      <NavBar bg='black' pt={2} pb={0} />
+      <Container maxWidth='md'>
+        <Box component='div' textAlign='center'>
+          <Box margin='0 auto' marginTop={5} alignItems={'center'}>
+            <Stack direction={'column'} alignItems={'center'}>
+              {dropDown ? (
+                <Box margin={5} minWidth={300}>
+                  <FormControl fullWidth>
+                    <InputLabel
+                      variant='outlined'
+                      id='demo-radio-buttons-group-label'
+                      sx={{
+                        alignItems: 'center',
+                        display: 'flex',
+                      }}
+                    >
+                      Holiday
+                    </InputLabel>
+                    <Select
+                      aria-labelledby='demo-radio-buttons-group-label'
+                      defaultValue='female'
+                      name='radio-buttons-group'
+                      label='Holiday'
+                      onChange={(e) =>
+                        songForm.setFieldValue('holiday', e.target.value)
+                      }
+                    >
+                      <MenuItem value={0}>Christmas</MenuItem>
+                      <MenuItem value={1}>Hanukkah</MenuItem>
+                      <MenuItem value={2}>Kwanzaa</MenuItem>
+                      <MenuItem value={3}>New Years</MenuItem>
+                      <MenuItem value={4}>Non-Denominational</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              ) : (
                 <Box margin={5}>
                   <FormControl>
                     <RadioGroup
-                      aria-labelledby="demo-radio-buttons-group-label"
-                      defaultValue="female"
-                      name="radio-buttons-group"
+                      aria-labelledby='demo-radio-buttons-group-label'
+                      defaultValue='female'
+                      name='radio-buttons-group'
                       row
-                      onChange={e => songForm.setFieldValue('holiday', e.target.value)}
+                      onChange={(e) =>
+                        songForm.setFieldValue('holiday', e.target.value)
+                      }
                     >
-                      <FormLabel id="demo-radio-buttons-group-label" sx={{ alignItems: 'center', display: 'flex' }}>Holiday</FormLabel>
-                      <FormControlLabel value={0} control={<Radio />} label="Christmas" labelPlacement='top' />
-                      <FormControlLabel value={1} control={<Radio />} label="Hanukkah" labelPlacement='top' />
-                      <FormControlLabel value={2} control={<Radio />} label="Kwanzaa" labelPlacement='top' />
-                      <FormControlLabel value={3} control={<Radio />} label="New Years" labelPlacement='top' />
-                      <FormControlLabel value={4} control={<Radio />} label="Non-Denominational" labelPlacement='top' />
-
+                      <FormLabel
+                        id='demo-radio-buttons-group-label'
+                        sx={{ alignItems: 'center', display: 'flex' }}
+                      >
+                        Holiday
+                      </FormLabel>
+                      <FormControlLabel
+                        value={0}
+                        control={<Radio />}
+                        label='Christmas'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={1}
+                        control={<Radio />}
+                        label='Hanukkah'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={2}
+                        control={<Radio />}
+                        label='Kwanzaa'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={3}
+                        control={<Radio />}
+                        label='New Years'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={4}
+                        control={<Radio />}
+                        label='Non-Denominational'
+                        labelPlacement='top'
+                      />
                     </RadioGroup>
                   </FormControl>
                 </Box>
-                <Box>
+              )}
+              <Box>
+                {dropDown ? (
+                  <Box minWidth={300}>
+                    <FormControl fullWidth>
+                      <InputLabel
+                        variant='outlined'
+                        id='demo-radio-buttons-group-label'
+                        sx={{ alignItems: 'center', display: 'flex' }}
+                      >
+                        Protagonist
+                      </InputLabel>
+                      <Select
+                        aria-labelledby='demo-radio-buttons-group-label'
+                        defaultValue='female'
+                        name='radio-buttons-group'
+                        label='Protagonist'
+                        onChange={(e) =>
+                          songForm.setFieldValue('protagonist', e.target.value)
+                        }
+                      >
+                        <MenuItem value={0}>Santa Clause</MenuItem>
+                        <MenuItem value={1}>Jesus Christ</MenuItem>
+                        <MenuItem value={2}>Judah Maccabee</MenuItem>
+                        <MenuItem value={3}>Moses</MenuItem>
+                        <MenuItem value={4}>The Grinch</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                ) : (
                   <FormControl>
                     <RadioGroup
-                      aria-labelledby="demo-radio-buttons-group-label"
-                      defaultValue="female"
-                      name="radio-buttons-group"
+                      aria-labelledby='demo-radio-buttons-group-label'
+                      defaultValue='female'
+                      name='radio-buttons-group'
                       row
-                      onChange={e => songForm.setFieldValue('protagonist', e.target.value)}
+                      onChange={(e) =>
+                        songForm.setFieldValue('protagonist', e.target.value)
+                      }
                     >
-                      <FormLabel id="demo-radio-buttons-group-label" sx={{ alignItems: 'center', display: 'flex' }}>Protagonist</FormLabel>
-                      <FormControlLabel value={0} control={<Radio />} label="Santa Clause" labelPlacement='top' />
-                      <FormControlLabel value={1} control={<Radio />} label="Jesus Christ" labelPlacement='top' />
-                      <FormControlLabel value={2} control={<Radio />} label="Judah Maccabee" labelPlacement='top' />
-                      <FormControlLabel value={3} control={<Radio />} label="Moses" labelPlacement='top' />
-                      <FormControlLabel value={4} control={<Radio />} label="Stone Cold Steve Austin" labelPlacement='top' />
+                      <FormLabel
+                        id='demo-radio-buttons-group-label'
+                        sx={{ alignItems: 'center', display: 'flex' }}
+                      >
+                        Protagonist
+                      </FormLabel>
+                      <FormControlLabel
+                        value={0}
+                        control={<Radio />}
+                        label='Santa Clause'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={1}
+                        control={<Radio />}
+                        label='Jesus Christ'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={2}
+                        control={<Radio />}
+                        label='Judah Maccabee'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={3}
+                        control={<Radio />}
+                        label='Moses'
+                        labelPlacement='top'
+                      />
+                      <FormControlLabel
+                        value={4}
+                        control={<Radio />}
+                        label='The Grinch'
+                        labelPlacement='top'
+                      />
                     </RadioGroup>
                   </FormControl>
-                </Box>
-              </Stack>
-              <Box width={500} margin='0 auto' marginY={5}>
-                <Slider min={-2} max={2} step={1} marks={[
+                )}
+              </Box>
+            </Stack>
+            <Box
+              maxWidth={500}
+              margin={sliderMargin ? '0 50px' : '0 auto'}
+              marginY={5}
+            >
+              <Slider
+                min={-2}
+                max={2}
+                step={1}
+                marks={[
                   { value: -2, label: 'Naughty' },
                   { value: -1, label: '' },
                   { value: 0, label: 'Neutral' },
                   { value: 1, label: '' },
                   { value: 2, label: 'Nice' },
                 ]}
-                  onChange={(e, value) => {
-                    setNaughtyLevel(value as number);
-                    songForm.setFieldValue('naughtyNice', value)
-                  }}
-                  defaultValue={0}
-
-                />
-              </Box>
-            </Box>
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='center' >
-              <FormControl id='email'>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="Artist"
-                  label='Artist'
-                  autoFocus
-                  onChange={e => songForm.setFieldValue('artist', e.target.value)}
-                />
-              </FormControl>
-              <FormControl id='email'>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="Song"
-                  label='Song'
-                  autoFocus
-                  onChange={e => songForm.setFieldValue('song', e.target.value)}
-                />
-              </FormControl>
-
-
-            </Stack>
-            {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
-            <Button sx={{ 'backgroundColor': buttonColor }} onClick={isSubmitting ? () => { } : songForm.submitForm}>{isSubmitting ? <CircularProgress /> : buttonText}</Button>
-            <Box margin={4} width={'100%'} minHeight='400px'>
-
-              <TextField
-                multiline
-                maxRows={Infinity}
-                fullWidth
-                disabled
-                value={songData !== null ? songData.lyrics : "Lyrics will appear here"}
-
+                onChange={(e, value) => {
+                  setNaughtyLevel(value as number)
+                  songForm.setFieldValue('naughtyNice', value)
+                }}
+                defaultValue={0}
               />
             </Box>
           </Box>
-
-        </Container>
-        <Paper sx={{
-          width: '100%',
-          bottom: 0,
-          textAlign: 'center',
-          backgroundColor: 'black',
-          
-        }} component="footer" square ><Typography padding={5}>Created by Jonah Kornberg with 🍝</Typography></Paper>
-      </Fragment>
-
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            justifyContent='center'
+          >
+            <Box
+              width={'80%'}
+              marginRight={sliderMargin ? 0 : 2.5}
+              margin={sliderMargin ? '0 auto' : '0 2.5 0 0'}
+            >
+              <FormControl id='email' fullWidth>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='Artist'
+                  label='Artist'
+                  autoFocus
+                  onChange={(e) =>
+                    songForm.setFieldValue('artist', e.target.value)
+                  }
+                />
+              </FormControl>
+            </Box>
+            <Box width={'80%'} margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}>
+              <FormControl id='email' fullWidth>
+                <TextField
+                  margin='normal'
+                  required
+                  fullWidth
+                  name='Song'
+                  label='Song'
+                  autoFocus
+                  onChange={(e) =>
+                    songForm.setFieldValue('song', e.target.value)
+                  }
+                />
+              </FormControl>
+            </Box>
+          </Stack>
+          {songData !== null ? (
+            <Typography>Selected: {songData.title}</Typography>
+          ) : (
+            <Typography>Search for song above</Typography>
+          )}
+          <Button
+            sx={{ backgroundColor: buttonColor }}
+            onClick={isSubmitting ? () => {} : songForm.submitForm}
+          >
+            {isSubmitting ? <CircularProgress /> : buttonText}
+          </Button>
+          <Box mt={4} width={'100%'} minHeight='400px'>
+            <TextField
+              multiline
+              maxRows={Infinity}
+              fullWidth
+              disabled
+              value={
+                songData !== null ? songData.lyrics : 'Lyrics will appear here'
+              }
+            />
+          </Box>
+        </Box>
+      </Container>
+    </Fragment>
   )
 }
-
 
 // export async function getServerSideProps(ctx: GetServerSidePropsContext) {
 //   const uid = await verifyAuthSSR(ctx);
@@ -266,6 +456,5 @@ const Home = () => {
 //     }
 //   }
 // }
-
 
 export default Home
