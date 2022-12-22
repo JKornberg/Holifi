@@ -125,34 +125,7 @@ const Home = () => {
         <Container maxWidth='md'>
 
           <Box component="div" textAlign='center'>
-            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='center' >
-              <FormControl id='email'>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="Artist"
-                  label='Artist'
-                  autoFocus
-                  onChange={e => songForm.setFieldValue('artist', e.target.value)}
-                />
-              </FormControl>
-              <FormControl id='email'>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="Song"
-                  label='Song'
-                  autoFocus
-                  onChange={e => songForm.setFieldValue('song', e.target.value)}
-                />
-              </FormControl>
-              <Button sx={{ 'marginTop': '16px', 'marginBottom': '8px' }} onClick={songForm.submitForm}>Search</Button>
-
-            </Stack>
             <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-              {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
               <Stack direction={'column'}>
                 <Box margin={5}>
                   <FormControl>
@@ -190,9 +163,9 @@ const Home = () => {
                       <FormControlLabel value={4} control={<Radio />} label="Stone Cold Steve Austin" labelPlacement='top' />
                     </RadioGroup>
                   </FormControl>
-
                 </Box>
-                <Box width={500} margin='0 auto' marginY={5}>
+              </Stack>
+              <Box width={500} margin='0 auto' marginY={5}>
                   <Slider min={-2} max={2} step={1} marks={[
                     { value: -2, label: 'Naughty' },
                     { value: -1, label: '' },
@@ -208,24 +181,49 @@ const Home = () => {
 
                   />
                 </Box>
-
-              </Stack>
-
-              <Button sx={{ 'backgroundColor': buttonColor }}>{buttonText}</Button>
             </Box>
+            <Stack direction={{ xs: 'column', sm: 'row' }} justifyContent='center' >
+              <FormControl id='email'>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="Artist"
+                  label='Artist'
+                  autoFocus
+                  onChange={e => songForm.setFieldValue('artist', e.target.value)}
+                />
+              </FormControl>
+              <FormControl id='email'>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="Song"
+                  label='Song'
+                  autoFocus
+                  onChange={e => songForm.setFieldValue('song', e.target.value)}
+                />
+              </FormControl>
+             
+
+            </Stack>
+            {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
+              <Button sx={{ 'backgroundColor': buttonColor }}>{buttonText}</Button>
             <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
 
               <TextField
                 multiline
                 maxRows={Infinity}
                 fullWidth
-                sx={{ 'backgroundColor': grey[500] , 'color': 'white', 'boxShadow': 'none !important'}}
+                sx={{ 'backgroundColor': grey[500], 'color': 'white', 'boxShadow': 'none !important' }}
                 disabled
                 value={songData !== null ? songData.lyrics : "Lyrics will appear here"}
 
               />
             </Box>
           </Box>
+          
         </Container>
       </Fragment>
 
