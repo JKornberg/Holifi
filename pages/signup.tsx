@@ -1,4 +1,4 @@
-import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField, CircularProgress, BottomNavigation, Input, OutlinedInput, InputAdornment, IconButton } from '@mui/material'
+import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField, CircularProgress, BottomNavigation, Input, OutlinedInput, InputAdornment, IconButton, FormHelperText } from '@mui/material'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
@@ -152,12 +152,16 @@ const Signup = (props: Props) => {
                             required
                             onChange={e => formik.setFieldValue('password', e.target.value)}
                         />
+                        <FormHelperText>
+                            {formik.errors.password}
+                        </FormHelperText>
                     </FormControl>
                     <FormControl id='confirmPassword'>
                         <FormLabel>Confirm Password</FormLabel>
                         <OutlinedInput
                             name='confirmPassword'
                             type={showPassword ? 'text' : 'password'}
+
                             endAdornment={
                                 <InputAdornment position="end">
                                     <IconButton
@@ -172,9 +176,12 @@ const Signup = (props: Props) => {
                             }
                             placeholder='Confirm Password'
                             required
-                            error={Boolean(formik.errors.confirmPassword)}
+                            error={Boolean(formik.errors.confirmPassword) || Boolean(formik.errors.password)}
                             onChange={e => formik.setFieldValue('confirmPassword', e.target.value)}
                         />
+                        <FormHelperText>
+                            {formik.errors.confirmPassword}
+                        </FormHelperText>
                     </FormControl>
                     {/* <PasswordField /> */}
                     <Box component='div' margin={'auto'}>
