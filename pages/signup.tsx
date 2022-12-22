@@ -1,11 +1,12 @@
-import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField, CircularProgress, BottomNavigation } from '@mui/material'
+import { Button, FormControl, FormLabel, Stack, Link, Typography, Container, Box, TextField, CircularProgress, BottomNavigation, Input, OutlinedInput, InputAdornment, IconButton } from '@mui/material'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import useMounted from '../common/hooks/useMounted'
 import { useFormik } from 'formik'
 import GoogleButton from 'react-google-button'
-
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
 type Props = {}
 
 const validateConfirmPassword = (pass: string, value: string, isOriginal: boolean) => {
@@ -26,6 +27,17 @@ const Signup = (props: Props) => {
     const router = useRouter()
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [isGoogleSubmitting, setIsGoogleSubmitting] = useState(false)
+    const [showPassword, setShowPassword] = React.useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = React.useState(false);
+
+    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowConfirmPassword = () => setShowConfirmPassword((show) => !show);
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
+    const handleMouseDownConfirmPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    };
 
     useEffect(() => {
         if (loadingUser.isLoading) {
@@ -59,6 +71,8 @@ const Signup = (props: Props) => {
         validate: values => {
             if (values.password !== values.confirmPassword) {
                 return { 'confirmPassword': 'Passwords do not match' }
+            } else if (values.password.length < 6) {
+                return { 'password': 'Password must be at least 6 characters' }
             }
             return {}
         },
@@ -118,23 +132,47 @@ const Signup = (props: Props) => {
 
                     <FormControl id='password'>
                         <FormLabel>Password</FormLabel>
-                        <TextField
+                        <OutlinedInput
                             name='password'
-                            type='password'
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
                             placeholder='Password'
+                            error={Boolean(formik.errors.confirmPassword)}
                             required
                             onChange={e => formik.setFieldValue('password', e.target.value)}
                         />
                     </FormControl>
                     <FormControl id='confirmPassword'>
                         <FormLabel>Confirm Password</FormLabel>
-                        <TextField
+                        <OutlinedInput
                             name='confirmPassword'
-                            type='password'
+                            type={showPassword ? 'text' : 'password'}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        aria-label="toggle password visibility"
+                                        onClick={handleClickShowPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                        edge="end"
+                                    >
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
                             placeholder='Confirm Password'
                             required
                             error={Boolean(formik.errors.confirmPassword)}
-                            helperText={formik.touched.confirmPassword && formik.errors.confirmPassword}
                             onChange={e => formik.setFieldValue('confirmPassword', e.target.value)}
                         />
                     </FormControl>
@@ -142,7 +180,7 @@ const Signup = (props: Props) => {
                     <Box component='div' margin={'auto'}>
                         <Button
                             type='submit'
-                            disabled={(isSubmitting )|| Boolean(formik.errors.confirmPassword)}>
+                            disabled={(isSubmitting) || Boolean(formik.errors.confirmPassword)}>
                             {isSubmitting ? <CircularProgress /> : "Sign Up"}
                         </Button>
 
