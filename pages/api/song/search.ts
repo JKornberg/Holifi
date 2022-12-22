@@ -7,9 +7,11 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
         let artist = body.artist as string;
         let song = body.song as string;
         console.log(body);
-        // fetch(`http://127.0.0.1:5000/song?artist=${artist}&title=${song}`)
+        // let url = `http://127.0.0.1:5000/song?artist=${artist}&title=${song}&holiday=${body.holiday}&protagonist=${body.protagonist}&niceScale=${body.niceScale}`
+        let url = `https://holifi-backend-jkornberg-kornberg.vercel.app/song?artist=${artist}&title=${song}&holiday=${body.holiday}&protagonist=${body.protagonist}&niceScale=${body.niceScale}`
+        console.log(url);
 
-        fetch(`https://holifi-backend-jkornberg.vercel.app/song?artist=${artist}&title=${song}`)
+        fetch(url)
             .then((response: any) => {
                 console.log(response.body);
                 response.json().then((data: any) => {
