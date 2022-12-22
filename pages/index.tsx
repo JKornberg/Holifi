@@ -36,7 +36,7 @@ const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { loadingUser, setLoadingUser } = useAuth()
   const router = useRouter();
-
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
 
   const songForm = useFormik({
@@ -47,13 +47,14 @@ const Home = () => {
       'holiday': 0,
       'protagonist': 0
     }, onSubmit: async values => {
+      setIsSubmitting(true);
       console.log("sending");
       fetch('/api/song/search', {
         method: 'POST', body: JSON.stringify(values)
       }).then(res => {
         if (res.status == 200) {
           return res.json().then(data => {
-            console.log(data.lyrics);
+            // console.log(data.lyrics);
             setSongData(data);
           })
         } else {
@@ -64,6 +65,9 @@ const Home = () => {
       }).catch(err => {
         console.log(err);
       })
+      .finally(() => {
+        setIsSubmitting(false);
+      });
 
 
       // const res = await register(values.email, values.password, values.fname, values.lname);
@@ -74,13 +78,13 @@ const Home = () => {
 
 
   useEffect(() => {
-    console.log(loadingUser.isLoading);
-    console.log(loadingUser.user);
+    // console.log(loadingUser.isLoading);
+    // console.log(loadingUser.user);
     if (loadingUser.isLoading) {
       return;
     }
     else if ((!loadingUser.isLoading && !loadingUser.user)) {
-      console.log("redirecting to login...");
+      // console.log("redirecting to login...");
       router.push('/login');
     }
 
@@ -205,7 +209,7 @@ const Home = () => {
 
             </Stack>
             {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
-              <Button sx={{ 'backgroundColor': buttonColor }} onClick={songForm.submitForm}>{buttonText}</Button>
+              <Button sx={{ 'backgroundColor': buttonColor }} onClick={isSubmitting ? ()=>{} : songForm.submitForm}>{isSubmitting ? <CircularProgress /> : buttonText}</Button>
             <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
 
               <TextField

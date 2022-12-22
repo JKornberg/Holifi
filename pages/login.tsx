@@ -6,6 +6,7 @@ import React, { useEffect, useState } from 'react'
 import { useAuth } from '../contexts/AuthContext'
 import useMounted from '../common/hooks/useMounted'
 import { useFormik, useFormikContext } from 'formik'
+import GoogleButton from 'react-google-button'
 
 type Props = {}
 
@@ -40,7 +41,7 @@ const Login = (props: Props) => {
         })
     }
   });
-  const { login, loadingUser } = useAuth();
+  const { login, loadingUser, signInWithGoogle } = useAuth();
   const mounted = useMounted()
   const router = useRouter()
   const [open, setOpen] = React.useState(false);
@@ -116,7 +117,17 @@ const Login = (props: Props) => {
             </Link>
           </Stack>
         </Box>
-      </form></Container>
+      </form>
+      <Box display={'flex'} marginTop={5}>
+        <Box margin='0 auto' display={'inline-block'}>
+          <GoogleButton
+            onClick={() => { signInWithGoogle()}}
+          />
+        </Box>
+      </Box>
+
+
+    </Container>
   )
 }
 
