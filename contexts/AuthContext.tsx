@@ -91,7 +91,7 @@ export default function AuthContextProvider(props: Props) {
         console.log("User is: ")
         console.log(user);
       } else {
-        updateFirestoreDoc('users/'+ user.id, user.toObjectForFirebase());
+        // updateFirestoreDoc('users/'+ user.id, user.toObjectForFirebase());
         setLoadingUser({ user: user, isLoading: false });
       }
       return user;

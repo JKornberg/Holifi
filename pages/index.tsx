@@ -43,7 +43,11 @@ const Home = () => {
     initialValues: {
       'artist': '',
       'song': '',
+      'niceScale': 0,
+      'holiday': 0,
+      'protagonist': 0
     }, onSubmit: async values => {
+      console.log("sending");
       fetch('/api/song/search', {
         method: 'POST', body: JSON.stringify(values)
       }).then(res => {
@@ -67,15 +71,7 @@ const Home = () => {
     }
   });
 
-  const optionsForm = useFormik({
-    initialValues: {
-      'niceScale': 0,
-      'holiday': 0,
-      'protagonist': 0
-    }, onSubmit: async values => {
-      console.log(values)
-    }
-  });
+
 
   useEffect(() => {
     console.log(loadingUser.isLoading);
@@ -134,7 +130,7 @@ const Home = () => {
                       defaultValue="female"
                       name="radio-buttons-group"
                       row
-                      onChange={e => optionsForm.setFieldValue('holiday', e.target.value)}
+                      onChange={e => songForm.setFieldValue('holiday', e.target.value)}
                     >
                       <FormLabel id="demo-radio-buttons-group-label" sx={{ alignItems: 'center', display: 'flex' }}>Holiday</FormLabel>
                       <FormControlLabel value={0} control={<Radio />} label="Christmas" labelPlacement='top' />
@@ -153,7 +149,7 @@ const Home = () => {
                       defaultValue="female"
                       name="radio-buttons-group"
                       row
-                      onChange={e => optionsForm.setFieldValue('protagonist', e.target.value)}
+                      onChange={e => songForm.setFieldValue('protagonist', e.target.value)}
                     >
                       <FormLabel id="demo-radio-buttons-group-label" sx={{ alignItems: 'center', display: 'flex' }}>Protagonist</FormLabel>
                       <FormControlLabel value={0} control={<Radio />} label="Santa Clause" labelPlacement='top' />
@@ -175,7 +171,7 @@ const Home = () => {
                   ]}
                     onChange={(e, value) => {
                       setNaughtyLevel(value as number);
-                      optionsForm.setFieldValue('naughtyNice', value)
+                      songForm.setFieldValue('naughtyNice', value)
                     }}
                     defaultValue={0}
 
@@ -209,7 +205,7 @@ const Home = () => {
 
             </Stack>
             {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
-              <Button sx={{ 'backgroundColor': buttonColor }}>{buttonText}</Button>
+              <Button sx={{ 'backgroundColor': buttonColor }} onClick={songForm.submitForm}>{buttonText}</Button>
             <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
 
               <TextField

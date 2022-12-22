@@ -6,6 +6,7 @@ export default function handler(req: NextRequestWithUid, res: NextApiResponse) {
         let body = JSON.parse(req.body);
         let artist = body.artist as string;
         let song = body.song as string;
+        console.log(body);
         // fetch(`http://127.0.0.1:5000/song?artist=${artist}&title=${song}`)
 
         fetch(`https://holifi-backend-jkornberg.vercel.app/song?artist=${artist}&title=${song}`)
