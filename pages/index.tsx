@@ -210,13 +210,12 @@ const Home = () => {
             </Stack>
             {songData !== null ? <Typography>Selected: {songData.title}</Typography> : <Typography>Search for song above</Typography>}
               <Button sx={{ 'backgroundColor': buttonColor }} onClick={isSubmitting ? ()=>{} : songForm.submitForm}>{isSubmitting ? <CircularProgress /> : buttonText}</Button>
-            <Box margin={4} sx={{ 'backgroundColor': grey[500] }} width={'100%'} minHeight='400px'>
+            <Box margin={4} width={'100%'} minHeight='400px'>
 
               <TextField
                 multiline
                 maxRows={Infinity}
                 fullWidth
-                sx={{ 'backgroundColor': grey[500], 'color': 'white', 'boxShadow': 'none !important' }}
                 disabled
                 value={songData !== null ? songData.lyrics : "Lyrics will appear here"}
 

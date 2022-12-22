@@ -1,8 +1,21 @@
-import styled from "@emotion/styled";
-import { TextField } from "@mui/material";
+import { InputProps, TextField, TextFieldProps } from "@mui/material";
+import { alpha, styled } from '@mui/material/styles';
+
 import { createTheme, InputBase } from "@mui/material";
 import { purple, orange, pink, grey, green, red, blue } from '@mui/material/colors';
 
+
+export const InputTextField = styled(TextField)<TextFieldProps>(({ theme }) => ({
+  '& .MuiFilledInput-input': {
+    boxShadow: '0 0 0 100px #333 inset'
+  },
+  '& .MuiOutlinedInput-input': {
+    boxShadow: '0 0 0 100px #222 inset'
+  },
+  '& .MuiOutlinedInput-input:invalid': {
+    boxShadow: '0 0 0 100px #222 inset'
+  },
+}));
 
 const app_theme = createTheme({
   status: {
@@ -61,26 +74,26 @@ const app_theme = createTheme({
     },
 
 
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          '& .MuiFilledInput-input': {
-            boxShadow: '0 0 0 100px #333 inset'
+    // MuiTextField: {
+    //   styleOverrides: {
+    //     root: {
+    //       '& .MuiFilledInput-input': {
+    //         boxShadow: '0 0 0 100px #333 inset'
 
-          },
-          '& .MuiOutlinedInput-input': {
-            boxShadow: '0 0 0 100px #222 inset'
-          },
-          '& .MuiOutlinedInput-input:invalid': {
-            boxShadow: '0 0 0 100px #222 inset'
-          },
-          '&.Mui-focused fieldset': {
-            border: '1px solid red'
-          },
-        },
+    //       },
+    //       '& .MuiOutlinedInput-input': {
+    //         boxShadow: '0 0 0 100px #222 inset'
+    //       },
+    //       '& .MuiOutlinedInput-input:invalid': {
+    //         boxShadow: '0 0 0 100px #222 inset'
+    //       },
+    //       '&.Mui-focused fieldset': {
+    //         border: '1px solid red'
+    //       },
+    //     },
 
-      }
-    },
+    //   }
+    // },
     MuiRadio: {
       styleOverrides: {
         root: {
