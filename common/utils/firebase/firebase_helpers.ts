@@ -39,7 +39,7 @@ export async function retrieveUser(uid: string) {
 
 export const formatUser = async (user: User): Promise<FormatUserType> => {
     const decodedToken = await user.getIdTokenResult(/*forceRefresh*/ true);
-    const { token, expirationTime, claims } = decodedToken;
+    const { token, expirationTime } = decodedToken;
 
     return {
         uid: user.uid,
@@ -48,7 +48,6 @@ export const formatUser = async (user: User): Promise<FormatUserType> => {
         photoUrl: user.photoURL,
         token,
         expirationTime,
-        admin: claims.admin ? true : false,
         };
 };
 

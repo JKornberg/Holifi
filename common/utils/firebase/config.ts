@@ -1,10 +1,9 @@
 export const firebase_config = {
-    apiKey: "AIzaSyDyW7Jw6LUH0FWCyBBEM6EgLqiWc7iSi_A",
-    authDomain: "jak-nft.firebaseapp.com",
-    projectId: "jak-nft",
-    storageBucket: "jak-nft.appspot.com",
-    messagingSenderId: "957806190242",
-    appId: "1:957806190242:web:7d6c321a3366e30eadc1fb",
-    measurementId: "G-Y842ZZ3K4H"
-}
-
+    apiKey: "AIzaSyCITfHbfiTobefVWdNQZXND7fefp6Pq5lQ",
+    authDomain: "holifi-67a6d.firebaseapp.com",
+    projectId: "holifi-67a6d",
+    storageBucket: "holifi-67a6d.appspot.com",
+    messagingSenderId: "303009180630",
+    appId: "1:303009180630:web:472d28427e1d71f3039277",
+    measurementId: "G-C6PWCWMMSP"
+  };

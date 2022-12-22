@@ -33,11 +33,8 @@ export type FormatUserType = {
   photoUrl: string | null,
   token: string,
   expirationTime: string,
-  admin: boolean,
   fname?: string,
   lname?: string,
-  twitterId?: string,
-  twitterHandle?: string
   active?: boolean
 }
 

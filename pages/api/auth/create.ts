@@ -19,14 +19,14 @@ async function createUser(
             displayName: fname + ' ' + lname,
             disabled: false,
         });
-        const firebaseUser: FirebaseUserType = {
-            uid: userRecord.uid,
-            email: email,
-            fname: fname,
-            lname: lname,
-        };
+        // const firebaseUser: FirebaseUserType = {
+        //     uid: userRecord.uid,
+        //     email: email,
+        //     fname: fname,
+        //     lname: lname,
+        // };
         console.log("Adding to firestore");
-        await firebaseAdmin.firestore().collection('users').doc(userRecord.uid).set(firebaseUser);
+        // await firebaseAdmin.firestore().collection('users').doc(userRecord.uid).set(firebaseUser);
         console.log("Added to firestore");
         return userRecord.uid;
     }

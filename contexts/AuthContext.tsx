@@ -108,11 +108,14 @@ export default function AuthContextProvider(props: Props) {
     console.log("Setting to loading");
     //setLoadingUser((prevState) => ({user: null, isLoading: true}));
     console.log("Now signing in");
+    console.log("Email: " + email);
+    console.log("Password: " + password)
     try{
       const res = await signInWithEmailAndPassword(auth, email, password)
       return { status: 200, message: "Success" }
     }
     catch (err) {
+      console.log(err);
       return { status: 400, message: "Failed to login: " + err }
     }
   }
