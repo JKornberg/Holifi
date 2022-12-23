@@ -104,6 +104,12 @@ const Home = () => {
       holiday: 0,
       protagonist: 0,
     },
+    validate: (values) => {
+      let errors = "";
+      if (values.holiday == 0) {
+
+      }
+    },
     onSubmit: async (values) => {
       setIsSubmitting(true)
       console.log('sending')
@@ -265,6 +271,149 @@ const Home = () => {
                               borderColor: '#ef5350',
                             },
                           }
+                      }
+                      value={holiday}
+                      onChange={(e) => {
+                        songForm.setFieldValue('holiday', e.target.value)
+                        setHoliday(e.target.value)
+                      }}
+                    >
+                      <MenuItem disabled value=''>
+                        Holiday
+                      </MenuItem>
+                      <MenuItem value={1}>Christmas</MenuItem>
+                      <MenuItem value={2}>Hanukkah</MenuItem>
+                      <MenuItem value={3}>Kwanzaa</MenuItem>
+                      <MenuItem value={4}>New Years</MenuItem>
+                      <MenuItem value={5}>Non-Denominational</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+                <Box
+                  margin={dropDown ? '0.5rem 0 0 0' : '0 0 0 1rem'}
+                  minWidth={width <= 650 ? 225 : 300}
+                >
+                  <FormControl fullWidth>
+                    <InputLabel
+                      variant='outlined'
+                      id='demo-radio-buttons-group-label'
+                      sx={{ alignItems: 'center', display: 'flex' }}
+                    >
+                      Character
+                    </InputLabel>
+                    <Select
+                      aria-labelledby='demo-radio-buttons-group-label'
+                      name='radio-buttons-group'
+                      label='Character'
+                      sx={
+                        validCharacter
+                          ? {}
+                          : {
+                            fontColor: red[400],
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: red[400],
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: red[400],
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: red[400],
+                            },
+                          }
+                      }
+                      value={character}
+                      onChange={(e) => {
+                        songForm.setFieldValue('protagonist', e.target.value)
+                        setCharacter(e.target.value)
+                      }}
+                    >
+                      <MenuItem value='' disabled>
+                        Character
+                      </MenuItem>
+                      <MenuItem value={1}>Santa Clause</MenuItem>
+                      <MenuItem value={2}>Jesus Christ</MenuItem>
+                      <MenuItem value={3}>Judah Maccabee</MenuItem>
+                      <MenuItem value={4}>Moses</MenuItem>
+                      <MenuItem value={5}>The Grinch</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
+              </Stack>
+              <Box
+                maxWidth={500}
+                margin={sliderMargin ? '0 50px' : '0 auto'}
+                marginY={5}
+              >
+                <Slider
+                  min={-2}
+                  max={2}
+                  step={1}
+                  marks={[
+                    { value: -2, label: 'Naughty' },
+                    { value: -1, label: '' },
+                    { value: 0, label: '' },
+                    { value: 1, label: '' },
+                    { value: 2, label: 'Nice' },
+                  ]}
+                  onChange={(e, value) => {
+                    setNaughtyLevel(value as number)
+                    songForm.setFieldValue('naughtyNice', value)
+                  }}
+                  defaultValue={0}
+                />
+              </Box>
+            </Box>
+            <Box>
+              <Typography>{buttonText}</Typography>
+            </Box>
+            <Divider
+              light={true}
+              variant={'fullWidth'}
+              style={{
+                margin: '30px auto',
+                width: '80%',
+                backgroundColor: 'lightgrey',
+                height: '0.5px',
+                border: 'none',
+              }}
+            />
+            <Box margin={'10px'}>
+              {songData !== null ? (
+                <Typography>Selected: {songData.title}</Typography>
+              ) : (
+                <Typography fontSize={'2rem'}>Search for a song</Typography>
+              )}
+            </Box>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              justifyContent='center'
+            >
+              <Box
+                width={{ xs: '80%', sm: '40%' }}
+                marginRight={sliderMargin ? 0 : 2.5}
+                margin={sliderMargin ? '0 auto' : '0 2.5 0 0'}
+              >
+                <FormControl id='email' fullWidth>
+                  <TextField
+                    margin='normal'
+                    required
+                    fullWidth
+                    name='Artist'
+                    sx={
+                      validArtist
+                        ? {}
+                        : {
+                          fontColor: red[400],
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: red[400],
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: red[400],
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: red[400],
+                          },
+                        }
                     }
                     value={holiday}
                     onChange={(e) => {
@@ -285,23 +434,16 @@ const Home = () => {
                 </FormControl>
               </Box>
               <Box
-                margin={dropDown ? '0.5rem 0 0 0' : '0 0 0 1rem'}
-                minWidth={width <= 650 ? 225 : 300}
+                width={{ xs: '80%', sm: '40%' }}
+                margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}
               >
-                <FormControl fullWidth>
-                  <InputLabel
-                    variant='outlined'
-                    id='demo-radio-buttons-group-label'
-                    sx={{ alignItems: 'center', display: 'flex' }}
-                  >
-                    Character
-                  </InputLabel>
-                  <Select
-                    aria-labelledby='demo-radio-buttons-group-label'
-                    name='radio-buttons-group'
-                    label='Character'
+                <FormControl id='email' fullWidth>
+                  <TextField
+                    margin='normal'
+                    required
+                    fullWidth
                     sx={
-                      validCharacter
+                      validSong
                         ? {}
                         : {
                             '.MuiOutlinedInput-notchedOutline': {
@@ -506,10 +648,48 @@ const Home = () => {
               value={
                 songData !== null ? songData.lyrics : 'Lyrics will appear here'
               }
-            />
+            >
+              {isSubmitting ? (
+                <CircularProgress />
+              ) : (
+                <Typography>Generate Song</Typography>
+              )}
+            </Button>
+            {/* <Divider
+              light={true}
+              variant={'fullWidth'}
+              style={{
+                margin: '30px auto',
+                width: '80%',
+                backgroundColor: 'lightgrey',
+                height: '0.5px',
+                border: 'none',
+              }}
+            /> */}
+
+
           </Box>
+        </Container>
+        <Box sx={{
+          'backgroundImage': 'url("/snow_cabin4.jpg")',
+        }} padding={10} marginTop={5} width='100%'>
+          <Container >
+            <Box mt={4} width={'100%'} minHeight='400px'>
+              <TextField
+                multiline
+                maxRows={Infinity}
+                fullWidth
+                
+                sx={{color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)'}}
+                value={
+                  songData !== null ? songData.lyrics : 'Lyrics will appear here'
+                }
+              />
+            </Box>
+          </Container>
         </Box>
-      </Container>
+
+      </Box>
     </Fragment>
   )
 }
