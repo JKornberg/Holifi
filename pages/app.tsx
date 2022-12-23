@@ -31,9 +31,12 @@ import { green, grey, red } from '@mui/material/colors'
 import { fontSize } from '@mui/system'
 import useWindowSize from '../common/hooks/useWindowSize'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
+import { Logo } from '../common/components/Header/logo'
 // Used to include thumbnail data for safely rendering user models on dashboard
 
-enum Holidays {
+const
+
+  enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
   'Kwanzaa' = 2,
@@ -596,7 +599,13 @@ const Home = () => {
                 maxRows={Infinity}
                 fullWidth
                 disabled
-                sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
+                sx={{
+                  color: 'fff',
+                  backgroundColor: 'rgba(    9, 12, 36, 0.5)',
+                  '& .MuiInputBase-input.Mui-disabled': {
+                    WebkitTextFillColor: 'white',
+                  },
+                }}
                 value={
                   songData !== null
                     ? songData.lyrics
@@ -613,24 +622,56 @@ const Home = () => {
         </Box>
       </Box>
       {
-        (songData?.lyrics == null) ? <Box></Box> : <Box sx={{
-          backgroundImage: 'url("/lyrics_bg1.png")'
-        }} height={'800px'}>
-          <Box padding={4} paddingTop={0}>
-            <Box sx={{backgroundColor:red[400]}} padding={1} marginBottom={3} textAlign='center'>
-            <Typography variant={'h1'} fontSize='3rem' >Holifi Presents {songData.title}</Typography>
-            </Box>
+        (songData?.lyrics == null) ? <Box></Box> : 
+        
+        <Box display={'flex'} flexDirection={'column'} justifyContent={'space-between'}
+        sx={{
+          backgroundImage: 'url("/lyrics_bg2.png")',
+          backgroundSize: 'cover',
+        }} height={'1920px'} width={'1080px'}>
+          <Box padding={4}>
+            <Stack direction={'row'} sx={{ backgroundColor: '#090c24' }} marginBottom={3} justifyContent='start' alignItems={'center'} >
+
+              <Logo marginX={3} width={'inherit'} />
+              {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
+              <Divider orientation='vertical' flexItem style={{
+                width: '2px',
+                backgroundColor: '#fff',
+                border: 'none',
+              }} />
+              <Stack textAlign={'center'} width={'100%'} marginX={5} marginY={2}>
+                <Typography variant={'h1'} fontSize='3rem' display={'inline'}
+                  sx={{ fontFamily: 'Sonsie One, cursive' }}
+                >{Protagonists[songForm.values.protagonist]} presents</Typography>
+                <Typography variant={'h1'} fontSize='3rem' display={'inline'}> {songData.title}</Typography>
+              </Stack>
+
+            </Stack>
             <OutlinedInput
-              sx={{ backgroundColor: 'rgba(	0,0,0, 0.8)', textAlign: 'center'}}
+              fullWidth
               multiline
               maxRows={Infinity}
-              fullWidth
-              inputProps={{style : {textAlign: 'center'}}}
               
-              value={songData.lyrics.substring(0,500)}
-            />
-          </Box>
+              sx={{
+                backgroundColor: 'rgba(    0,0,0, 0.8)',
+                textAlign: 'center',
+                '& .MuiOutlinedInput-input.Mui-disabled': {
+                  WebkitTextFillColor: 'white',
+                },
+                fontSize:'2rem'
 
+              }}
+              inputProps={{ style: { textAlign: 'center' } }}
+
+              value={songData.lyrics.substring(0, 800)}
+            />
+
+          </Box>
+          <Box sx={{ backgroundColor: '#090c24' }}  textAlign='center' padding={1} marginX={4}>
+
+            <Typography variant={'h1'}fontSize='4rem' display={'inline'}>Certified naughty Christmas song @ holifimusic.com</Typography>
+
+          </Box>
         </Box>
       }
 
