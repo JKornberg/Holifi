@@ -136,18 +136,17 @@ const app_theme = createTheme({
       fontWeight: 500,
     },
     h1: {
-      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontFamily: 'Bad Script, cursive',
       fontSize: '4rem',
       fontWeight: 100,
       lineHeight: 1.2,
-      letterSpacing: '2px',
+      letterSpacing: '5px',
     },
     h2: {
       fontFamily: ['Open Sans'].join(','),
       fontSize: '2.5rem',
       fontWeight: 400,
       lineHeight: 1.2,
-      letterSpacing: '2px',
     },
   },
 })

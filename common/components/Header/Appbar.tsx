@@ -14,6 +14,7 @@ import Menu from '@mui/material/Menu'
 import Link from 'next/link'
 import { AiOutlineHome } from 'react-icons/ai'
 import { useAuth } from '../../../contexts/AuthContext'
+import { Logo } from './logo'
 
 export default function MenuAppBar() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -32,22 +33,18 @@ export default function MenuAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position='static'
-        color='transparent'
+        // color='transparent'
         enableColorOnDark
         elevation={0}
+        sx={{ backgroundColor: '#090c24' ,width:'100%'}}
       >
-        <Toolbar>
+        <Toolbar sx={{justifyContent: 'space-between'}}>
           <Link href='/'>
             <IconButton children={<AiOutlineHome />} />
           </Link>
-          <Typography
-            color='white'
-            variant='h1'
-            fontSize={'4xl'}
-            sx={{ flexGrow: 1, textAlign: 'center' }}
-          >
-            holifi ❄️
-          </Typography>
+          <div>
+            <Logo />
+          </div>
           <div>
             <IconButton
               size='large'
