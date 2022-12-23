@@ -142,6 +142,13 @@ const app_theme = createTheme({
       lineHeight: 1.2,
       letterSpacing: '2px',
     },
+    h2: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
+      fontSize: '2.5rem',
+      fontWeight: 700,
+      lineHeight: 1.2,
+      letterSpacing: '2px',
+    },
   },
 })
 
