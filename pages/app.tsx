@@ -33,6 +33,7 @@ import useWindowSize from '../common/hooks/useWindowSize'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { Logo } from '../common/components/Header/logo'
 // Used to include thumbnail data for safely rendering user models on dashboard
+import { toJpeg } from 'html-to-image';
 
 const
 
@@ -585,12 +586,14 @@ const Home = () => {
           </Box>
         </Container>
         <Box
+          id='ShareableContainer'
           sx={{
             backgroundImage: 'url("/snow_cabin4.jpg")',
           }}
           padding={{ xs: 0.5, sm: 8, md: 12 }}
           marginTop={5}
           width='100%'
+
         >
           <Container>
             <Box mt={4} width={'100%'} minHeight='400px'>
@@ -613,7 +616,17 @@ const Home = () => {
                 }
               />
               <Box width='100%' textAlign={'end'}>
-                <Button >Share</Button>
+                <Button onClick={
+                  () => {
+                    let element = document.getElementById('ShareableContainer');
+                    if (element == null) { return }
+                    toJpeg(element, { quality: 0.95 })
+                      .then((dataUrl) => {
+
+                        navigator.share({ url: dataUrl });
+                      }
+                      );
+                  }}>Share</Button>
 
               </Box>
             </Box>
@@ -622,57 +635,57 @@ const Home = () => {
         </Box>
       </Box>
       {
-        (songData?.lyrics == null) ? <Box></Box> : 
-        
-        <Box display={'flex'} flexDirection={'column'} justifyContent={'space-between'}
-        sx={{
-          backgroundImage: 'url("/lyrics_bg2.png")',
-          backgroundSize: 'cover',
-        }} height={'1920px'} width={'1080px'}>
-          <Box padding={4}>
-            <Stack direction={'row'} sx={{ backgroundColor: '#090c24' }} marginBottom={3} justifyContent='start' alignItems={'center'} >
+        (songData?.lyrics == null) ? <Box></Box> :
 
-              <Logo marginX={3} width={'inherit'} />
-              {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
-              <Divider orientation='vertical' flexItem style={{
-                width: '2px',
-                backgroundColor: '#fff',
-                border: 'none',
-              }} />
-              <Stack textAlign={'center'} width={'100%'} marginX={5} marginY={2}>
-                <Typography variant={'h1'} fontSize='3rem' display={'inline'}
-                  sx={{ fontFamily: 'Sonsie One, cursive' }}
-                >{Protagonists[songForm.values.protagonist]} presents</Typography>
-                <Typography variant={'h1'} fontSize='3rem' display={'inline'}> {songData.title}</Typography>
+          <Box display={'flex'} flexDirection={'column'} justifyContent={'space-between'}
+            sx={{
+              backgroundImage: 'url("/lyrics_bg2.png")',
+              backgroundSize: 'cover',
+            }} height={'1920px'} width={'1080px'}>
+            <Box padding={4}>
+              <Stack direction={'row'} sx={{ backgroundColor: '#090c24' }} marginBottom={3} justifyContent='start' alignItems={'center'} >
+
+                <Logo marginX={3} width={'inherit'} />
+                {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
+                <Divider orientation='vertical' flexItem style={{
+                  width: '2px',
+                  backgroundColor: '#fff',
+                  border: 'none',
+                }} />
+                <Stack textAlign={'center'} width={'100%'} marginX={5} marginY={2}>
+                  <Typography variant={'h1'} fontSize='3rem' display={'inline'}
+                    sx={{ fontFamily: 'Sonsie One, cursive' }}
+                  >{Protagonists[songForm.values.protagonist]} presents</Typography>
+                  <Typography variant={'h1'} fontSize='3rem' display={'inline'}> {songData.title}</Typography>
+                </Stack>
+
               </Stack>
+              <OutlinedInput
+                fullWidth
+                multiline
+                maxRows={Infinity}
 
-            </Stack>
-            <OutlinedInput
-              fullWidth
-              multiline
-              maxRows={Infinity}
-              
-              sx={{
-                backgroundColor: 'rgba(    0,0,0, 0.8)',
-                textAlign: 'center',
-                '& .MuiOutlinedInput-input.Mui-disabled': {
-                  WebkitTextFillColor: 'white',
-                },
-                fontSize:'2rem'
+                sx={{
+                  backgroundColor: 'rgba(    0,0,0, 0.8)',
+                  textAlign: 'center',
+                  '& .MuiOutlinedInput-input.Mui-disabled': {
+                    WebkitTextFillColor: 'white',
+                  },
+                  fontSize: '2rem'
 
-              }}
-              inputProps={{ style: { textAlign: 'center' } }}
+                }}
+                inputProps={{ style: { textAlign: 'center' } }}
 
-              value={songData.lyrics.substring(0, 800)}
-            />
+                value={songData.lyrics.substring(0, 800)}
+              />
 
+            </Box>
+            <Box sx={{ backgroundColor: '#090c24' }} textAlign='center' padding={1} marginX={4}>
+
+              <Typography variant={'h1'} fontSize='4rem' display={'inline'}>Certified naughty Christmas song @ holifimusic.com</Typography>
+
+            </Box>
           </Box>
-          <Box sx={{ backgroundColor: '#090c24' }}  textAlign='center' padding={1} marginX={4}>
-
-            <Typography variant={'h1'}fontSize='4rem' display={'inline'}>Certified naughty Christmas song @ holifimusic.com</Typography>
-
-          </Box>
-        </Box>
       }
 
     </Fragment>
