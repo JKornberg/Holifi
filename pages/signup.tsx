@@ -90,7 +90,7 @@ const Signup = (props: Props) => {
                   ':hover': {
                     backgroundColor: '#07091c',
                   },
-                  margin: '5px auto 5px auto',
+                  margin: '30px auto 5px auto',
                   borderRadius: 50,
                   paddingLeft: 10,
                   paddingRight: 10,
@@ -112,7 +112,7 @@ const Signup = (props: Props) => {
               light={true}
               variant={'fullWidth'}
               style={{
-                margin: '35px 15px 35px auto',
+                margin: '20px 15px 20px auto',
                 width: '35%',
                 backgroundColor: 'lightgrey',
                 height: '0.5px',
@@ -124,7 +124,7 @@ const Signup = (props: Props) => {
               light={true}
               variant={'fullWidth'}
               style={{
-                margin: '35px auto 35px 15px',
+                margin: '20px auto 20px 15px',
                 width: '35%',
                 backgroundColor: 'lightgrey',
                 height: '0.5px',
@@ -136,6 +136,7 @@ const Signup = (props: Props) => {
             style={{ fontSize: '1.3rem' }}
             variant='h5'
             textAlign={'center'}
+            marginTop={'10px'}
             marginBottom={'20px'}
           >
             Sign up with your email address

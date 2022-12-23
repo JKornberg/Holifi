@@ -216,12 +216,23 @@ const Home = () => {
         <link rel='stylesheet' href='/app_styles.css' />
         {/* <Link rel="icon" href="/favicon.ico" /> */}
       </Head>
-      <Box component='div' >
+      <Box component='div'>
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
-        <Container maxWidth='md' className='background_image' sx={{backgroundColor:'#090c24'}}>
+        <Container
+          maxWidth='md'
+          className='background_image'
+          sx={{ backgroundColor: '#090c24' }}
+        >
           <Box component='div' textAlign='center' paddingTop={3}>
             <Box margin='0 auto' marginTop={5} alignItems={'center'}>
+              <Typography
+                fontSize={'1.5rem'}
+                fontFamily={'Montserrat'}
+                marginBottom={'15px'}
+              >
+                General Options
+              </Typography>
               <Stack
                 direction={dropDown ? 'column' : 'row'}
                 alignItems={'center'}
@@ -250,22 +261,23 @@ const Home = () => {
                         validHoliday
                           ? {}
                           : {
-                            fontColor: 'red',
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={holiday}
                       onChange={(e) => {
                         songForm.setFieldValue('holiday', e.target.value)
                         setHoliday(e.target.value)
+                        setValidHoliday(true)
                       }}
                     >
                       <MenuItem disabled value=''>
@@ -299,22 +311,23 @@ const Home = () => {
                         validCharacter
                           ? {}
                           : {
-                            fontColor: 'red',
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: 'red',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={character}
                       onChange={(e) => {
                         songForm.setFieldValue('protagonist', e.target.value)
                         setCharacter(e.target.value)
+                        setValidCharacter(true)
                       }}
                     >
                       <MenuItem value='' disabled>
@@ -334,6 +347,11 @@ const Home = () => {
                 margin={sliderMargin ? '0 50px' : '0 auto'}
                 marginY={5}
               >
+                <Box>
+                  <Typography fontFamily={'Montserrat'}>
+                    {buttonText}
+                  </Typography>
+                </Box>
                 <Slider
                   min={-2}
                   max={2}
@@ -341,7 +359,7 @@ const Home = () => {
                   marks={[
                     { value: -2, label: 'Naughty' },
                     { value: -1, label: '' },
-                    { value: 0, label: '' },
+                    { value: 0, label: 'or' },
                     { value: 1, label: '' },
                     { value: 2, label: 'Nice' },
                   ]}
@@ -352,9 +370,6 @@ const Home = () => {
                   defaultValue={0}
                 />
               </Box>
-            </Box>
-            <Box>
-              <Typography>{buttonText}</Typography>
             </Box>
             <Divider
               light={true}
@@ -371,7 +386,9 @@ const Home = () => {
               {songData !== null ? (
                 <Typography>Selected: {songData.title}</Typography>
               ) : (
-                <Typography fontSize={'2rem'}>Search for a song</Typography>
+                <Typography fontSize={'1.5rem'} fontFamily={'Montserrat'}>
+                  Song Choice
+                </Typography>
               )}
             </Box>
             <Stack
@@ -393,23 +410,23 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                          fontColor: 'red',
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     label='Enter Artist Name'
                     autoFocus
-                    onChange={(e) =>
+                    onChange={(e) => {
                       songForm.setFieldValue('artist', e.target.value)
-                    }
+                      setValidArtist(true)
+                    }}
                   />
                 </FormControl>
               </Box>
@@ -426,23 +443,23 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                          fontColor: 'red',
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: 'red',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     name='Song'
                     label='Enter Song Name'
-                    onChange={(e) =>
+                    onChange={(e) => {
                       songForm.setFieldValue('song', e.target.value)
-                    }
+                      setValidSong(true)
+                    }}
                   />
                 </FormControl>
               </Box>
@@ -452,31 +469,31 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => { }
+                  ? () => {}
                   : async () => {
-                    let isValid = validate(songForm.values)
-                    if (isValid) {
-                      setValidArtist(true)
-                      setValidHoliday(true)
-                      setValidSong(true)
-                      setValidCharacter(true)
-                      songForm.setFieldValue(
-                        'holiday',
-                        songForm.values.holiday - 1
-                      )
-                      songForm.setFieldValue(
-                        'protagonist',
-                        songForm.values.protagonist - 1
-                      )
-                      songForm.submitForm()
+                      let isValid = validate(songForm.values)
+                      if (isValid) {
+                        setValidArtist(true)
+                        setValidHoliday(true)
+                        setValidSong(true)
+                        setValidCharacter(true)
+                        songForm.setFieldValue(
+                          'holiday',
+                          songForm.values.holiday - 1
+                        )
+                        songForm.setFieldValue(
+                          'protagonist',
+                          songForm.values.protagonist - 1
+                        )
+                        songForm.submitForm()
+                      }
                     }
-                  }
               }
             >
               {isSubmitting ? (
                 <CircularProgress />
               ) : (
-                <Typography>Generate Song</Typography>
+                <Typography>Generate Song 😊</Typography>
               )}
             </Button>
             {/* <Divider
@@ -490,29 +507,32 @@ const Home = () => {
                 border: 'none',
               }}
             /> */}
-
-
           </Box>
         </Container>
-        <Box sx={{
-          'backgroundImage': 'url("/snow_cabin4.jpg")',
-        }} padding={10} marginTop={5} width='100%'>
-          <Container >
+        <Box
+          sx={{
+            backgroundImage: 'url("/snow_cabin4.jpg")',
+          }}
+          padding={10}
+          marginTop={5}
+          width='100%'
+        >
+          <Container>
             <Box mt={4} width={'100%'} minHeight='400px'>
               <TextField
                 multiline
                 maxRows={Infinity}
                 fullWidth
-                
-                sx={{color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)'}}
+                sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
                 value={
-                  songData !== null ? songData.lyrics : 'Lyrics will appear here'
+                  songData !== null
+                    ? songData.lyrics
+                    : 'Lyrics will appear here'
                 }
               />
             </Box>
           </Container>
         </Box>
-
       </Box>
     </Fragment>
   )

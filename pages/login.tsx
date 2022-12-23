@@ -195,7 +195,7 @@ const Login = (props: Props) => {
                 startIcon={<GoogleLogo />}
               >
                 <Typography color={'lightgrey'} marginLeft={1}>
-                  Sign up with Google
+                  Sign in with Google
                 </Typography>
               </Button>
             </Box>
