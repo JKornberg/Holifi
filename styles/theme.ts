@@ -1,6 +1,6 @@
 import { InputProps, TextField, TextFieldProps } from '@mui/material'
 import { alpha, styled } from '@mui/material/styles'
-
+import { Mattone } from 'Mattone.otf'
 import { createTheme, InputBase } from '@mui/material'
 import {
   purple,
@@ -136,9 +136,11 @@ const app_theme = createTheme({
       fontWeight: 500,
     },
     h1: {
+      fontFamily: ['Poppins', 'sans-serif'].join(','),
       fontSize: '2.5rem',
       fontWeight: 700,
       lineHeight: 1.2,
+      letterSpacing: '2px',
     },
   },
 })
