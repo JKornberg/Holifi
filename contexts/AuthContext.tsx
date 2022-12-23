@@ -63,9 +63,9 @@ export default function AuthContextProvider(props: Props) {
     }
   }, [])
 
-  useEffect(() => {
-    console.log('The user is', loadingUser.user)
-  }, [loadingUser.user])
+  // useEffect(() => {
+  //   console.log('The user is', loadingUser.user)
+  // }, [loadingUser.user])
 
   //Refresh token every 10 minutes
   useEffect(() => {
@@ -79,7 +79,6 @@ export default function AuthContextProvider(props: Props) {
   }, []);
 
   const handleUser = async (rawUser: User | null) => {
-    console.log("handling");
     if (rawUser) {
       const formattedUser : FormatUserType = await formatUser(rawUser);
       const user : AppUser = new AppUser(formattedUser);
@@ -105,11 +104,8 @@ export default function AuthContextProvider(props: Props) {
   };
 
   async function login(email: string, password: string) {
-    console.log("Setting to loading");
     //setLoadingUser((prevState) => ({user: null, isLoading: true}));
-    console.log("Now signing in");
-    console.log("Email: " + email);
-    console.log("Password: " + password)
+
     try{
       const res = await signInWithEmailAndPassword(auth, email, password)
       return { status: 200, message: "Success" }
@@ -126,7 +122,6 @@ export default function AuthContextProvider(props: Props) {
     //   console.log("Invalid phone number");
     //   return {status: 400, message: "Invalid phone number"};
     // }
-    console.log("Registering...");
 
     const response = await fetch('/api/auth/create', {
       method: 'POST',
@@ -135,11 +130,10 @@ export default function AuthContextProvider(props: Props) {
         'Content-Type': 'application/json',
       }
     });
-    console.log("After register");
     const data = await response.json()
-    console.log(response);
+    // console.log(response);
     if (response.status === 200) {
-      console.log("Successfully registered");
+      // console.log("Successfully registered");
       login(email, password);
       return {status: 200, message: "Successfully registered"};
     } else {

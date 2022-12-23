@@ -7,15 +7,15 @@ const handler = async (req: NextRequestWithUid, res: NextApiResponse) => {
         let body = JSON.parse(req.body);
         let artist = body.artist as string;
         let song = body.song as string;
-        console.log(body);
+        // console.log(body);
         // let url = `http://127.0.0.1:5000/song?artist=${artist}&title=${song}&holiday=${body.holiday}&protagonist=${body.protagonist}&niceScale=${body.niceScale}`
         let url = `https://holifi-backend-jkornberg-kornberg.vercel.app/song?artist=${artist}&title=${song}&holiday=${body.holiday}&protagonist=${body.protagonist}&niceScale=${body.niceScale}`
-        console.log(url);
+        // console.log(url);
         fetch(url)
             .then((response: any) => {
-                console.log(response.body);
+                // console.log(response.body);
                 response.json().then((data: any) => {
-                    console.log(data);
+                    // console.log(data);
                     res.status(200).json(data);
                     resolve();
                 })

@@ -38,7 +38,7 @@ const Forgot = (props: Props) => {
       company: '',
     },
     onSubmit: async (values) => {
-      console.log(values)
+      // console.log(values)
       forgotPassword(values.email)
     },
   })
