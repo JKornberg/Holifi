@@ -16,8 +16,7 @@ const Landing = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
-                // backgroundImage: 'url(/cabin_landing.png)',
-                backgroundColor: green[300],
+                backgroundImage: 'url(/cabin_landing.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
