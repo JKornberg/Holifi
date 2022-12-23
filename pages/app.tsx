@@ -280,7 +280,10 @@ const Home = () => {
         <Container
           maxWidth='md'
           className='background_image'
-          sx={{ backgroundColor: '#090c24' }}
+          style={{ overflow: 'hidden' }}
+          sx={{
+            backgroundColor: '#090c24',
+          }}
         >
           <Box component='div' textAlign='center' paddingTop={3}>
             <Box margin='0 auto' marginTop={5} alignItems={'center'}>
@@ -571,7 +574,7 @@ const Home = () => {
           sx={{
             backgroundImage: 'url("/snow_cabin4.jpg")',
           }}
-          padding={10}
+          padding={{ xs: 0.5, sm: 8, md: 12 }}
           marginTop={5}
           width='100%'
         >
