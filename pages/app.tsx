@@ -17,6 +17,8 @@ import {
   MenuItem,
   NativeSelect,
   Divider,
+  Modal,
+  IconButton,
 } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
@@ -27,6 +29,7 @@ import { useFormik } from 'formik'
 import { green, grey, red } from '@mui/material/colors'
 import { fontSize } from '@mui/system'
 import useWindowSize from '../common/hooks/useWindowSize'
+import { AiOutlineCloseCircle } from 'react-icons/ai'
 // Used to include thumbnail data for safely rendering user models on dashboard
 
 enum Holidays {
@@ -54,12 +57,13 @@ const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
   const { loadingUser, setLoadingUser } = useAuth()
   const router = useRouter()
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
 
-  let [validHoliday, setValidHoliday] = useState(true)
-  let [validCharacter, setValidCharacter] = useState(true)
-  let [validSong, setValidSong] = useState(true)
-  let [validArtist, setValidArtist] = useState(true)
+  let [validHoliday, setValidHoliday] = useState<boolean>(true)
+  let [validCharacter, setValidCharacter] = useState<boolean>(true)
+  let [validSong, setValidSong] = useState<boolean>(true)
+  let [validArtist, setValidArtist] = useState<boolean>(true)
+  let [fetchError, setFetchError] = useState<boolean>(false)
 
   const validate = (values: {
     artist: string
@@ -119,12 +123,11 @@ const Home = () => {
               setSongData(data)
             })
           } else {
-            res.json().then((data) => {
-              console.log('Error getting song')
-            })
+            setFetchError(true)
           }
         })
         .catch((err) => {
+          setFetchError(true)
           console.log(err)
         })
         .finally(() => {
@@ -217,6 +220,61 @@ const Home = () => {
         {/* <Link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Box component='div'>
+        <Modal
+          open={fetchError}
+          onClose={() => setFetchError(false)}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box
+            style={{
+              backgroundColor: '#090c24',
+              padding: 20,
+              borderRadius: 10,
+              position: 'relative',
+            }}
+            width={{ xs: '70%', sm: '45%', md: '30%' }}
+          >
+            <IconButton
+              style={{ position: 'absolute', top: 0, right: 0 }}
+              children={<AiOutlineCloseCircle />}
+              onClick={() => setFetchError(false)}
+            />
+            <Typography
+              id='modal-modal-title'
+              variant='h6'
+              textAlign={'center'}
+              fontFamily='Montserrat'
+              color='#ef5350'
+            >
+              Error generating lyrics
+            </Typography>
+            <Divider
+              light={true}
+              variant={'fullWidth'}
+              style={{
+                margin: '10px auto',
+                width: '100%',
+                backgroundColor: 'lightgrey',
+                height: '0.5px',
+                border: 'none',
+              }}
+            />
+            <Typography
+              id='modal-modal-title'
+              textAlign={'center'}
+              fontFamily='Montserrat'
+              color='lightgrey'
+            >
+              Please try again in a moment
+            </Typography>
+          </Box>
+        </Modal>
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
         <Container
