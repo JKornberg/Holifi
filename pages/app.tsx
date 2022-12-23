@@ -106,8 +106,6 @@ const Home = () => {
     },
     onSubmit: async (values) => {
       setIsSubmitting(true)
-      // console.log('sending')
-      console.log(values)
       console.log('sending')
       fetch('/api/song/search', {
         headers: { Authorization: 'Bearer ' + loadingUser.user?.token },
