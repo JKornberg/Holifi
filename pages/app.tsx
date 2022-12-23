@@ -16,6 +16,7 @@ import {
   InputLabel,
   MenuItem,
   NativeSelect,
+  Divider,
 } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
@@ -67,22 +68,26 @@ const Home = () => {
       setIsSubmitting(true)
       console.log('sending')
       fetch('/api/song/search', {
-        headers: { Authorization: "Bearer " + loadingUser.user?.token },
-        method: 'POST', body: JSON.stringify(values)
-      }).then(res => {
-        if (res.status == 200) {
-          return res.json().then(data => {
-            // console.log(data.lyrics);
-            setSongData(data);
-          })
-        } else {
-          res.json().then(data => {
-            console.log("Error getting song");
-          })
-        }
-      }).catch(err => {
-        console.log(err);
-      }).finally(() => {
+        headers: { Authorization: 'Bearer ' + loadingUser.user?.token },
+        method: 'POST',
+        body: JSON.stringify(values),
+      })
+        .then((res) => {
+          if (res.status == 200) {
+            return res.json().then((data) => {
+              // console.log(data.lyrics);
+              setSongData(data)
+            })
+          } else {
+            res.json().then((data) => {
+              console.log('Error getting song')
+            })
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+        .finally(() => {
           setIsSubmitting(false)
         })
 
@@ -170,167 +175,63 @@ const Home = () => {
       <Container maxWidth='md'>
         <Box component='div' textAlign='center'>
           <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-            <Stack direction={'column'} alignItems={'center'}>
-              {dropDown ? (
-                <Box margin={5} minWidth={300}>
+            <Stack direction={'row'} alignItems={'center'}>
+              <Box margin={5} minWidth={300} alignSelf={'center'}>
+                <FormControl fullWidth>
+                  <InputLabel
+                    variant='outlined'
+                    id='demo-radio-buttons-group-label'
+                    sx={{
+                      alignItems: 'center',
+                      display: 'flex',
+                    }}
+                  >
+                    Holiday
+                  </InputLabel>
+                  <Select
+                    aria-labelledby='demo-radio-buttons-group-label'
+                    defaultValue='female'
+                    name='radio-buttons-group'
+                    label='Holiday'
+                    onChange={(e) =>
+                      songForm.setFieldValue('holiday', e.target.value)
+                    }
+                  >
+                    <MenuItem value={0}>Christmas</MenuItem>
+                    <MenuItem value={1}>Hanukkah</MenuItem>
+                    <MenuItem value={2}>Kwanzaa</MenuItem>
+                    <MenuItem value={3}>New Years</MenuItem>
+                    <MenuItem value={4}>Non-Denominational</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              <Box>
+                <Box minWidth={300}>
                   <FormControl fullWidth>
                     <InputLabel
                       variant='outlined'
                       id='demo-radio-buttons-group-label'
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
+                      sx={{ alignItems: 'center', display: 'flex' }}
                     >
-                      Holiday
+                      Protagonist
                     </InputLabel>
                     <Select
                       aria-labelledby='demo-radio-buttons-group-label'
                       defaultValue='female'
                       name='radio-buttons-group'
-                      label='Holiday'
-                      onChange={(e) =>
-                        songForm.setFieldValue('holiday', e.target.value)
-                      }
-                    >
-                      <MenuItem value={0}>Christmas</MenuItem>
-                      <MenuItem value={1}>Hanukkah</MenuItem>
-                      <MenuItem value={2}>Kwanzaa</MenuItem>
-                      <MenuItem value={3}>New Years</MenuItem>
-                      <MenuItem value={4}>Non-Denominational</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              ) : (
-                <Box margin={5}>
-                  <FormControl>
-                    <RadioGroup
-                      aria-labelledby='demo-radio-buttons-group-label'
-                      defaultValue='female'
-                      name='radio-buttons-group'
-                      row
-                      onChange={(e) =>
-                        songForm.setFieldValue('holiday', e.target.value)
-                      }
-                    >
-                      <FormLabel
-                        id='demo-radio-buttons-group-label'
-                        sx={{ alignItems: 'center', display: 'flex' }}
-                      >
-                        Holiday
-                      </FormLabel>
-                      <FormControlLabel
-                        value={0}
-                        control={<Radio />}
-                        label='Christmas'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={1}
-                        control={<Radio />}
-                        label='Hanukkah'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={2}
-                        control={<Radio />}
-                        label='Kwanzaa'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={3}
-                        control={<Radio />}
-                        label='New Years'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={4}
-                        control={<Radio />}
-                        label='Non-Denominational'
-                        labelPlacement='top'
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                </Box>
-              )}
-              <Box>
-                {dropDown ? (
-                  <Box minWidth={300}>
-                    <FormControl fullWidth>
-                      <InputLabel
-                        variant='outlined'
-                        id='demo-radio-buttons-group-label'
-                        sx={{ alignItems: 'center', display: 'flex' }}
-                      >
-                        Protagonist
-                      </InputLabel>
-                      <Select
-                        aria-labelledby='demo-radio-buttons-group-label'
-                        defaultValue='female'
-                        name='radio-buttons-group'
-                        label='Protagonist'
-                        onChange={(e) =>
-                          songForm.setFieldValue('protagonist', e.target.value)
-                        }
-                      >
-                        <MenuItem value={0}>Santa Clause</MenuItem>
-                        <MenuItem value={1}>Jesus Christ</MenuItem>
-                        <MenuItem value={2}>Judah Maccabee</MenuItem>
-                        <MenuItem value={3}>Moses</MenuItem>
-                        <MenuItem value={4}>The Grinch</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                ) : (
-                  <FormControl>
-                    <RadioGroup
-                      aria-labelledby='demo-radio-buttons-group-label'
-                      defaultValue='female'
-                      name='radio-buttons-group'
-                      row
+                      label='Protagonist'
                       onChange={(e) =>
                         songForm.setFieldValue('protagonist', e.target.value)
                       }
                     >
-                      <FormLabel
-                        id='demo-radio-buttons-group-label'
-                        sx={{ alignItems: 'center', display: 'flex' }}
-                      >
-                        Protagonist
-                      </FormLabel>
-                      <FormControlLabel
-                        value={0}
-                        control={<Radio />}
-                        label='Santa Clause'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={1}
-                        control={<Radio />}
-                        label='Jesus Christ'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={2}
-                        control={<Radio />}
-                        label='Judah Maccabee'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={3}
-                        control={<Radio />}
-                        label='Moses'
-                        labelPlacement='top'
-                      />
-                      <FormControlLabel
-                        value={4}
-                        control={<Radio />}
-                        label='The Grinch'
-                        labelPlacement='top'
-                      />
-                    </RadioGroup>
+                      <MenuItem value={0}>Santa Clause</MenuItem>
+                      <MenuItem value={1}>Jesus Christ</MenuItem>
+                      <MenuItem value={2}>Judah Maccabee</MenuItem>
+                      <MenuItem value={3}>Moses</MenuItem>
+                      <MenuItem value={4}>The Grinch</MenuItem>
+                    </Select>
                   </FormControl>
-                )}
+                </Box>
               </Box>
             </Stack>
             <Box
@@ -357,12 +258,30 @@ const Home = () => {
               />
             </Box>
           </Box>
+          <Divider
+            light={true}
+            variant={'fullWidth'}
+            style={{
+              margin: '30px auto',
+              width: '800px',
+              backgroundColor: 'lightgrey',
+              height: '0.5px',
+              border: 'none',
+            }}
+          />
+          <Box margin={'10px'}>
+            {songData !== null ? (
+              <Typography>Selected: {songData.title}</Typography>
+            ) : (
+              <Typography fontSize={'2rem'}>Search for a song</Typography>
+            )}
+          </Box>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             justifyContent='center'
           >
             <Box
-              width={'80%'}
+              width={'40%'}
               marginRight={sliderMargin ? 0 : 2.5}
               margin={sliderMargin ? '0 auto' : '0 2.5 0 0'}
             >
@@ -372,7 +291,7 @@ const Home = () => {
                   required
                   fullWidth
                   name='Artist'
-                  label='Artist'
+                  label='Enter Artist Name'
                   autoFocus
                   onChange={(e) =>
                     songForm.setFieldValue('artist', e.target.value)
@@ -380,14 +299,14 @@ const Home = () => {
                 />
               </FormControl>
             </Box>
-            <Box width={'80%'} margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}>
+            <Box width={'40%'} margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}>
               <FormControl id='email' fullWidth>
                 <TextField
                   margin='normal'
                   required
                   fullWidth
                   name='Song'
-                  label='Song'
+                  label='Enter Song Name'
                   autoFocus
                   onChange={(e) =>
                     songForm.setFieldValue('song', e.target.value)
@@ -396,17 +315,23 @@ const Home = () => {
               </FormControl>
             </Box>
           </Stack>
-          {songData !== null ? (
-            <Typography>Selected: {songData.title}</Typography>
-          ) : (
-            <Typography>Search for song above</Typography>
-          )}
           <Button
             sx={{ backgroundColor: buttonColor }}
             onClick={isSubmitting ? () => {} : songForm.submitForm}
           >
             {isSubmitting ? <CircularProgress /> : buttonText}
           </Button>
+          <Divider
+            light={true}
+            variant={'fullWidth'}
+            style={{
+              margin: '30px auto',
+              width: '800px',
+              backgroundColor: 'lightgrey',
+              height: '0.5px',
+              border: 'none',
+            }}
+          />
           <Box mt={4} width={'100%'} minHeight='400px'>
             <TextField
               multiline

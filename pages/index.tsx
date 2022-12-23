@@ -1,41 +1,51 @@
-import { Button, Card, Divider, Typography } from "@mui/material"
-import { green } from "@mui/material/colors"
-import { Box } from "@mui/system"
-import { useRouter } from "next/router"
-import useWindowSize from "../common/hooks/useWindowSize"
+import { Button, Card, Divider, Typography } from '@mui/material'
+import { green } from '@mui/material/colors'
+import { Box } from '@mui/system'
+import { useRouter } from 'next/router'
+import useWindowSize from '../common/hooks/useWindowSize'
 //create landing page
 const Landing = () => {
-    const  width  = useWindowSize()
-    const router = useRouter()
+  const width = useWindowSize()
+  const router = useRouter()
 
-    return (
-        <Card sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '100vh',
-            backgroundImage: 'url(/cabin_landing.png)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-        }}>
-            <Typography variant="h2">
-                Welcome to holifi
-            </Typography>
-            <Typography variant="h6">
-                Turn your favorite song lyrics into a fun holiday parody!
-            </Typography>
-            <Box sx={{ my: 2 , backgroundColor: "#fff", height: '5px'}} />
-            <Button variant="contained" color="primary"
-                onClick={() => router.push('/login')}
-            >
-
-
-
-                Join the Party
-            </Button>
-        </Card>
-    )
+  return (
+    <Card
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+        backgroundImage: 'url(/cabin_landing.png)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
+      <Typography variant='h2'>Welcome to holifi</Typography>
+      <Typography variant='h6'>
+        Turn your favorite song lyrics into a fun holiday parody!
+      </Typography>
+      <Divider
+        light={true}
+        variant={'fullWidth'}
+        style={{
+          margin: '20px 0 20px 0',
+          width: '400px',
+          backgroundColor: 'white',
+          height: '0.5px',
+          border: 'none',
+        }}
+      />
+      <Button
+        style={{ marginTop: '0' }}
+        variant='contained'
+        color='primary'
+        onClick={() => router.push('/login')}
+      >
+        Join the Party
+      </Button>
+    </Card>
+  )
 }
 
 export default Landing
