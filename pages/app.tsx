@@ -19,6 +19,7 @@ import {
   Divider,
   Modal,
   IconButton,
+  OutlinedInput,
 } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
@@ -52,6 +53,16 @@ type SongDataType = {
   title: string
   lyrics: string
 } | null
+
+//generateImageWithLyrics
+const generateImageWithLyrics = (
+  lyrics: string,
+  title: string,
+  artist: string
+) => {
+
+}
+
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -282,7 +293,7 @@ const Home = () => {
           className='background_image'
           style={{ overflow: 'hidden' }}
           sx={{
-            backgroundColor: '#090c24',
+            backgroundColor: 'rgba(9, 12, 36, 0.6)',
           }}
         >
           <Box component='div' textAlign='center' paddingTop={3}>
@@ -322,17 +333,17 @@ const Home = () => {
                         validHoliday
                           ? {}
                           : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                            {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                       }
                       value={holiday}
                       onChange={(e) => {
@@ -372,17 +383,17 @@ const Home = () => {
                         validCharacter
                           ? {}
                           : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                            {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                       }
                       value={character}
                       onChange={(e) => {
@@ -471,16 +482,16 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     label='Enter Artist Name'
                     autoFocus
@@ -504,16 +515,16 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     name='Song'
                     label='Enter Song Name'
@@ -530,25 +541,25 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => {}
+                  ? () => { }
                   : async () => {
-                      let isValid = validate(songForm.values)
-                      if (isValid) {
-                        setValidArtist(true)
-                        setValidHoliday(true)
-                        setValidSong(true)
-                        setValidCharacter(true)
-                        songForm.setFieldValue(
-                          'holiday',
-                          songForm.values.holiday - 1
-                        )
-                        songForm.setFieldValue(
-                          'protagonist',
-                          songForm.values.protagonist - 1
-                        )
-                        songForm.submitForm()
-                      }
+                    let isValid = validate(songForm.values)
+                    if (isValid) {
+                      setValidArtist(true)
+                      setValidHoliday(true)
+                      setValidSong(true)
+                      setValidCharacter(true)
+                      songForm.setFieldValue(
+                        'holiday',
+                        songForm.values.holiday - 1
+                      )
+                      songForm.setFieldValue(
+                        'protagonist',
+                        songForm.values.protagonist - 1
+                      )
+                      songForm.submitForm()
                     }
+                  }
               }
             >
               {isSubmitting ? (
@@ -584,6 +595,7 @@ const Home = () => {
                 multiline
                 maxRows={Infinity}
                 fullWidth
+                disabled
                 sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
                 value={
                   songData !== null
@@ -591,10 +603,37 @@ const Home = () => {
                     : 'Lyrics will appear here'
                 }
               />
+              <Box width='100%' textAlign={'end'}>
+                <Button >Share</Button>
+
+              </Box>
             </Box>
           </Container>
+
         </Box>
       </Box>
+      {
+        (songData?.lyrics == null) ? <Box></Box> : <Box sx={{
+          backgroundImage: 'url("/lyrics_bg1.png")'
+        }} height={'800px'}>
+          <Box padding={4} paddingTop={0}>
+            <Box sx={{backgroundColor:red[400]}} padding={1} marginBottom={3} textAlign='center'>
+            <Typography variant={'h1'} fontSize='3rem' >Holifi Presents {songData.title}</Typography>
+            </Box>
+            <OutlinedInput
+              sx={{ backgroundColor: 'rgba(	0,0,0, 0.8)', textAlign: 'center'}}
+              multiline
+              maxRows={Infinity}
+              fullWidth
+              inputProps={{style : {textAlign: 'center'}}}
+              
+              value={songData.lyrics.substring(0,500)}
+            />
+          </Box>
+
+        </Box>
+      }
+
     </Fragment>
   )
 }

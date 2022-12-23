@@ -16,6 +16,7 @@ const handler = async (req: NextRequestWithUid, res: NextApiResponse) => {
                 // console.log(response.body);
                 response.json().then((data: any) => {
                     // console.log(data);
+                    data.lyrics = data.lyrics.trim();
                     res.status(200).json(data);
                     resolve();
                 })
