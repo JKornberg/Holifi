@@ -41,7 +41,7 @@ export default function MenuAppBar() {
             fontSize={'4xl'}
             sx={{ flexGrow: 1, textAlign: 'center' }}
           >
-            HoliFi ❄️
+            holifi ❄️
           </Typography>
           <div>
             <IconButton
