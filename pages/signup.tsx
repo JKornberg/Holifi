@@ -63,10 +63,15 @@ const Signup = (props: Props) => {
       //router.push('/');
     },
     validate: (values) => {
+      let res: any = {}
       if (values.password !== values.confirmPassword) {
-        return { confirmPassword: 'Passwords do not match' }
+        res['confirmPassword'] = 'Passwords do not match'
       }
-      return {}
+      if (values.password.length < 6) {
+        res['password'] = 'Password must be at least 6 characters'
+      }
+
+      return res
     },
   })
   //
@@ -174,6 +179,8 @@ const Signup = (props: Props) => {
               type='password'
               placeholder='********'
               label='Password'
+              error={Boolean(formik.errors.password)}
+              helperText={formik.touched.password && formik.errors.password}
               required
               onChange={(e) => formik.setFieldValue('password', e.target.value)}
             />

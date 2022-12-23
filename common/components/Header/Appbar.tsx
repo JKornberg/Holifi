@@ -33,10 +33,10 @@ export default function MenuAppBar() {
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
         position='static'
-        // color='transparent'
+        color='transparent'
         enableColorOnDark
         elevation={0}
-        sx={{ backgroundColor: '#090c24', width: '100%' }}
+        sx={{ width:'100%', paddingY:'1rem'}}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link href='/'>

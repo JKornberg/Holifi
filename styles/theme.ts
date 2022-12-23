@@ -102,6 +102,13 @@ const app_theme = createTheme({
 
     //   }
     // },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgb(	9, 12, 36)'
+        },
+      },
+    },
     MuiRadio: {
       styleOverrides: {
         root: {

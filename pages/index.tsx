@@ -16,14 +16,14 @@ const Landing = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
-                backgroundImage: 'url(/cabin_landing.png)',
+                backgroundImage: 'url(/snow_cabin4.jpg)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
             }}
         >
             <Box>
                 <Typography variant='h2' display={'inline'}>Welcome to </Typography>
-                <Typography variant='h1' display={'inline'} color={green}>holi</Typography>
+                <Typography variant='h1' display={'inline'} marginLeft={'10px'} color={green}>Holi</Typography>
                 <Typography variant='h1' display={'inline'} color={red[400]}>fi</Typography>
 
             </Box>
@@ -42,7 +42,7 @@ const Landing = () => {
                 }}
             />
             <Button
-                style={{ marginTop: '0' }}
+                style={{ marginTop: '0',}}
                 variant='contained'
                 color='primary'
                 onClick={() => router.push('/login')}
