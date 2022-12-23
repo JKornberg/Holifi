@@ -25,19 +25,19 @@ a {
 
 @media all and (max-width: 400px) {
   .MuiSlider-markLabel {
-    font-size: 1.2rem;
+    font-size: 1.2rem !important;
   }
 }
 
 @media all and (min-width: 400px) and (max-width: 650px) {
   .MuiSlider-markLabel {
-    font-size: 1.5rem;
+    font-size: 1.5rem !important;
   }
 }
 
 @media all and (min-width: 650px) {
   .MuiSlider-markLabel {
-    font-size: 2rem;
+    font-size: 2rem !important;
   }
 }
 

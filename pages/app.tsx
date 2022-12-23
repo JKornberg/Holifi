@@ -56,6 +56,46 @@ const Home = () => {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
+  let [validHoliday, setValidHoliday] = useState(true)
+  let [validCharacter, setValidCharacter] = useState(true)
+  let [validSong, setValidSong] = useState(true)
+  let [validArtist, setValidArtist] = useState(true)
+
+  const validate = (values: {
+    artist: string
+    song: string
+    niceScale: number
+    holiday: number
+    protagonist: number
+  }) => {
+    let error = false
+    if (values.artist == '') {
+      setValidArtist(false)
+      error = true
+    } else {
+      setValidArtist(true)
+    }
+    if (values.song == '') {
+      setValidSong(false)
+      error = true
+    } else {
+      setValidSong(true)
+    }
+    if (values.holiday == 0) {
+      setValidHoliday(false)
+      error = true
+    } else {
+      setValidHoliday(true)
+    }
+    if (values.protagonist == 0) {
+      setValidCharacter(false)
+      error = true
+    } else {
+      setValidCharacter(true)
+    }
+    return !error
+  }
+
   const songForm = useFormik({
     initialValues: {
       artist: '',
@@ -66,6 +106,7 @@ const Home = () => {
     },
     onSubmit: async (values) => {
       setIsSubmitting(true)
+      console.log(values)
       console.log('sending')
       fetch('/api/song/search', {
         headers: { Authorization: 'Bearer ' + loadingUser.user?.token },
@@ -89,6 +130,8 @@ const Home = () => {
         })
         .finally(() => {
           setIsSubmitting(false)
+          songForm.setFieldValue('holiday', songForm.values.holiday + 1)
+          songForm.setFieldValue('protagonist', songForm.values.protagonist + 1)
         })
 
       // const res = await register(values.email, values.password, values.fname, values.lname);
@@ -126,32 +169,30 @@ const Home = () => {
 
   let [songData, setSongData] = useState<SongDataType>(null)
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
+  let [character, setCharacter] = useState<String>('')
+  let [holiday, setHoliday] = useState<String>('')
   let buttonColor
   let buttonText
   switch (naughtyLevel) {
     case -2:
       buttonColor = red[500]
-      // buttonText = 'Ho Ho Ho 👹'
-      buttonText = 'Generate Song 😊'
+      buttonText = 'Ho Ho Ho 👹'
       break
     case -1:
       buttonColor = red[200]
-      // buttonText = 'Naughty'
-      buttonText = 'Generate Song 😊'
+      buttonText = 'Naughty'
       break
     case 0:
       buttonColor = '#fff'
-      buttonText = 'Generate Song 😊'
+      buttonText = 'Just right 😌'
       break
     case 1:
       buttonColor = green[300]
-      // buttonText = "Aren't you sweet"
-      buttonText = 'Generate Song 😊'
+      buttonText = "Aren't you sweet"
       break
     case 2:
       buttonColor = green['A400']
-      // buttonText = "Santa's Little Helper 😇"
-      buttonText = 'Generate Song 😊'
+      buttonText = "Santa's Little Helper 😇"
       break
   }
 
@@ -202,20 +243,37 @@ const Home = () => {
                   <Select
                     aria-labelledby='demo-radio-buttons-group-label'
                     name='radio-buttons-group'
-                    displayEmpty
                     label='Holiday'
-                    onChange={(e) =>
-                      songForm.setFieldValue('holiday', e.target.value)
+                    sx={
+                      validHoliday
+                        ? {}
+                        : {
+                            fontColor: 'red',
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                          }
                     }
+                    value={holiday}
+                    onChange={(e) => {
+                      songForm.setFieldValue('holiday', e.target.value)
+                      setHoliday(e.target.value)
+                    }}
                   >
                     <MenuItem disabled value=''>
                       Holiday
                     </MenuItem>
-                    <MenuItem value={0}>Christmas</MenuItem>
-                    <MenuItem value={1}>Hanukkah</MenuItem>
-                    <MenuItem value={2}>Kwanzaa</MenuItem>
-                    <MenuItem value={3}>New Years</MenuItem>
-                    <MenuItem value={4}>Non-Denominational</MenuItem>
+                    <MenuItem value={1}>Christmas</MenuItem>
+                    <MenuItem value={2}>Hanukkah</MenuItem>
+                    <MenuItem value={3}>Kwanzaa</MenuItem>
+                    <MenuItem value={4}>New Years</MenuItem>
+                    <MenuItem value={5}>Non-Denominational</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -235,19 +293,36 @@ const Home = () => {
                     aria-labelledby='demo-radio-buttons-group-label'
                     name='radio-buttons-group'
                     label='Character'
-                    displayEmpty
-                    onChange={(e) =>
-                      songForm.setFieldValue('protagonist', e.target.value)
+                    sx={
+                      validCharacter
+                        ? {}
+                        : {
+                            fontColor: 'red',
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: 'red',
+                            },
+                          }
                     }
+                    value={character}
+                    onChange={(e) => {
+                      songForm.setFieldValue('protagonist', e.target.value)
+                      setCharacter(e.target.value)
+                    }}
                   >
                     <MenuItem value='' disabled>
                       Character
                     </MenuItem>
-                    <MenuItem value={0}>Santa Clause</MenuItem>
-                    <MenuItem value={1}>Jesus Christ</MenuItem>
-                    <MenuItem value={2}>Judah Maccabee</MenuItem>
-                    <MenuItem value={3}>Moses</MenuItem>
-                    <MenuItem value={4}>The Grinch</MenuItem>
+                    <MenuItem value={1}>Santa Clause</MenuItem>
+                    <MenuItem value={2}>Jesus Christ</MenuItem>
+                    <MenuItem value={3}>Judah Maccabee</MenuItem>
+                    <MenuItem value={4}>Moses</MenuItem>
+                    <MenuItem value={5}>The Grinch</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -264,7 +339,7 @@ const Home = () => {
                 marks={[
                   { value: -2, label: 'Naughty' },
                   { value: -1, label: '' },
-                  { value: 0, label: 'Neutral' },
+                  { value: 0, label: '' },
                   { value: 1, label: '' },
                   { value: 2, label: 'Nice' },
                 ]}
@@ -275,6 +350,9 @@ const Home = () => {
                 defaultValue={0}
               />
             </Box>
+          </Box>
+          <Box>
+            <Typography>{buttonText}</Typography>
           </Box>
           <Divider
             light={true}
@@ -309,6 +387,22 @@ const Home = () => {
                   required
                   fullWidth
                   name='Artist'
+                  sx={
+                    validArtist
+                      ? {}
+                      : {
+                          fontColor: 'red',
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                        }
+                  }
                   label='Enter Artist Name'
                   autoFocus
                   onChange={(e) =>
@@ -326,9 +420,24 @@ const Home = () => {
                   margin='normal'
                   required
                   fullWidth
+                  sx={
+                    validSong
+                      ? {}
+                      : {
+                          fontColor: 'red',
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: 'red',
+                          },
+                        }
+                  }
                   name='Song'
                   label='Enter Song Name'
-                  autoFocus
                   onChange={(e) =>
                     songForm.setFieldValue('song', e.target.value)
                   }
@@ -339,9 +448,34 @@ const Home = () => {
           <Button
             sx={{ backgroundColor: buttonColor }}
             style={{ marginBottom: 0 }}
-            onClick={isSubmitting ? () => {} : songForm.submitForm}
+            onClick={
+              isSubmitting
+                ? () => {}
+                : async () => {
+                    let isValid = validate(songForm.values)
+                    if (isValid) {
+                      setValidArtist(true)
+                      setValidHoliday(true)
+                      setValidSong(true)
+                      setValidCharacter(true)
+                      songForm.setFieldValue(
+                        'holiday',
+                        songForm.values.holiday - 1
+                      )
+                      songForm.setFieldValue(
+                        'protagonist',
+                        songForm.values.protagonist - 1
+                      )
+                      songForm.submitForm()
+                    }
+                  }
+            }
           >
-            {isSubmitting ? <CircularProgress /> : buttonText}
+            {isSubmitting ? (
+              <CircularProgress />
+            ) : (
+              <Typography>Generate Song</Typography>
+            )}
           </Button>
           <Divider
             light={true}
