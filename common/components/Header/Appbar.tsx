@@ -36,9 +36,9 @@ export default function MenuAppBar() {
         // color='transparent'
         enableColorOnDark
         elevation={0}
-        sx={{ backgroundColor: '#090c24' ,width:'100%'}}
+        sx={{ backgroundColor: '#090c24', width: '100%' }}
       >
-        <Toolbar sx={{justifyContent: 'space-between'}}>
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link href='/'>
             <IconButton children={<AiOutlineHome />} />
           </Link>

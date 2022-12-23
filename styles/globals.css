@@ -43,10 +43,19 @@ a {
 
 .MuiSlider-markLabel[data-index='0'] {
   color: #ef5350;
+  font-weight: bold;
+  font-family: Bad Script;
+  letter-spacing: 0.1rem;
 }
 .MuiSlider-markLabel[data-index='2'] {
   color: #fff;
+  font-weight: bold;
+  font-family: Bad Script;
+  letter-spacing: 0.1rem;
 }
 .MuiSlider-markLabel[data-index='4'] {
   color: #00e676;
+  font-weight: bold;
+  font-family: Bad Script;
+  letter-spacing: 0.1rem;
 }
