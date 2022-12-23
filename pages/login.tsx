@@ -29,7 +29,7 @@ const Login = (props: Props) => {
             new Promise(resolve => setTimeout(() => resolve(x), 1000))
           }
         })
-        .then(authUser => router.push("/"))
+        .then(authUser => router.push("/app"))
         .finally(() => {
           // setTimeout(() => {
           //   mounted.current && setIsSubmitting(false)
@@ -50,7 +50,7 @@ const Login = (props: Props) => {
 
   useEffect(() => {
     if (loadingUser.user != null && loadingUser.isLoading == false) {
-      router.push('/')
+      router.push('/app')
     }
   }, [loadingUser.user])
 

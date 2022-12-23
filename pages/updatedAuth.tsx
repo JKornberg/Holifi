@@ -14,7 +14,7 @@ const UpdatedAuth = (props: Props) => {
     const router = useRouter();
 
     useEffect(() => {
-        router.push("/")
+        router.push("/app")
     })
 
 

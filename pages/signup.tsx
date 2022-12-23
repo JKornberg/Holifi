@@ -28,7 +28,7 @@ const Signup = (props: Props) => {
 
     useEffect(() => {
         if (loadingUser.user != null && loadingUser.isLoading == false) {
-            router.push('/')
+            router.push('/app')
         }
     }, [loadingUser.user])
     const formik = useFormik({
