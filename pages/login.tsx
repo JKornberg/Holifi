@@ -62,7 +62,19 @@ const Login = (props: Props) => {
   return (
     <Container maxWidth={'sm'} component="main"><Snackbar open={open}><Alert>'Credentials not valid.'</Alert></Snackbar>
 
-      {loading ? <CircularProgress /> :
+      {loading ?
+
+        //center circular progress
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '100vh',
+          }}
+        >
+          <CircularProgress />
+        </Box> :
         <>
           <form onSubmit={formik.handleSubmit}>
             <Box
