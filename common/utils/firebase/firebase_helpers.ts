@@ -40,7 +40,7 @@ export async function retrieveUser(uid: string) {
 export const formatUser = async (user: User): Promise<FormatUserType> => {
     const decodedToken = await user.getIdTokenResult(/*forceRefresh*/ true);
     const { token, expirationTime } = decodedToken;
-
+    console.log("Format User Token: ", token)
     return {
         uid: user.uid,
         email: user.email ?? "",

@@ -54,7 +54,7 @@ export default function AuthContextProvider(props: Props) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
-      console.log("In Handle User " + user?.email);
+      // console.log("In Handle User " + user?.email);
       setLoadingUser((prevState) => ({ ...prevState, isLoading: true }));
       handleUser(user);
     })
@@ -79,18 +79,17 @@ export default function AuthContextProvider(props: Props) {
   }, []);
 
   const handleUser = async (rawUser: User | null) => {
+    console.log("handling");
     if (rawUser) {
       const formattedUser : FormatUserType = await formatUser(rawUser);
       const user : AppUser = new AppUser(formattedUser);
-      const firestoreUser = await retrieveUser(user.id);
-      if (firestoreUser) {
-        user.addFirestoreData(firestoreUser);
+      // const firestoreUser = await retrieveUser(user.id);
+      if (true) {
+        // user.addFirestoreData(firestoreUser);
         const { token, ...userWithoutToken } = formattedUser;
         nookies.set(undefined, 'token', token, { path: '/' });
         //await createUser(user.uid, userWithoutToken);
         setLoadingUser({ user: user, isLoading: false });
-        console.log("User is: ")
-        console.log(user);
       } else {
         // updateFirestoreDoc('users/'+ user.id, user.toObjectForFirebase());
         setLoadingUser({ user: user, isLoading: false });

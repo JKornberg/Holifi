@@ -67,25 +67,22 @@ const Home = () => {
       setIsSubmitting(true)
       console.log('sending')
       fetch('/api/song/search', {
-        method: 'POST',
-        body: JSON.stringify(values),
-      })
-        .then((res) => {
-          if (res.status == 200) {
-            return res.json().then((data) => {
-              // console.log(data.lyrics);
-              setSongData(data)
-            })
-          } else {
-            res.json().then((data) => {
-              console.log('Error getting song')
-            })
-          }
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-        .finally(() => {
+        headers: { Authorization: "Bearer " + loadingUser.user?.token },
+        method: 'POST', body: JSON.stringify(values)
+      }).then(res => {
+        if (res.status == 200) {
+          return res.json().then(data => {
+            // console.log(data.lyrics);
+            setSongData(data);
+          })
+        } else {
+          res.json().then(data => {
+            console.log("Error getting song");
+          })
+        }
+      }).catch(err => {
+        console.log(err);
+      }).finally(() => {
           setIsSubmitting(false)
         })
 

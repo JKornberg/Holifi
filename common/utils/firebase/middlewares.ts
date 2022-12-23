@@ -15,7 +15,6 @@ export function withAuth(handler: (req: NextRequestWithUid, res: NextApiResponse
     let decodedToken;
     let req_with_uid: any;
     try {
-      console.log("Token: " + token);
       decodedToken = await firebaseAdmin.auth().verifyIdToken(token);
       if (!decodedToken || !decodedToken.uid) {
         return res.status(401).end('Not authenticated');
@@ -44,7 +43,6 @@ export async function verifyAuthSSR(ctx: GetServerSidePropsContext) : Promise<st
 
     // the user is authenticated!
     const uid = token['uid'];
-    console.log(token);
     return uid;
   } catch (err) {
     // either the `token` cookie didn't exist
