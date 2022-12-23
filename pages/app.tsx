@@ -111,13 +111,13 @@ const Home = () => {
   let [dropDown, setDropDown] = useState<boolean>(false)
   let [sliderMargin, setSliderMargin] = useState<boolean>(false)
   useEffect(() => {
-    if (width <= 860) {
-      if (width <= 650) {
-        setSliderMargin(true)
+    if (width <= 650) {
+      setSliderMargin(true)
+      if (width <= 500) {
+        setDropDown(true)
       } else {
-        setSliderMargin(false)
+        setDropDown(false)
       }
-      setDropDown(true)
     } else {
       setSliderMargin(false)
       setDropDown(false)
@@ -131,23 +131,27 @@ const Home = () => {
   switch (naughtyLevel) {
     case -2:
       buttonColor = red[500]
-      buttonText = 'Ho Ho Ho 👹'
+      // buttonText = 'Ho Ho Ho 👹'
+      buttonText = 'Generate Song 😊'
       break
     case -1:
       buttonColor = red[200]
-      buttonText = 'Naughty'
+      // buttonText = 'Naughty'
+      buttonText = 'Generate Song 😊'
       break
     case 0:
       buttonColor = '#fff'
-      buttonText = 'Submit 😐'
+      buttonText = 'Generate Song 😊'
       break
     case 1:
       buttonColor = green[300]
-      buttonText = "Aren't you sweet"
+      // buttonText = "Aren't you sweet"
+      buttonText = 'Generate Song 😊'
       break
     case 2:
       buttonColor = green['A400']
-      buttonText = "Santa's Little Helper 😇"
+      // buttonText = "Santa's Little Helper 😇"
+      buttonText = 'Generate Song 😊'
       break
   }
 
@@ -175,8 +179,15 @@ const Home = () => {
       <Container maxWidth='md'>
         <Box component='div' textAlign='center'>
           <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-            <Stack direction={'row'} alignItems={'center'}>
-              <Box margin={5} minWidth={300} alignSelf={'center'}>
+            <Stack
+              direction={dropDown ? 'column' : 'row'}
+              alignItems={'center'}
+              justifyContent={'center'}
+            >
+              <Box
+                margin={dropDown ? '0 0 0.5rem 0' : '0 1rem 0 0'}
+                minWidth={width <= 650 ? 225 : 300}
+              >
                 <FormControl fullWidth>
                   <InputLabel
                     variant='outlined'
@@ -190,13 +201,16 @@ const Home = () => {
                   </InputLabel>
                   <Select
                     aria-labelledby='demo-radio-buttons-group-label'
-                    defaultValue='female'
                     name='radio-buttons-group'
+                    displayEmpty
                     label='Holiday'
                     onChange={(e) =>
                       songForm.setFieldValue('holiday', e.target.value)
                     }
                   >
+                    <MenuItem disabled value=''>
+                      Holiday
+                    </MenuItem>
                     <MenuItem value={0}>Christmas</MenuItem>
                     <MenuItem value={1}>Hanukkah</MenuItem>
                     <MenuItem value={2}>Kwanzaa</MenuItem>
@@ -205,33 +219,37 @@ const Home = () => {
                   </Select>
                 </FormControl>
               </Box>
-              <Box>
-                <Box minWidth={300}>
-                  <FormControl fullWidth>
-                    <InputLabel
-                      variant='outlined'
-                      id='demo-radio-buttons-group-label'
-                      sx={{ alignItems: 'center', display: 'flex' }}
-                    >
-                      Protagonist
-                    </InputLabel>
-                    <Select
-                      aria-labelledby='demo-radio-buttons-group-label'
-                      defaultValue='female'
-                      name='radio-buttons-group'
-                      label='Protagonist'
-                      onChange={(e) =>
-                        songForm.setFieldValue('protagonist', e.target.value)
-                      }
-                    >
-                      <MenuItem value={0}>Santa Clause</MenuItem>
-                      <MenuItem value={1}>Jesus Christ</MenuItem>
-                      <MenuItem value={2}>Judah Maccabee</MenuItem>
-                      <MenuItem value={3}>Moses</MenuItem>
-                      <MenuItem value={4}>The Grinch</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
+              <Box
+                margin={dropDown ? '0.5rem 0 0 0' : '0 0 0 1rem'}
+                minWidth={width <= 650 ? 225 : 300}
+              >
+                <FormControl fullWidth>
+                  <InputLabel
+                    variant='outlined'
+                    id='demo-radio-buttons-group-label'
+                    sx={{ alignItems: 'center', display: 'flex' }}
+                  >
+                    Character
+                  </InputLabel>
+                  <Select
+                    aria-labelledby='demo-radio-buttons-group-label'
+                    name='radio-buttons-group'
+                    label='Character'
+                    displayEmpty
+                    onChange={(e) =>
+                      songForm.setFieldValue('protagonist', e.target.value)
+                    }
+                  >
+                    <MenuItem value='' disabled>
+                      Character
+                    </MenuItem>
+                    <MenuItem value={0}>Santa Clause</MenuItem>
+                    <MenuItem value={1}>Jesus Christ</MenuItem>
+                    <MenuItem value={2}>Judah Maccabee</MenuItem>
+                    <MenuItem value={3}>Moses</MenuItem>
+                    <MenuItem value={4}>The Grinch</MenuItem>
+                  </Select>
+                </FormControl>
               </Box>
             </Stack>
             <Box
@@ -263,7 +281,7 @@ const Home = () => {
             variant={'fullWidth'}
             style={{
               margin: '30px auto',
-              width: '800px',
+              width: '80%',
               backgroundColor: 'lightgrey',
               height: '0.5px',
               border: 'none',
@@ -281,7 +299,7 @@ const Home = () => {
             justifyContent='center'
           >
             <Box
-              width={'40%'}
+              width={{ xs: '80%', sm: '40%' }}
               marginRight={sliderMargin ? 0 : 2.5}
               margin={sliderMargin ? '0 auto' : '0 2.5 0 0'}
             >
@@ -299,7 +317,10 @@ const Home = () => {
                 />
               </FormControl>
             </Box>
-            <Box width={'40%'} margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}>
+            <Box
+              width={{ xs: '80%', sm: '40%' }}
+              margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}
+            >
               <FormControl id='email' fullWidth>
                 <TextField
                   margin='normal'
@@ -317,6 +338,7 @@ const Home = () => {
           </Stack>
           <Button
             sx={{ backgroundColor: buttonColor }}
+            style={{ marginBottom: 0 }}
             onClick={isSubmitting ? () => {} : songForm.submitForm}
           >
             {isSubmitting ? <CircularProgress /> : buttonText}
@@ -326,7 +348,7 @@ const Home = () => {
             variant={'fullWidth'}
             style={{
               margin: '30px auto',
-              width: '800px',
+              width: '80%',
               backgroundColor: 'lightgrey',
               height: '0.5px',
               border: 'none',

@@ -30,7 +30,12 @@ export default function MenuAppBar() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position='static' color='transparent' enableColorOnDark>
+      <AppBar
+        position='static'
+        color='transparent'
+        enableColorOnDark
+        elevation={0}
+      >
         <Toolbar>
           <Link href='/'>
             <IconButton children={<AiOutlineHome />} />
