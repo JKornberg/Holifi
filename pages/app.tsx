@@ -178,8 +178,8 @@ const Home = () => {
       </Head>
       <MenuAppbar />
       {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
-      <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}>
-        <Box component='div' textAlign='center'>
+      <Container maxWidth='md' sx={{backgroundColor: 'rgba(9, 12, 36, 0.8)' }}>
+        <Box component='div' textAlign='center' paddingTop={3}>
           <Box margin='0 auto' marginTop={5} alignItems={'center'}>
             <Stack
               direction={dropDown ? 'column' : 'row'}
