@@ -85,11 +85,14 @@ export default function ShareModal(props: {
           width={'100%'}
           height={'80%'}
           style={{
+            backgroundPosition: 'top center',
+            backgroundImage: `url(${shareImage})`,
             margin: '0 auto',
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
           }}
         >
-          <Box id='ShareableContainer'
-          >
+          {/* <Box id='ShareableContainer'>
             <Box
               display={'flex'}
               margin={'0 auto'}
@@ -219,8 +222,7 @@ export default function ShareModal(props: {
                 </Stack>
               </Box>
             </Box>
-          </Box>
-
+          </Box> */}
         </Box>
         <Button
           style={{
@@ -228,24 +230,23 @@ export default function ShareModal(props: {
             margin: '20px auto',
           }}
           onClick={() => {
-            let element = document.getElementById('ShareableContainer')
-            toJpeg(element!, {
-              quality: 0.95,
-              canvasWidth: 240,
-              canvasHeight: 426,
-
-            }).then(async (dataUrl: any) => {
-              setDataUrl(dataUrl)
-              const blob = await (await fetch(dataUrl)).blob()
-              const file = new File([blob], 'image.jpeg', {
-                type: 'image/jpeg',
-              })
-              // navigator.share({ url: dataUrl })
-              navigator.share({
-                title: 'HoliFi',
-                text: 'Check out my HoliFi song!',
-                files: [file],
-              })
+            // let element = document.getElementById('ShareableContainer')
+            // toJpeg(element!, {
+            //   quality: 0.95,
+            //   canvasWidth: 240,
+            //   canvasHeight: 426,
+            // }).then(async (dataUrl: any) => {
+            //   setDataUrl(dataUrl)
+            //   const blob = await (await fetch(dataUrl)).blob()
+            //   const file = new File([blob], 'image.jpeg', {
+            //     type: 'image/jpeg',
+            //   })
+            // navigator.share({ url: dataUrl })
+            navigator.share({
+              title: 'HoliFi',
+              text: 'Check out my HoliFi song!',
+              files: [songFile],
+              //   })
             })
           }}
         >
