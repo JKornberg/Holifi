@@ -15,7 +15,7 @@ export default function Document() {
         <meta property='og:title' content='Holifi' />
         <meta
           property='og:description'
-          content='AI generated holiday themed music!'
+          content='Make holiday themed parodies of your favorite songs with AI!'
         />
         <meta property='og:image' content='/snow_cabin.jpg' />
       </Head>
