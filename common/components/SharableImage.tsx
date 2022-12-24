@@ -7,8 +7,10 @@ export default function SharableImage(props: {
   randomState: any
   formData: any
   songData: any
+  Protagonists: any
 }) {
-  const { showShareImage, randomState, formData, songData } = props
+  const { showShareImage, randomState, formData, songData, Protagonists } =
+    props
 
   enum Holidays {
     'Christmas' = 0,
@@ -16,13 +18,6 @@ export default function SharableImage(props: {
     'Kwanzaa' = 2,
     'New Years' = 3,
     '' = 4,
-  }
-  enum Protagonists {
-    'Santa Clause' = 0,
-    'Jesus Christ' = 1,
-    'Judah Macabee' = 2,
-    'Moses' = 3,
-    'The Grinch' = 4,
   }
 
   return (
