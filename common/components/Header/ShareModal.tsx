@@ -92,8 +92,7 @@ export default function ShareModal(props: {
           }}
           onClick={() => {
             let share = {
-              title: 'HoliFi',
-              text: 'Check out my HoliFi song!',
+              title: 'HoliFi Song',
               files: [songFile],
             }
             if (
