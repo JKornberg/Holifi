@@ -42,7 +42,7 @@ export default function SharableImage(props: {
         <Box
           padding={5}
           height='100%'
-          sx={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+          sx={{ backgroundColor: 'rgba(0,0,0,0.7)' }}
         >
           <Stack direction={'column'} height='100%'>
             <Box height={'7.66%'}>
