@@ -9,6 +9,7 @@ import {
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FiShare } from 'react-icons/fi'
 import { useState } from 'react'
+import { isMobile } from 'react-device-detect';
 
 export default function ShareModal(props: {
   shareModal: any
@@ -88,7 +89,7 @@ export default function ShareModal(props: {
               text: 'Check out my HoliFi song!',
               files: [songFile],
             }
-            if (navigator.canShare != undefined && navigator.canShare(share)) {
+            if (navigator.canShare != undefined && navigator.canShare(share) && isMobile) {
               navigator.share(share).catch((error) => {}) // do nothing, user cancelled share
             } else {
               const link = document.createElement('a')
