@@ -16,7 +16,7 @@ const handler = async (req: NextRequestWithUid, res: NextApiResponse) => {
                 // console.log(response.body);
                 response.json().then((data: any) => {
                     // console.log(data);
-                    if (data?.lyrics == '' || data?.lyrics == null){
+                    if (data?.lyrics == '' || data?.lyrics == null || data.lyrics == undefined){
                         res.status(400).json({error: "No lyrics found"});
                         resolve();
                     }
