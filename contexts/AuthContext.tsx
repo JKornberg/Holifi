@@ -1,6 +1,5 @@
 import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react'
 import {
-  createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendPasswordResetEmail,
   onAuthStateChanged,
@@ -8,18 +7,14 @@ import {
   GoogleAuthProvider,
   signOut,
   confirmPasswordReset,
-  getAuth,
   User,
-  UserCredential,
-  signInWithRedirect,
 } from 'firebase/auth'
 import { auth } from '../common/utils/firebase/clientApp'
 import nookies from 'nookies';
 import { AuthContextType, FormatUserType, LoadingUserType } from '../common/types/firebase_types';
-import { createUser, formatUser, retrieveUser, updateFirestoreDoc } from '../common/utils/firebase/firebase_helpers';
-import { phone } from 'phone';
+import { formatUser } from '../common/utils/firebase/firebase_helpers';
 import { AppUser } from '../common/classes/appUser';
-
+import fetch from 'isomorphic-unfetch';
 interface Props {
   children: ReactNode
 }

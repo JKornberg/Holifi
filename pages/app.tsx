@@ -25,7 +25,7 @@ import SharableImage from '../common/components/SharableImage'
 // Used to include thumbnail data for safely rendering user models on dashboard
 import html2canvas from 'html2canvas'
 import DisplayedImage from '../common/components/DisplayedImage'
-
+import fetch from 'isomorphic-unfetch'
 type SongDataType = {
   title: string
   lyrics: string
@@ -205,7 +205,7 @@ const Home = () => {
     },
     onSubmit: async (values) => {
       setIsSubmitting(true)
-      console.log('sending')
+      console.log('Fetching Holified Song...')
       fetch('/api/song/search', {
         headers: { Authorization: 'Bearer ' + loadingUser.user?.token },
         method: 'POST',

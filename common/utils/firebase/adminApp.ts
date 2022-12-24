@@ -19,7 +19,7 @@ if (!firebaseAdmin.apps.length) {
     // "auth_provider_x509_cert_url": process.env.auth_provider_x509_cert_url,
     // "client_x509_cert_url": process.env.client_x509_cert_url
   };
-  console.log(creds);
+  // console.log(creds);
   firebaseAdmin.initializeApp({
     credential: firebaseAdmin.credential.cert(
       creds
