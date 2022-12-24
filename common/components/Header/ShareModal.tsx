@@ -13,8 +13,9 @@ export default function ShareModal(props: {
   shareModal: any
   setShareModal: any
   shareImage: any
+  songFile: any
 }) {
-  const { shareModal, setShareModal, shareImage } = props
+  const { shareModal, setShareModal, shareImage, songFile } = props
   return (
     <Modal
       open={shareModal}
@@ -77,6 +78,14 @@ export default function ShareModal(props: {
           style={{
             display: 'block',
             margin: '20px auto',
+          }}
+          onClick={() => {
+            navigator.share({
+              title: 'HoliFi',
+              text: 'Check out my HoliFi song!',
+              files: [songFile],
+            })
+
           }}
         >
           <FiShare />

@@ -81,7 +81,7 @@ const Home = () => {
   let [shareModal, setShareModal] = useState<boolean>(false)
   let [shareImage, setShareImage] = useState<String>('')
   let [showShareImage, setShowShareImage] = useState<boolean>(false)
-
+  let [songFile, setSongFile] = useState<File | null>(null)
   const validate = (values: {
     artist: string
     song: string
@@ -193,8 +193,11 @@ const Home = () => {
       if (element == null) {
         return
       }
-      toJpeg(element, { quality: 0.95 }).then(async (dataUrl: any) => {
+      toJpeg(element, { quality: 0.95}).then(async (dataUrl: any) => {
         setShareImage(dataUrl)
+        const blob = await ( await fetch(dataUrl)).blob()
+        const file = new File([blob], 'image.jpeg', { type: 'image/jpeg' })
+        setSongFile(file);
         // navigator.share({ url: dataUrl })
       })
     }
@@ -258,6 +261,7 @@ const Home = () => {
           setShareModal={setShareModal}
           shareModal={shareModal}
           shareImage={shareImage}
+          songFile={songFile}
         />
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
@@ -458,7 +462,7 @@ const Home = () => {
           justifyContent={'space-between'}
           id='ShareableContainer'
           sx={{
-            display: showShareImage ? 'block' : 'none',
+            display: showShareImage ? 'block' : 'block',
             backgroundImage: 'url("/lyrics_bg2.png")',
             backgroundSize: 'cover',
           }}
