@@ -150,7 +150,7 @@ export default function AuthContextProvider(props: Props) {
 
   function forgotPassword(email: string) {
     return sendPasswordResetEmail(auth, email, {
-      url: `http://localhost:3000/login`,
+      url: `https://holifimusic.com/login`,
     })
   }
 
