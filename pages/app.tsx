@@ -38,7 +38,7 @@ import ErrorModal from '../common/components/Header/ErrorModal'
 import { toJpeg } from 'html-to-image'
 import ShareModal from '../common/components/Header/ShareModal'
 import GeneralOptions from '../common/components/Header/GeneralOptions'
-
+import html2canvas from 'html2canvas'
 const enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
@@ -193,19 +193,9 @@ const Home = () => {
       if (element == null) {
         return
       }
-      toJpeg(element, {
-        quality: 0.95,
-        canvasWidth: 360,
-        canvasHeight: 640,
-      }).then(async (dataUrl: any) => {
+      html2canvas(element, {scale: 1}).then(async (canvas) => {
+        let dataUrl = canvas.toDataURL();
         setShareImage(dataUrl)
-      })
-      toJpeg(element, {
-        quality: 0.95,
-        canvasWidth: 240,
-        canvasHeight: 426,
-      }).then(async (dataUrl: any) => {
-        // setShareImage(dataUrl)
         const blob = await (await fetch(dataUrl)).blob()
         const file = new File([blob], 'image.jpeg', { type: 'image/jpeg' })
         setSongFile(file)
@@ -426,7 +416,7 @@ const Home = () => {
             </Button>
           </Box>
         </Container>
-        <Box
+        {/* <Box
           sx={{
             backgroundImage: 'url("/snow_cabin4.jpg")',
           }}
@@ -454,7 +444,11 @@ const Home = () => {
                     : 'Lyrics will appear here'
                 }
               />
-              <Box width='100%' textAlign={'end'}>
+              
+            </Box>
+          </Container>
+        </Box> */}
+        <Box width='100%' textAlign={'end'}>
                 <Button
                   onClick={() => {
                     setShowShareImage(true)
@@ -463,9 +457,6 @@ const Home = () => {
                   Share
                 </Button>
               </Box>
-            </Box>
-          </Container>
-        </Box>
       </Box>
       {songData?.lyrics == null ? (
         <Box></Box>
@@ -487,6 +478,7 @@ const Home = () => {
             height={'1920px'}
             width={'1080px'}
           >
+            {/* <img src='/lyrics_bg2.png' /> */}
             <Box
               padding={5}
               height='100%'
