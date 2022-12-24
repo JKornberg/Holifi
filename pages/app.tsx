@@ -45,7 +45,7 @@ enum Holidays {
   'Hanukkah' = 1,
   'Kwanzaa' = 2,
   'New Years' = 3,
-  'Non-Denominational' = 4,
+  '' = 4,
 }
 enum Protagonists {
   'Santa Clause' = 0,
@@ -140,7 +140,6 @@ const Home = () => {
         .then((res) => {
           if (res.status == 200) {
             return res.json().then((data) => {
-              // console.log(data.lyrics);
               setSongData(data)
             })
           } else {
@@ -237,10 +236,7 @@ const Home = () => {
     setShowShareImage(false)
   }, [showShareImage])
 
-  let [songData, setSongData] = useState<SongDataType>({
-    lyrics: 'test',
-    title: 'test ',
-  })
+  let [songData, setSongData] = useState<SongDataType>({title:'title',lyrics:'lyrics'})
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
   let buttonText
@@ -455,10 +451,33 @@ const Home = () => {
             Share
           </Button>
           }
-          
         </Container>
-
       </Box>
+      {songData?.lyrics == null ? <Box></Box> : (
+         <Box
+          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
+          marginTop={0}
+          width='100%'
+        >
+          <Container>
+            <Box width={'100%'} marginBottom={'15px'}>
+              <TextField
+                multiline
+                maxRows={Infinity}
+                fullWidth
+                disabled
+                sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
+                value={
+                  songData !== null
+                    ? songData.lyrics
+                    : 'Lyrics will appear here'
+                }
+              />
+            </Box>
+          </Container>
+
+        </Box>
+      )}
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
@@ -467,6 +486,7 @@ const Home = () => {
           margin='0 auto'
           height={'1920px'}
           width={'1080px'}
+          display={showShareImage ? 'block' : 'none'}
         >
           <Box
             display={'flex'}
