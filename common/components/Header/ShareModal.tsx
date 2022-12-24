@@ -47,7 +47,7 @@ export default function ShareModal(props: {
       }}
     >
       <Box
-        width={{ xs: '90%', sm: '50%', md: '50%' }}
+        width={{ xs: '90%', sm: '60%', md: '50%' }}
         style={{
           backgroundColor: '#090c24',
           padding: 5,

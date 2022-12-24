@@ -40,7 +40,7 @@ import ShareModal from '../common/components/Header/ShareModal'
 import GeneralOptions from '../common/components/Header/GeneralOptions'
 import html2canvas from 'html2canvas'
 import { lyricImageColors, lyricLogoColors } from '../styles/theme'
-const enum Holidays {
+enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
   'Kwanzaa' = 2,
@@ -48,13 +48,14 @@ const enum Holidays {
   'Non-Denominational' = 4,
 }
 enum Protagonists {
-  'Santa' = 0,
-  'Rudolph' = 1,
-  'Jesus' = 2,
-  'Judah Macabee' = 3,
-  'Moses' = 4,
-  'The Grinch' = 5,
+  'Santa Clause' = 0,
+  'Jesus Christ' = 1,
+  'Judah Macabee' = 2,
+  'Moses' = 3,
+  'The Grinch' = 4,
 }
+
+let NaughtyTier = {'-2':'Naughty','-1':'Naughty','0':'','1':'Nice','2':'Nice'}
 
 type SongDataType = {
   title: string
@@ -83,7 +84,8 @@ const Home = () => {
   let [shareImage, setShareImage] = useState<String>('')
   let [showShareImage, setShowShareImage] = useState<boolean>(false)
   let [songFile, setSongFile] = useState<File | null>(null)
-  let [randomState, setRandomState] = useState<number>(4)
+  let [randomState, setRandomState] = useState<number>(0)
+  let [formData, setFormData] = useState({'Song':'','Artist':'','Character':-1,'Holiday':-1, 'NaughtyLevel':''})
   const validate = (values: {
     artist: string
     song: string
@@ -151,7 +153,26 @@ const Home = () => {
         })
         .finally(() => {
           setIsSubmitting(false)
-          // setRandomState(Math.floor(Math.random() * 5))
+          let niceLevel = ''
+          switch (songForm.values.niceScale) {
+            case -2:
+              niceLevel = 'Naughty'
+              break
+            case -1:
+              niceLevel = 'Naughty'
+              break
+            case 0:
+              niceLevel = ''
+              break
+            case 1:
+              niceLevel = 'Nice'
+              break
+            case 2:
+                niceLevel = 'Nice'
+                break
+          }
+          setFormData({'Song':songForm.values.song, 'Artist':songForm.values.artist, 'Character':songForm.values.protagonist, 'Holiday':songForm.values.holiday, 'NaughtyLevel':niceLevel})
+          setRandomState(Math.floor(Math.random() * 5))
           songForm.setFieldValue('holiday', songForm.values.holiday + 1)
           songForm.setFieldValue('protagonist', songForm.values.protagonist + 1)
         })
@@ -425,8 +446,8 @@ const Home = () => {
             </Button>
           </Box>
         </Container>
-        <Box width='100%' textAlign={'end'}>
-          <Button
+        <Box width='100%' margin={'0 auto'} textAlign={'center'}>
+          <Button disabled
             onClick={() => {
               setShowShareImage(true)
             }}
@@ -469,7 +490,6 @@ const Home = () => {
                     alignItems={'center'}
                   >
                     <Logo marginX={3} width={'inherit'} accent={lyricLogoColors[randomState]}/>
-                    {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
                     <Divider
                       orientation='vertical'
                       flexItem
@@ -487,15 +507,18 @@ const Home = () => {
                     >
                       <Typography
                         variant={'h1'}
+                        letterSpacing={0.2}
                         fontSize='3rem'
+                        fontWeight={'bold'}
                         display={'inline'}
-                        sx={{ fontFamily: 'Sonsie One, cursive' }}
+                        // sx={{ fontFamily: 'Sonsie One, cursive' }}
                       >
-                        {Protagonists[songForm.values.protagonist]} presents
+                        {Protagonists[formData['Character']]} presents
                       </Typography>
                       <Typography
                         variant={'h1'}
-                        fontSize='3rem'
+                        marginTop={'10px'}
+                        fontSize='2.5rem'
                         display={'inline'}
                       >
                         {' '}
@@ -529,7 +552,7 @@ const Home = () => {
                   display='flex'
                 >
                   <Typography variant={'h1'} fontSize='4rem' display={'inline'}>
-                    Certified naughty Christmas song @ holifimusic.com
+                    {`Certified ${formData['NaughtyLevel']} ${Holidays[formData['Holiday']]} song @ holifimusic.com`}
                   </Typography>
                 </Box>
               </Stack>
