@@ -39,7 +39,7 @@ export default function SharableImage(props: {
           backgroundSize: 'cover',
           border: 'solid',
           borderWidth: '4px',
-          borderColor: 'black',
+          borderColor: lyricImageColors[randomState],
         }}
         height={'100%'}
         width={'100%'}
@@ -125,6 +125,8 @@ export default function SharableImage(props: {
               marginTop={{ xs: '20px', sm: '40px', md: '50px' }}
               marginBottom={{ xs: '15px', md: '30px' }}
               overflow='hidden'
+              sx={{backgroundColor: 'rgba(0,0,0,.5)'}}
+
             >
               <Stack height='100%'>
                 <Typography

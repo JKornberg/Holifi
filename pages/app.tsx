@@ -435,60 +435,16 @@ const Home = () => {
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
-        // <Box
-        //   paddingX={{ xs: 0.5, sm: 8, md: 12 }}
-        //   paddingTop={10}
-        //   width='100%'
-        //   minHeight={'25vh'}
-        //   sx={{
-        //     backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
-        //     boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)',
-        //   }}
-        // >
-        //   <Container>
-        //     <Box width={'100%'} marginBottom={'15px'}>
-        //       <Typography>
-        //         {Protagonists[formData['character']]}
+        <Box width='100%' height='100%' sx={{backgroundColor: '#000', backgroundImage: 'url("/snow_cabin.jpg")', backgroundSize: 'cover'}} paddingTop={5}>
+          <DisplayedImage
+            Protagonists={Protagonists}
+            showShareImage={showShareImage}
+            randomState={randomState}
+            formData={formData}
+            songData={songData}
+          />
+        </Box>
 
-        //       </Typography>
-        //       <Typography
-        //         variant={'h1'}
-        //         fontSize='2.5rem'
-        //         display={'inline'}
-        //         marginX={5}
-        //       >
-        //         presents {songData.title}
-        //       </Typography>
-        //       <OutlinedInput
-        //         multiline
-        //         maxRows={Infinity}
-        //         fullWidth
-        //         disabled
-        //         inputProps={{ style: { textAlign: 'center' } }}
-
-        //         sx={{
-        //           color: 'fff',
-        //           backgroundColor: 'rgba(	9, 12, 36, 0.2)',
-        //           '& .MuiOutlinedInput-input.Mui-disabled': {
-        //             WebkitTextFillColor: 'white',
-        //           },
-        //         }}
-        //         value={
-        //           songData !== null
-        //             ? songData.lyrics
-        //             : 'Lyrics will appear here'
-        //         }
-        //       />
-        //     </Box>
-        //   </Container>
-        // </Box>
-        <DisplayedImage
-          Protagonists={Protagonists}
-          showShareImage={showShareImage}
-          randomState={randomState}
-          formData={formData}
-          songData={songData}
-        />
       )}
       {/* --------------- Lyrics Display End  -------------- */}
     </Fragment>
