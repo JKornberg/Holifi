@@ -33,8 +33,11 @@ import useWindowSize from '../common/hooks/useWindowSize'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { Logo } from '../common/components/Header/logo'
 import { FiShare } from 'react-icons/fi'
+import ErrorModal from '../common/components/Header/ErrorModal'
 // Used to include thumbnail data for safely rendering user models on dashboard
 import { toJpeg } from 'html-to-image'
+import ShareModal from '../common/components/Header/ShareModal'
+import GeneralOptions from '../common/components/Header/GeneralOptions'
 
 const enum Holidays {
   'Christmas' = 0,
@@ -190,7 +193,7 @@ const Home = () => {
       if (element == null) {
         return
       }
-      toJpeg(element, { quality: 0.95 }).then((dataUrl: any) => {
+      toJpeg(element, { quality: 0.95 }).then(async (dataUrl: any) => {
         setShareImage(dataUrl)
         // navigator.share({ url: dataUrl })
       })
@@ -203,8 +206,6 @@ const Home = () => {
     title: 'test ',
   })
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
-  let [character, setCharacter] = useState<String>('')
-  let [holiday, setHoliday] = useState<String>('')
   let buttonColor
   let buttonText
   switch (naughtyLevel) {
@@ -252,128 +253,12 @@ const Home = () => {
         {/* <Link rel="icon" href="/favicon.ico" /> */}
       </Head>
       <Box component='div'>
-        <Modal
-          open={fetchError}
-          onClose={() => setFetchError(false)}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-            style={{
-              backgroundColor: '#090c24',
-              padding: 20,
-              borderRadius: 10,
-              position: 'relative',
-            }}
-            width={{ xs: '70%', sm: '45%', md: '30%' }}
-          >
-            <IconButton
-              style={{ position: 'absolute', top: 0, right: 0 }}
-              children={<AiOutlineCloseCircle />}
-              onClick={() => setFetchError(false)}
-            />
-            <Typography
-              id='modal-modal-title'
-              variant='h6'
-              textAlign={'center'}
-              fontFamily='Montserrat'
-              color='#ef5350'
-            >
-              Error generating lyrics
-            </Typography>
-            <Divider
-              light={true}
-              variant={'fullWidth'}
-              style={{
-                margin: '10px auto',
-                width: '100%',
-                backgroundColor: 'lightgrey',
-                height: '0.5px',
-                border: 'none',
-              }}
-            />
-            <Typography
-              id='modal-modal-title'
-              textAlign={'center'}
-              fontFamily='Montserrat'
-              color='lightgrey'
-            >
-              Please try again in a moment
-            </Typography>
-          </Box>
-        </Modal>
-        <Modal
-          open={shareModal}
-          onClose={() => setShareModal(false)}
-          aria-labelledby='modal-modal-title'
-          aria-describedby='modal-modal-description'
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}
-        >
-          <Box
-            width={{ xs: '90%', sm: '50%', md: '30%' }}
-            style={{
-              backgroundColor: '#090c24',
-              padding: 20,
-              borderRadius: 10,
-              position: 'relative',
-              height: '90%',
-            }}
-          >
-            <IconButton
-              style={{ position: 'absolute', top: 0, right: 0 }}
-              children={<AiOutlineCloseCircle />}
-              onClick={() => setShareModal(false)}
-            />
-            <Typography
-              id='modal-modal-title'
-              variant='h6'
-              textAlign={'center'}
-              fontFamily='Montserrat'
-              color='#ef5350'
-            >
-              Share
-            </Typography>
-            <Divider
-              light={true}
-              variant={'fullWidth'}
-              style={{
-                margin: '5px auto',
-                width: '100%',
-                backgroundColor: 'lightgrey',
-                height: '0.5px',
-                border: 'none',
-              }}
-            />
-            <Box
-              width={'100%'}
-              height={'80%'}
-              style={{
-                backgroundPosition: 'top center',
-                backgroundImage: `url(${shareImage})`,
-                margin: '0 auto',
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-              }}
-            ></Box>
-            <Button
-              style={{
-                display: 'block',
-                margin: '20px auto',
-              }}
-            >
-              <FiShare />
-            </Button>
-          </Box>
-        </Modal>
+        <ErrorModal setFetchError={setFetchError} fetchError={fetchError} />
+        <ShareModal
+          setShareModal={setShareModal}
+          shareModal={shareModal}
+          shareImage={shareImage}
+        />
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
         <Container
@@ -385,152 +270,18 @@ const Home = () => {
           }}
         >
           <Box component='div' textAlign='center' paddingTop={3}>
-            <Box margin='0 auto' marginTop={5} alignItems={'center'}>
-              <Typography
-                fontSize={'1.5rem'}
-                fontFamily={'Montserrat'}
-                marginBottom={'15px'}
-              >
-                General Options
-              </Typography>
-              <Stack
-                direction={dropDown ? 'column' : 'row'}
-                alignItems={'center'}
-                justifyContent={'center'}
-              >
-                <Box
-                  margin={dropDown ? '0 0 0.5rem 0' : '0 1rem 0 0'}
-                  minWidth={width <= 650 ? 225 : 300}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel
-                      variant='outlined'
-                      id='demo-radio-buttons-group-label'
-                      sx={{
-                        alignItems: 'center',
-                        display: 'flex',
-                      }}
-                    >
-                      Holiday
-                    </InputLabel>
-                    <Select
-                      aria-labelledby='demo-radio-buttons-group-label'
-                      name='radio-buttons-group'
-                      label='Holiday'
-                      sx={
-                        validHoliday
-                          ? {}
-                          : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
-                      }
-                      value={holiday}
-                      onChange={(e) => {
-                        songForm.setFieldValue('holiday', e.target.value)
-                        setHoliday(e.target.value)
-                        setValidHoliday(true)
-                      }}
-                    >
-                      <MenuItem disabled value=''>
-                        Holiday
-                      </MenuItem>
-                      <MenuItem value={1}>Christmas</MenuItem>
-                      <MenuItem value={2}>Hanukkah</MenuItem>
-                      <MenuItem value={3}>Kwanzaa</MenuItem>
-                      <MenuItem value={4}>New Years</MenuItem>
-                      <MenuItem value={5}>Non-Denominational</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-                <Box
-                  margin={dropDown ? '0.5rem 0 0 0' : '0 0 0 1rem'}
-                  minWidth={width <= 650 ? 225 : 300}
-                >
-                  <FormControl fullWidth>
-                    <InputLabel
-                      variant='outlined'
-                      id='demo-radio-buttons-group-label'
-                      sx={{ alignItems: 'center', display: 'flex' }}
-                    >
-                      Character
-                    </InputLabel>
-                    <Select
-                      aria-labelledby='demo-radio-buttons-group-label'
-                      name='radio-buttons-group'
-                      label='Character'
-                      sx={
-                        validCharacter
-                          ? {}
-                          : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
-                      }
-                      value={character}
-                      onChange={(e) => {
-                        songForm.setFieldValue('protagonist', e.target.value)
-                        setCharacter(e.target.value)
-                        setValidCharacter(true)
-                      }}
-                    >
-                      <MenuItem value='' disabled>
-                        Character
-                      </MenuItem>
-                      <MenuItem value={1}>Santa Clause</MenuItem>
-                      <MenuItem value={2}>Jesus Christ</MenuItem>
-                      <MenuItem value={3}>Judah Maccabee</MenuItem>
-                      <MenuItem value={4}>Moses</MenuItem>
-                      <MenuItem value={5}>The Grinch</MenuItem>
-                    </Select>
-                  </FormControl>
-                </Box>
-              </Stack>
-              <Box
-                maxWidth={500}
-                margin={sliderMargin ? '0 50px' : '0 auto'}
-                marginY={5}
-              >
-                <Box>
-                  <Typography fontFamily={'Montserrat'}>
-                    {buttonText}
-                  </Typography>
-                </Box>
-                <Slider
-                  min={-2}
-                  max={2}
-                  step={1}
-                  marks={[
-                    { value: -2, label: 'Naughty' },
-                    { value: -1, label: '' },
-                    { value: 0, label: 'or' },
-                    { value: 1, label: '' },
-                    { value: 2, label: 'Nice' },
-                  ]}
-                  onChange={(e, value) => {
-                    setNaughtyLevel(value as number)
-                    songForm.setFieldValue('naughtyNice', value)
-                  }}
-                  defaultValue={0}
-                />
-              </Box>
-            </Box>
+            <GeneralOptions
+              dropDown={dropDown}
+              width={width}
+              validHoliday={validHoliday}
+              validCharacter={validCharacter}
+              setValidCharacter={setValidCharacter}
+              setValidHoliday={setValidHoliday}
+              songForm={songForm}
+              sliderMargin={sliderMargin}
+              buttonText={buttonText}
+              setNaughtyLevel={setNaughtyLevel}
+            />
             <Divider
               light={true}
               variant={'fullWidth'}

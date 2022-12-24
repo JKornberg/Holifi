@@ -36,7 +36,7 @@ export default function MenuAppBar() {
         color='transparent'
         enableColorOnDark
         elevation={0}
-        sx={{ width:'100%', paddingY:'1rem'}}
+        sx={{ width: '100%', paddingY: '1rem' }}
       >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           <Link href='/'>
