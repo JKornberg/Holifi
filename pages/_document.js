@@ -12,12 +12,17 @@ export default function Document() {
           rel='stylesheet'
           crossOrigin='anonymous'
         />
-
+        <meta property='og:title' content='Holifi' />
+        <meta
+          property='og:description'
+          content='AI generated holiday themed music!'
+        />
+        <meta property='og:image' content='/snow_cabin.jpg' />
       </Head>
       <body>
         <Main />
         <NextScript />
       </body>
-    </Html >
+    </Html>
   )
 }
