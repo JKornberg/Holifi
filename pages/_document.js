@@ -12,6 +12,14 @@ export default function Document() {
           rel='stylesheet'
           crossOrigin='anonymous'
         />
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-C6PWCWMMSP"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments)}
+          gtag('js', new Date());
+
+          gtag('config', 'G-C6PWCWMMSP');
+        </script>
 
       </Head>
       <body>
