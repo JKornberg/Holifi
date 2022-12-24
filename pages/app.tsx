@@ -39,6 +39,7 @@ import { toJpeg } from 'html-to-image'
 import ShareModal from '../common/components/Header/ShareModal'
 import GeneralOptions from '../common/components/Header/GeneralOptions'
 import html2canvas from 'html2canvas'
+import { lyricImageColors, lyricLogoColors } from '../styles/theme'
 const enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
@@ -82,6 +83,7 @@ const Home = () => {
   let [shareImage, setShareImage] = useState<String>('')
   let [showShareImage, setShowShareImage] = useState<boolean>(false)
   let [songFile, setSongFile] = useState<File | null>(null)
+  let [randomState, setRandomState] = useState<number>(4)
   const validate = (values: {
     artist: string
     song: string
@@ -149,6 +151,7 @@ const Home = () => {
         })
         .finally(() => {
           setIsSubmitting(false)
+          // setRandomState(Math.floor(Math.random() * 5))
           songForm.setFieldValue('holiday', songForm.values.holiday + 1)
           songForm.setFieldValue('protagonist', songForm.values.protagonist + 1)
         })
@@ -481,7 +484,7 @@ const Home = () => {
             flexDirection={'column'}
             justifyContent={'space-between'}
             sx={{
-              backgroundImage: 'url("/lyrics_bg2.png")',
+              backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
               backgroundSize: 'cover',
             }}
             height={'1920px'}
@@ -497,11 +500,11 @@ const Home = () => {
                 <Box height={'7.66%'}>
                   <Stack
                     direction={'row'}
-                    sx={{ backgroundColor: '#090c24' }}
+                    sx={{ backgroundColor: lyricImageColors[randomState] }}
                     justifyContent='start'
                     alignItems={'center'}
                   >
-                    <Logo marginX={3} width={'inherit'} />
+                    <Logo marginX={3} width={'inherit'} accent={lyricLogoColors[randomState]}/>
                     {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
                     <Divider
                       orientation='vertical'
@@ -572,7 +575,7 @@ const Home = () => {
                   </Stack>
                 </Box>
                 <Box
-                  sx={{ backgroundColor: '#090c24' }}
+                  sx={{ backgroundColor: lyricImageColors[randomState] }}
                   textAlign='center'
                   marginX={4}
                   height={'10%'}
