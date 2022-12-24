@@ -10,6 +10,7 @@ import {
   TextField,
   SvgIcon,
   Divider,
+  CircularProgress,
 } from '@mui/material'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -39,6 +40,7 @@ const Signup = (props: Props) => {
   const { register, loadingUser, signInWithGoogle } = useAuth()
   const mounted = useMounted()
   const router = useRouter()
+  const [submitting, setSubmitting] = React.useState(false)
 
   useEffect(() => {
     if (loadingUser.user != null && loadingUser.isLoading == false) {
@@ -54,12 +56,14 @@ const Signup = (props: Props) => {
       lname: '',
     },
     onSubmit: async (values) => {
+      setSubmitting(true);
       const res = await register(
         values.email,
         values.password,
         values.fname,
         values.lname
       )
+      setSubmitting(false);
       //router.push('/');
     },
     validate: (values) => {
@@ -204,7 +208,7 @@ const Signup = (props: Props) => {
           </FormControl>
           {/* <PasswordField /> */}
           <Box component='div' margin={'auto'}>
-            <Button type='submit'>Sign Up</Button>
+            <Button type='submit'>{submitting ? <CircularProgress /> : "Sign Up"}</Button>
           </Box>
 
           <Link margin='0 auto 30px auto' href='/login'>
