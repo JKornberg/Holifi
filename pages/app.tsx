@@ -27,6 +27,7 @@ import html2canvas from 'html2canvas'
 import DisplayedImage from '../common/components/DisplayedImage'
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import { FiShare } from 'react-icons/fi'
 
 type SongDataType = {
   title: string
@@ -416,7 +417,7 @@ const Home = () => {
                 setShowShareImage(true)
               }}
             >
-              Share
+              Share Song &nbsp;<FiShare />
             </Button>
           )}
           {/* --------------- Share Button End  -------------- */}
