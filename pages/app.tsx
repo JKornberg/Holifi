@@ -490,6 +490,7 @@ const Home = () => {
             component={Link}
             sx={{ backgroundColor: '090c24', color: '#fff' }}
             href='https://pages.donately.com/holifi/form/frm_a552681b1929'
+            target="_blank"
           >
             Donate
           </Button>
