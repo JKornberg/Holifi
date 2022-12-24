@@ -145,7 +145,7 @@ export default function GeneralOptions(props: {
               <MenuItem value='' disabled>
                 Character
               </MenuItem>
-              <MenuItem value={1}>Santa Clause</MenuItem>
+              <MenuItem value={1}>Santa Claus</MenuItem>
               <MenuItem value={2}>Jesus Christ</MenuItem>
               <MenuItem value={3}>Judah Maccabee</MenuItem>
               <MenuItem value={4}>Moses</MenuItem>

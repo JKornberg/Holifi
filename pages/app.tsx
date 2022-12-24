@@ -44,7 +44,7 @@ type formDataType = {
 }
 
 enum Protagonists {
-  'Santa Clause' = 0,
+  'Santa Claus' = 0,
   'Jesus Christ' = 1,
   'Judah Macabee' = 2,
   'Moses' = 3,
