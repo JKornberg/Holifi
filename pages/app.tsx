@@ -26,6 +26,7 @@ import SharableImage from '../common/components/SharableImage'
 import html2canvas from 'html2canvas'
 import DisplayedImage from '../common/components/DisplayedImage'
 import fetch from 'isomorphic-unfetch'
+import Link from 'next/link'
 
 type SongDataType = {
   title: string
@@ -458,6 +459,16 @@ const Home = () => {
         </Box>
       )}
       {/* --------------- Lyrics Display End  -------------- */}
+      <Box width='100%' sx={{ backgroundColor: red[400] }} paddingY={10} textAlign='center'>
+        <Container>
+          <Typography display='inline'>Consider donating to</Typography>
+          <Button component={Link} sx={{'backgroundColor': '090c24' }} href='https://pages.donately.com/holifi/form/frm_a552681b1929'>Donate</Button>
+
+        </Container>
+      </Box>
+      <Box width='100%' sx={{ backgroundColor: '#090c24' }} textAlign='center'>
+        <Typography>Made by Jonah and Grayson Kornberg in collaboration with Tech and Mech</Typography>
+      </Box>
     </Fragment>
   )
 }
