@@ -137,7 +137,7 @@ export default function SharableImage(props: {
                   whiteSpace='pre-line'
                   overflow={'auto'}
                   dangerouslySetInnerHTML={sanitizedData(
-                    songData.lyrics.substring(0, 1500)
+                    songData.lyrics
                   )}
                 ></Typography>
               </Stack>
