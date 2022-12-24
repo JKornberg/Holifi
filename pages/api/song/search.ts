@@ -16,6 +16,10 @@ const handler = async (req: NextRequestWithUid, res: NextApiResponse) => {
                 // console.log(response.body);
                 response.json().then((data: any) => {
                     // console.log(data);
+                    if (data?.lyrics == '' || data?.lyrics == null){
+                        res.status(400).json({error: "No lyrics found"});
+                        resolve();
+                    }
                     data.lyrics = data.lyrics.trim();
                     res.status(200).json(data);
                     resolve();
