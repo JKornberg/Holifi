@@ -507,19 +507,17 @@ const Home = () => {
                     >
                       <Typography
                         variant={'h1'}
-                        letterSpacing={0.2}
-                        fontSize='3rem'
-                        fontWeight={'bold'}
+                        fontSize='2.5rem'
                         display={'inline'}
-                        // sx={{ fontFamily: 'Sonsie One, cursive' }}
+                        sx={{ fontFamily: 'Comfortaa' }}
                       >
                         {Protagonists[formData['Character']]} presents
                       </Typography>
                       <Typography
                         variant={'h1'}
-                        marginTop={'10px'}
-                        fontSize='2.5rem'
+                        fontSize='1.5rem'
                         display={'inline'}
+                        sx={{ fontFamily: 'Open Sans', letterSpacing: '0.1rem'}}
                       >
                         {' '}
                         {songData.title}

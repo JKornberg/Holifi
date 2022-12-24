@@ -8,7 +8,7 @@ export default function Document() {
         {/* <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin /> */}
         <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
         <link
-          href='https://fonts.googleapis.com/css2?family=Bad+Script&family=Montserrat&family=Sonsie+One&family=Open+Sans:wght@500;700;800&display=swap'
+          href='https://fonts.googleapis.com/css2?family=Bad+Script&family=Montserrat&family=Comfortaa&family=Open+Sans:wght@500;700;800&display=swap'
           rel='stylesheet'
           crossOrigin='anonymous'
         />

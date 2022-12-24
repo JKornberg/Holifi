@@ -54,7 +54,7 @@ export default function ShareModal(props: {
           borderRadius: 10,
           position: 'relative',
         }}
-        height={{xs:'80%',sm:'90%',md:'90%'}}
+        height={{ xs: '80%', sm: '90%', md: '90%' }}
       >
         <IconButton
           style={{ position: 'absolute', top: 0, right: 0 }}
@@ -99,11 +99,20 @@ export default function ShareModal(props: {
             margin: '20px auto',
           }}
           onClick={() => {
-            navigator.share({
+            let share = {
               title: 'HoliFi',
               text: 'Check out my HoliFi song!',
               files: [songFile],
-            })
+            }
+            if (navigator.canShare != undefined && navigator.canShare(share)) {
+              navigator.share(share).catch((error) => {}) // do nothing, user cancelled share
+            } else{
+              const link = document.createElement("a");
+              link.download = `Holifi_${songData.title}.jpg`;
+              link.href = shareImage
+              link.click();
+            }
+
           }}
         >
           <FiShare />
