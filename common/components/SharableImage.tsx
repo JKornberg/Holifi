@@ -1,6 +1,7 @@
 import { Box, Divider, Stack, Typography } from '@mui/material'
 import { Logo } from './Header/logo'
 import { lyricImageColors, lyricLogoColors } from '../../styles/theme'
+import DOMPurify from 'dompurify'
 
 export default function SharableImage(props: {
   showShareImage: any
@@ -19,6 +20,10 @@ export default function SharableImage(props: {
     'New Years' = 3,
     '' = 4,
   }
+
+  const sanitizedData = (data: any) => ({
+    __html: DOMPurify.sanitize(data),
+  })
 
   return (
     <Box
@@ -103,9 +108,9 @@ export default function SharableImage(props: {
                   textAlign='center'
                   whiteSpace='pre-line'
                   overflow={'hidden'}
-                  dangerouslySetInnerHTML={{
-                    __html: songData.lyrics.substring(0, 1500),
-                  }}
+                  dangerouslySetInnerHTML={sanitizedData(
+                    songData.lyrics.substring(0, 1500)
+                  )}
                 ></Typography>
                 <Typography textAlign={'center'} fontSize='2rem'>
                   ...

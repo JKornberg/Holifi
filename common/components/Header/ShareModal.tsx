@@ -9,7 +9,7 @@ import {
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FiShare } from 'react-icons/fi'
 import { useState } from 'react'
-import { isMobile } from 'react-device-detect';
+import { isMobile } from 'react-device-detect'
 
 export default function ShareModal(props: {
   shareModal: any
@@ -33,7 +33,7 @@ export default function ShareModal(props: {
       }}
     >
       <Box
-        width={{ xs: '90%', sm: '60%', md: '50%' }}
+        width={{ xs: '90%', sm: '45%', md: '30%' }}
         style={{
           backgroundColor: '#090c24',
           padding: 5,
@@ -71,13 +71,20 @@ export default function ShareModal(props: {
           width={'100%'}
           height={'80%'}
           style={{
-            backgroundPosition: 'top center',
-            backgroundImage: `url(${shareImage})`,
             margin: '0 auto',
-            backgroundSize: 'contain',
-            backgroundRepeat: 'no-repeat',
           }}
-        ></Box>
+        >
+          <img
+            alt='test'
+            style={{
+              display: 'block',
+              margin: '0 auto',
+              maxWidth: '100%',
+              maxHeight: '100%',
+            }}
+            src={shareImage}
+          ></img>
+        </Box>
         <Button
           style={{
             display: 'block',
@@ -89,7 +96,11 @@ export default function ShareModal(props: {
               text: 'Check out my HoliFi song!',
               files: [songFile],
             }
-            if (navigator.canShare != undefined && navigator.canShare(share) && isMobile) {
+            if (
+              navigator.canShare != undefined &&
+              navigator.canShare(share) &&
+              isMobile
+            ) {
               navigator.share(share).catch((error) => {}) // do nothing, user cancelled share
             } else {
               const link = document.createElement('a')

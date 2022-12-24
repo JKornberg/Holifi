@@ -2,6 +2,7 @@ import { Box, Divider, Stack, Typography } from '@mui/material'
 import { Logo } from './Header/logo'
 import { lyricImageColors, lyricLogoColors } from '../../styles/theme'
 import { red } from '@mui/material/colors'
+import DOMPurify from 'dompurify'
 
 export default function SharableImage(props: {
   showShareImage: any
@@ -20,6 +21,10 @@ export default function SharableImage(props: {
     'New Years' = 3,
     '' = 4,
   }
+
+  const sanitizedData = (data: any) => ({
+    __html: DOMPurify.sanitize(data),
+  })
 
   return (
     <Box
@@ -50,17 +55,13 @@ export default function SharableImage(props: {
           sx={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
         >
           <Stack direction={'column'} height='100%'>
-            <Box
-              width={'100%'}
-              height={{ sm: '12%', md: '15%' }}
-              sx={{ backgroundColor: lyricImageColors[randomState] }}
-            >
+            <Box width={'100%'} height={{ sm: '12%', md: '15%' }}>
               <Stack
                 direction={'row'}
+                sx={{ backgroundColor: lyricImageColors[randomState] }}
                 justifyContent='start'
                 alignItems={'center'}
                 height={'auto'}
-                paddingY={'4px'}
               >
                 <Box
                   display={'block'}
@@ -89,6 +90,7 @@ export default function SharableImage(props: {
                   orientation='vertical'
                   flexItem
                   style={{
+                    height: 'auto',
                     width: '1px',
                     backgroundColor: '#fff',
                     border: 'none',
@@ -122,11 +124,10 @@ export default function SharableImage(props: {
             </Box>
             <Box
               height={{ sm: '80%', md: '100%' }}
-              marginTop={{ xs: '20px', sm: '40px', md: '50px' }}
+              marginTop={{ xs: '20px', sm: '0px', md: '50px' }}
               marginBottom={{ xs: '15px', md: '30px' }}
               overflow='hidden'
-              sx={{backgroundColor: 'rgba(0,0,0,.5)'}}
-
+              sx={{ backgroundColor: 'rgba(0,0,0,.5)' }}
             >
               <Stack height='100%'>
                 <Typography
@@ -135,9 +136,9 @@ export default function SharableImage(props: {
                   textAlign='center'
                   whiteSpace='pre-line'
                   overflow={'auto'}
-                  dangerouslySetInnerHTML={{
-                    __html: songData.lyrics.substring(0, 1500),
-                  }}
+                  dangerouslySetInnerHTML={sanitizedData(
+                    songData.lyrics.substring(0, 1500)
+                  )}
                 ></Typography>
               </Stack>
             </Box>
