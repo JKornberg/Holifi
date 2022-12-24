@@ -32,6 +32,7 @@ import { fontSize } from '@mui/system'
 import useWindowSize from '../common/hooks/useWindowSize'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { Logo } from '../common/components/Header/logo'
+import { FiShare } from 'react-icons/fi'
 // Used to include thumbnail data for safely rendering user models on dashboard
 import { toJpeg } from 'html-to-image'
 
@@ -61,7 +62,7 @@ const generateImageWithLyrics = (
   lyrics: string,
   title: string,
   artist: string
-) => { }
+) => {}
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -74,6 +75,9 @@ const Home = () => {
   let [validSong, setValidSong] = useState<boolean>(true)
   let [validArtist, setValidArtist] = useState<boolean>(true)
   let [fetchError, setFetchError] = useState<boolean>(false)
+  let [shareModal, setShareModal] = useState<boolean>(false)
+  let [shareImage, setShareImage] = useState<String>('')
+  let [showShareImage, setShowShareImage] = useState<boolean>(false)
 
   const validate = (values: {
     artist: string
@@ -179,7 +183,25 @@ const Home = () => {
     }
   }, [width])
 
-  let [songData, setSongData] = useState<SongDataType>({ lyrics: 'test', title: 'test' })
+  useEffect(() => {
+    if (showShareImage) {
+      setShareModal(true)
+      let element = document.getElementById('ShareableContainer')
+      if (element == null) {
+        return
+      }
+      toJpeg(element, { quality: 0.95 }).then((dataUrl: any) => {
+        setShareImage(dataUrl)
+        // navigator.share({ url: dataUrl })
+      })
+    }
+    setShowShareImage(false)
+  }, [showShareImage])
+
+  let [songData, setSongData] = useState<SongDataType>({
+    lyrics: 'test',
+    title: 'test ',
+  })
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let [character, setCharacter] = useState<String>('')
   let [holiday, setHoliday] = useState<String>('')
@@ -285,6 +307,73 @@ const Home = () => {
             </Typography>
           </Box>
         </Modal>
+        <Modal
+          open={shareModal}
+          onClose={() => setShareModal(false)}
+          aria-labelledby='modal-modal-title'
+          aria-describedby='modal-modal-description'
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <Box
+            width={{ xs: '90%', sm: '50%', md: '30%' }}
+            style={{
+              backgroundColor: '#090c24',
+              padding: 20,
+              borderRadius: 10,
+              position: 'relative',
+              height: '90%',
+            }}
+          >
+            <IconButton
+              style={{ position: 'absolute', top: 0, right: 0 }}
+              children={<AiOutlineCloseCircle />}
+              onClick={() => setShareModal(false)}
+            />
+            <Typography
+              id='modal-modal-title'
+              variant='h6'
+              textAlign={'center'}
+              fontFamily='Montserrat'
+              color='#ef5350'
+            >
+              Share
+            </Typography>
+            <Divider
+              light={true}
+              variant={'fullWidth'}
+              style={{
+                margin: '5px auto',
+                width: '100%',
+                backgroundColor: 'lightgrey',
+                height: '0.5px',
+                border: 'none',
+              }}
+            />
+            <Box
+              width={'100%'}
+              height={'80%'}
+              style={{
+                backgroundPosition: 'top center',
+                backgroundImage: `url(${shareImage})`,
+                margin: '0 auto',
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+              }}
+            ></Box>
+            <Button
+              style={{
+                display: 'block',
+                margin: '20px auto',
+              }}
+            >
+              <FiShare />
+            </Button>
+          </Box>
+        </Modal>
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
         <Container
@@ -332,17 +421,17 @@ const Home = () => {
                         validHoliday
                           ? {}
                           : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                            {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={holiday}
                       onChange={(e) => {
@@ -382,17 +471,17 @@ const Home = () => {
                         validCharacter
                           ? {}
                           : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                            {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={character}
                       onChange={(e) => {
@@ -481,16 +570,16 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     label='Enter Artist Name'
                     onChange={(e) => {
@@ -513,16 +602,16 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     name='Song'
                     label='Enter Song Name'
@@ -539,25 +628,25 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => { }
+                  ? () => {}
                   : async () => {
-                    let isValid = validate(songForm.values)
-                    if (isValid) {
-                      setValidArtist(true)
-                      setValidHoliday(true)
-                      setValidSong(true)
-                      setValidCharacter(true)
-                      songForm.setFieldValue(
-                        'holiday',
-                        songForm.values.holiday - 1
-                      )
-                      songForm.setFieldValue(
-                        'protagonist',
-                        songForm.values.protagonist - 1
-                      )
-                      songForm.submitForm()
+                      let isValid = validate(songForm.values)
+                      if (isValid) {
+                        setValidArtist(true)
+                        setValidHoliday(true)
+                        setValidSong(true)
+                        setValidCharacter(true)
+                        songForm.setFieldValue(
+                          'holiday',
+                          songForm.values.holiday - 1
+                        )
+                        songForm.setFieldValue(
+                          'protagonist',
+                          songForm.values.protagonist - 1
+                        )
+                        songForm.submitForm()
+                      }
                     }
-                  }
               }
             >
               {isSubmitting ? (
@@ -599,17 +688,7 @@ const Home = () => {
               <Box width='100%' textAlign={'end'}>
                 <Button
                   onClick={() => {
-                    let element = document.getElementById('ShareableContainer')
-                    if (element == null) {
-                      return
-                    }
-                    toJpeg(element, { quality: 0.95 }).then((dataUrl: any) => {
-                      var image = new Image();
-                      image.src = dataUrl;
-
-                      var w = window.open("");
-                      w?.document.write(image.outerHTML);
-                    })
+                    setShowShareImage(true)
                   }}
                 >
                   Share
@@ -626,13 +705,14 @@ const Home = () => {
           display={'flex'}
           flexDirection={'column'}
           justifyContent={'space-between'}
+          id='ShareableContainer'
           sx={{
+            display: showShareImage ? 'block' : 'none',
             backgroundImage: 'url("/lyrics_bg2.png")',
             backgroundSize: 'cover',
           }}
           height={'1920px'}
           width={'1080px'}
-          id = 'ShareableContainer'
         >
           <Box
             padding={5}
