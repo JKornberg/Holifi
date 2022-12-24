@@ -55,7 +55,7 @@ enum Protagonists {
   'The Grinch' = 4,
 }
 
-let NaughtyTier = {'-2':'Naughty','-1':'Naughty','0':'','1':'Nice','2':'Nice'}
+let NaughtyTier = { '-2': 'Naughty', '-1': 'Naughty', '0': '', '1': 'Nice', '2': 'Nice' }
 
 type SongDataType = {
   title: string
@@ -85,7 +85,7 @@ const Home = () => {
   let [showShareImage, setShowShareImage] = useState<boolean>(false)
   let [songFile, setSongFile] = useState<File | null>(null)
   let [randomState, setRandomState] = useState<number>(0)
-  let [formData, setFormData] = useState({'Song':'','Artist':'','Character':-1,'Holiday':-1, 'NaughtyLevel':''})
+  let [formData, setFormData] = useState({ 'Song': '', 'Artist': '', 'Character': -1, 'Holiday': -1, 'NaughtyLevel': '' })
   const validate = (values: {
     artist: string
     song: string
@@ -167,10 +167,10 @@ const Home = () => {
               niceLevel = 'Nice'
               break
             case 2:
-                niceLevel = 'Nice'
-                break
+              niceLevel = 'Nice'
+              break
           }
-          setFormData({'Song':songForm.values.song, 'Artist':songForm.values.artist, 'Character':songForm.values.protagonist, 'Holiday':songForm.values.holiday, 'NaughtyLevel':niceLevel})
+          setFormData({ 'Song': songForm.values.song, 'Artist': songForm.values.artist, 'Character': songForm.values.protagonist, 'Holiday': songForm.values.holiday, 'NaughtyLevel': niceLevel })
           setRandomState(Math.floor(Math.random() * 5))
           songForm.setFieldValue('holiday', songForm.values.holiday + 1)
           songForm.setFieldValue('protagonist', songForm.values.protagonist + 1)
@@ -236,7 +236,7 @@ const Home = () => {
     setShowShareImage(false)
   }, [showShareImage])
 
-  let [songData, setSongData] = useState<SongDataType>({title:'title',lyrics:'lyrics'})
+  let [songData, setSongData] = useState<SongDataType>(null)
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
   let buttonText
@@ -301,6 +301,7 @@ const Home = () => {
           style={{ overflow: 'hidden' }}
           sx={{
             backgroundColor: 'rgba(9, 12, 36, 0.6)',
+            paddingBottom: 10
           }}
         >
           <Box component='div' textAlign='center' paddingTop={3}>
@@ -444,40 +445,16 @@ const Home = () => {
           </Box>
           {
             songData?.lyrics == null ? <></> : <Button
-            onClick={() => {
-              setShowShareImage(true)
-            }}
-          >
-            Share
-          </Button>
+              onClick={() => {
+                setShowShareImage(true)
+              }}
+            >
+              Share
+            </Button>
           }
         </Container>
       </Box>
-      {songData?.lyrics == null ? <Box></Box> : (
-         <Box
-          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
-          marginTop={0}
-          width='100%'
-        >
-          <Container>
-            <Box width={'100%'} marginBottom={'15px'}>
-              <TextField
-                multiline
-                maxRows={Infinity}
-                fullWidth
-                disabled
-                sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
-                value={
-                  songData !== null
-                    ? songData.lyrics
-                    : 'Lyrics will appear here'
-                }
-              />
-            </Box>
-          </Container>
 
-        </Box>
-      )}
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
@@ -580,40 +557,49 @@ const Home = () => {
               </Stack>
             </Box>
           </Box>
+
         </Box>
       )}
-    </Fragment>
+      {songData?.lyrics == null ? <Box></Box> : (
+        <Box
+          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
+          paddingTop={10}
+          width='100%'
+          minHeight={'25vh'}
+          sx={{
+            backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
+            boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)'
+          }}
+        >
+            <Container>
+              <Box width={'100%'} marginBottom={'15px'}>
+                <Typography variant={'h1'} fontSize='2.5rem' display={'inline'} marginX={5}>
+                  {Protagonists[formData['Character']]} presents {songData.title}
+                </Typography>
+                <OutlinedInput
+                  multiline
+                  maxRows={Infinity}
+                  fullWidth
+                  disabled
+                  sx={{
+                    color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.2)',
+                    '&.Mui-disabled': { color: '#fff' }
+                  }}
+                  value={
+                    songData !== null
+                      ? songData.lyrics
+                      : 'Lyrics will appear here'
+                  }
+                />
+              </Box>
+            </Container>
+
+
+        </Box>
+      )
+      }
+    </Fragment >
   )
 }
-
-// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-//   const uid = await verifyAuthSSR(ctx);
-//   if (uid == null) {
-
-//     return {
-//       props: {
-//         data: null
-//       }
-//     }
-//   }
-//   console.log("Successfully Authenticated", uid)
-//   // FETCH STUFF HERE!! 🚀
-//   console.log("Trying to fetch: " + 'data/quotes/');
-//   console.log("UID: " + uid)
-//   const db = firebaseAdmin.firestore();
-//   const itemObjects: ItemType[] = [];
-//   const draftCollection = await db.collection("users/" + uid + "/data").get()
-//   for (const doc of draftCollection.docs) {
-//     const dataTypeResponse: ItemType | null = itemTypeFromFirebase(doc.id, doc.data());
-//     if (dataTypeResponse != null) {
-//       itemObjects.push(dataTypeResponse);
-//     }
-//   }
-//   return {
-//     props: {
-//       data: JSON.parse(JSON.stringify(itemObjects))
-//     }
-//   }
-// }
 
 export default Home
