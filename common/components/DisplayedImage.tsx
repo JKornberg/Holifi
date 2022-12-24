@@ -32,7 +32,6 @@ export default function SharableImage(props: {
       margin='0 auto'
       height={{ xs: '700px', sm: '700px', md: '700px' }}
       width={{ xs: '300px', sm: '580px', md: '720px' }}
-      marginBottom={'20px'}
     >
       <Box
         display={'flex'}
@@ -62,7 +61,7 @@ export default function SharableImage(props: {
                 justifyContent='start'
                 alignItems={'center'}
                 height={'auto'}
-                paddingY = {'4px'}
+                paddingY={'4px'}
               >
                 <Box
                   display={'block'}

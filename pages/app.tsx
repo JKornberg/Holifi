@@ -447,7 +447,7 @@ const Home = () => {
             backgroundImage: 'url("/snow_cabin.jpg")',
             backgroundSize: 'cover',
           }}
-          paddingTop={5}
+          paddingY={5}
         >
           <DisplayedImage
             Protagonists={Protagonists}
@@ -459,15 +459,41 @@ const Home = () => {
         </Box>
       )}
       {/* --------------- Lyrics Display End  -------------- */}
-      <Box width='100%' sx={{ backgroundColor: red[400] }} paddingY={10} textAlign='center'>
-        <Container>
-          <Typography display='inline'>Consider donating to</Typography>
-          <Button component={Link} sx={{'backgroundColor': '090c24' }} href='https://pages.donately.com/holifi/form/frm_a552681b1929'>Donate</Button>
-
-        </Container>
-      </Box>
-      <Box width='100%' sx={{ backgroundColor: '#090c24' }} textAlign='center'>
-        <Typography>Made by Jonah and Grayson Kornberg in collaboration with Tech and Mech</Typography>
+      <Box
+        width='100%'
+        sx={{
+          backgroundColor: '#e57373',
+          backgroundImage:
+            'linear-gradient(45deg, #ef5350 25%, transparent 25.5%, transparent 50%, #ef5350 50.5%, #ef5350 75%, transparent 75.5%, transparent)',
+          backgroundSize: '50px 50px',
+        }}
+        textAlign='center'
+        borderTop={'solid'}
+        borderColor='#07091c'
+      >
+        <Box
+          maxWidth={'100%'}
+          margin={'0 auto'}
+          sx={{ backgroundColor: 'rgba(9,12,36,0.5)' }}
+          padding={4}
+        >
+          <Typography fontSize={{ xs: '0.85rem', sm: '1rem', md: '1.2rem' }}>
+            50% of your donations go towards buying presents for kids without
+            them this Christmas. And the other bit goes towards keeping this
+            site awesome!
+          </Typography>
+          <Button
+            component={Link}
+            sx={{ backgroundColor: '090c24', color: '#fff' }}
+            href='https://pages.donately.com/holifi/form/frm_a552681b1929'
+          >
+            Donate
+          </Button>
+          <Typography fontSize={{ xs: '0.85rem', sm: '1rem', md: '1.2rem' }}>
+            Made with ❤️ by Jonah & Grayson Kornberg, in collaboration with Tech
+            & Mech USA.
+          </Typography>
+        </Box>
       </Box>
     </Fragment>
   )
