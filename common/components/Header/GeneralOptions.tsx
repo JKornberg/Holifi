@@ -65,7 +65,7 @@ export default function GeneralOptions(props: {
                 display: 'flex',
               }}
             >
-              Holiday
+              Select Holiday
             </InputLabel>
             <Select
               aria-labelledby='demo-radio-buttons-group-label'
@@ -114,7 +114,7 @@ export default function GeneralOptions(props: {
               id='demo-radio-buttons-group-label'
               sx={{ alignItems: 'center', display: 'flex' }}
             >
-              Character
+              Select Character
             </InputLabel>
             <Select
               aria-labelledby='demo-radio-buttons-group-label'

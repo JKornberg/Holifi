@@ -67,7 +67,7 @@ export default function SharableImage(props: {
                   flexItem
                   style={{
                     width: '2px',
-                    backgroundColor: '#fff',
+                    backgroundColor: '#000',
                     border: 'none',
                   }}
                 />
