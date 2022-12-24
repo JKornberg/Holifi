@@ -5,6 +5,8 @@ import {
   Button,
   TextField,
   Divider,
+  Typography,
+  OutlinedInput,
 } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
@@ -36,6 +38,14 @@ type formDataType = {
   naughtyTier: string
 }
 
+enum Protagonists {
+  'Santa Clause' = 0,
+  'Jesus Christ' = 1,
+  'Judah Macabee' = 2,
+  'Moses' = 3,
+  'The Grinch' = 4,
+}
+
 const Home = () => {
   // Vars
   const router = useRouter()
@@ -61,10 +71,7 @@ const Home = () => {
   const width = useWindowSize()
   let [dropDown, setDropDown] = useState<boolean>(false)
   let [sliderMargin, setSliderMargin] = useState<boolean>(false)
-  let [songData, setSongData] = useState<SongDataType>({
-    title: 'title',
-    lyrics: 'lyrics',
-  })
+  let [songData, setSongData] = useState<SongDataType>(null)
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
   let buttonText
@@ -281,6 +288,7 @@ const Home = () => {
           style={{ overflow: 'hidden' }}
           sx={{
             backgroundColor: 'rgba(9, 12, 36, 0.6)',
+            paddingBottom: 10,
           }}
         >
           <Box component='div' textAlign='center' paddingTop={1}>
@@ -349,19 +357,53 @@ const Home = () => {
           {/* --------------- Share Button End  -------------- */}
         </Container>
       </Box>
+      {/* ---------------  Sharable Image  -------------- */}
+      {songData?.lyrics == null ? (
+        <Box></Box>
+      ) : (
+        <SharableImage
+          Protagonists={Protagonists}
+          showShareImage={showShareImage}
+          randomState={randomState}
+          formData={formData}
+          songData={songData}
+        />
+      )}
+      {/* ------------  Sharable Image End -------------- */}
       {/* --------------- Lyrics Display  -------------- */}
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
-        <Box paddingX={{ xs: 0.5, sm: 8, md: 12 }} marginTop={0} width='100%'>
+        <Box
+          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
+          paddingTop={10}
+          width='100%'
+          minHeight={'25vh'}
+          sx={{
+            backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
+            boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)',
+          }}
+        >
           <Container>
             <Box width={'100%'} marginBottom={'15px'}>
-              <TextField
+              <Typography
+                variant={'h1'}
+                fontSize='2.5rem'
+                display={'inline'}
+                marginX={5}
+              >
+                {Protagonists[formData['character']]} presents {songData.title}
+              </Typography>
+              <OutlinedInput
                 multiline
                 maxRows={Infinity}
                 fullWidth
                 disabled
-                sx={{ color: 'fff', backgroundColor: 'rgba(	9, 12, 36, 0.5)' }}
+                sx={{
+                  color: 'fff',
+                  backgroundColor: 'rgba(	9, 12, 36, 0.2)',
+                  '&.Mui-disabled': { color: '#fff' },
+                }}
                 value={
                   songData !== null
                     ? songData.lyrics
@@ -373,50 +415,8 @@ const Home = () => {
         </Box>
       )}
       {/* --------------- Lyrics Display End  -------------- */}
-      {/* ---------------  Sharable Image  -------------- */}
-      {songData?.lyrics == null ? (
-        <Box></Box>
-      ) : (
-        <SharableImage
-          showShareImage={showShareImage}
-          randomState={randomState}
-          formData={formData}
-          songData={songData}
-        />
-      )}
-      {/* ------------  Sharable Image End -------------- */}
     </Fragment>
   )
 }
-
-// export async function getServerSideProps(ctx: GetServerSidePropsContext) {
-//   const uid = await verifyAuthSSR(ctx);
-//   if (uid == null) {
-
-//     return {
-//       props: {
-//         data: null
-//       }
-//     }
-//   }
-//   console.log("Successfully Authenticated", uid)
-//   // FETCH STUFF HERE!! 🚀
-//   console.log("Trying to fetch: " + 'data/quotes/');
-//   console.log("UID: " + uid)
-//   const db = firebaseAdmin.firestore();
-//   const itemObjects: ItemType[] = [];
-//   const draftCollection = await db.collection("users/" + uid + "/data").get()
-//   for (const doc of draftCollection.docs) {
-//     const dataTypeResponse: ItemType | null = itemTypeFromFirebase(doc.id, doc.data());
-//     if (dataTypeResponse != null) {
-//       itemObjects.push(dataTypeResponse);
-//     }
-//   }
-//   return {
-//     props: {
-//       data: JSON.parse(JSON.stringify(itemObjects))
-//     }
-//   }
-// }
 
 export default Home
