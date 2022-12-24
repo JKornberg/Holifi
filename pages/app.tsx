@@ -193,11 +193,11 @@ const Home = () => {
       if (element == null) {
         return
       }
-      toJpeg(element, { quality: 0.95}).then(async (dataUrl: any) => {
+      toJpeg(element, { quality: 0.95 }).then(async (dataUrl: any) => {
         setShareImage(dataUrl)
-        const blob = await ( await fetch(dataUrl)).blob()
+        const blob = await (await fetch(dataUrl)).blob()
         const file = new File([blob], 'image.jpeg', { type: 'image/jpeg' })
-        setSongFile(file);
+        setSongFile(file)
         // navigator.share({ url: dataUrl })
       })
     }
@@ -262,6 +262,9 @@ const Home = () => {
           shareModal={shareModal}
           shareImage={shareImage}
           songFile={songFile}
+          Protagonists={Protagonists}
+          songForm={songForm}
+          songData={songData}
         />
         <MenuAppbar />
         {/* <Container maxWidth='md' sx={{backgroundColor:'#090c24'}}> */}
@@ -466,8 +469,8 @@ const Home = () => {
             backgroundImage: 'url("/lyrics_bg2.png")',
             backgroundSize: 'cover',
           }}
-          height={'1920px'}
-          width={'1080px'}
+          height={'854px'}
+          width={'480px'}
         >
           <Box
             padding={5}
@@ -483,7 +486,6 @@ const Home = () => {
                   alignItems={'center'}
                 >
                   <Logo marginX={3} width={'inherit'} />
-                  {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
                   <Divider
                     orientation='vertical'
                     flexItem
@@ -493,15 +495,10 @@ const Home = () => {
                       border: 'none',
                     }}
                   />
-                  <Stack
-                    textAlign={'center'}
-                    width={'100%'}
-                    marginX={5}
-                    marginY={2}
-                  >
+                  <Stack textAlign={'center'} width={'100%'} marginY={2}>
                     <Typography
-                      variant={'h1'}
-                      fontSize='3rem'
+                      variant={'h2'}
+                      fontSize='0.8rem'
                       display={'inline'}
                       sx={{ fontFamily: 'Sonsie One, cursive' }}
                     >
@@ -509,11 +506,13 @@ const Home = () => {
                     </Typography>
                     <Typography
                       variant={'h1'}
-                      fontSize='3rem'
+                      fontSize='1rem'
+                      marginTop={'5px'}
+                      letterSpacing={0.8}
                       display={'inline'}
                     >
                       {' '}
-                      {songData.title}
+                      {songData.title} by someone
                     </Typography>
                   </Stack>
                 </Stack>
@@ -560,7 +559,7 @@ const Home = () => {
                 alignItems='center'
                 display='flex'
               >
-                <Typography variant={'h1'} fontSize='4rem' display={'inline'}>
+                <Typography variant={'h1'} fontSize='1rem' display={'inline'}>
                   Certified naughty Christmas song @ holifimusic.com
                 </Typography>
               </Box>
