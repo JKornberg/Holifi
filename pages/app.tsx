@@ -195,6 +195,8 @@ const Home = () => {
       }
       toJpeg(element, {
         quality: 0.95,
+        canvasWidth: 360,
+        canvasHeight: 640,
       }).then(async (dataUrl: any) => {
         setShareImage(dataUrl)
       })
