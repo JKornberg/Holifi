@@ -1,25 +1,10 @@
 import {
   CircularProgress,
   Container,
-  Typography,
   Box,
   Button,
-  Stack,
-  FormControl,
   TextField,
-  FormLabel,
-  RadioGroup,
-  FormControlLabel,
-  Radio,
-  Select,
-  Slider,
-  InputLabel,
-  MenuItem,
-  NativeSelect,
   Divider,
-  Modal,
-  IconButton,
-  OutlinedInput,
 } from '@mui/material'
 import Head from 'next/head'
 import { Fragment, useEffect, useState } from 'react'
@@ -28,53 +13,34 @@ import { useAuth } from '../contexts/AuthContext'
 import { useRouter } from 'next/router'
 import { useFormik, validateYupSchema } from 'formik'
 import { green, grey, red } from '@mui/material/colors'
-import { fontSize } from '@mui/system'
 import useWindowSize from '../common/hooks/useWindowSize'
-import { AiOutlineCloseCircle } from 'react-icons/ai'
-import { Logo } from '../common/components/Header/logo'
-import { FiShare } from 'react-icons/fi'
 import ErrorModal from '../common/components/Header/ErrorModal'
-// Used to include thumbnail data for safely rendering user models on dashboard
-import { toJpeg } from 'html-to-image'
 import ShareModal from '../common/components/Header/ShareModal'
 import GeneralOptions from '../common/components/Header/GeneralOptions'
+import SongOptions from '../common/components/Header/SongOptions'
+import GenerateButton from '../common/components/Header/GenerateButton'
+import SharableImage from '../common/components/SharableImage'
+// Used to include thumbnail data for safely rendering user models on dashboard
 import html2canvas from 'html2canvas'
-import { lyricImageColors, lyricLogoColors } from '../styles/theme'
-enum Holidays {
-  'Christmas' = 0,
-  'Hanukkah' = 1,
-  'Kwanzaa' = 2,
-  'New Years' = 3,
-  '' = 4,
-}
-enum Protagonists {
-  'Santa Clause' = 0,
-  'Jesus Christ' = 1,
-  'Judah Macabee' = 2,
-  'Moses' = 3,
-  'The Grinch' = 4,
-}
-
-let NaughtyTier = {'-2':'Naughty','-1':'Naughty','0':'','1':'Nice','2':'Nice'}
 
 type SongDataType = {
   title: string
   lyrics: string
 } | null
 
-//generateImageWithLyrics
-const generateImageWithLyrics = (
-  lyrics: string,
-  title: string,
+type formDataType = {
   artist: string
-) => { }
+  song: string
+  character: number
+  holiday: number
+  naughtyTier: string
+}
 
 const Home = () => {
-  // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
-  const { loadingUser, setLoadingUser } = useAuth()
+  // Vars
   const router = useRouter()
+  const { loadingUser, setLoadingUser } = useAuth()
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false)
-
   let [validHoliday, setValidHoliday] = useState<boolean>(true)
   let [validCharacter, setValidCharacter] = useState<boolean>(true)
   let [validSong, setValidSong] = useState<boolean>(true)
@@ -85,7 +51,47 @@ const Home = () => {
   let [showShareImage, setShowShareImage] = useState<boolean>(false)
   let [songFile, setSongFile] = useState<File | null>(null)
   let [randomState, setRandomState] = useState<number>(0)
-  let [formData, setFormData] = useState({'Song':'','Artist':'','Character':-1,'Holiday':-1, 'NaughtyLevel':''})
+  let [formData, setFormData] = useState<formDataType>({
+    song: '',
+    artist: '',
+    character: -1,
+    holiday: -1,
+    naughtyTier: '',
+  })
+  const width = useWindowSize()
+  let [dropDown, setDropDown] = useState<boolean>(false)
+  let [sliderMargin, setSliderMargin] = useState<boolean>(false)
+  let [songData, setSongData] = useState<SongDataType>({
+    title: 'title',
+    lyrics: 'lyrics',
+  })
+  let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
+  let buttonColor
+  let buttonText
+  switch (naughtyLevel) {
+    case -2:
+      buttonColor = red[500]
+      buttonText = 'Ho Ho Ho 👹'
+      break
+    case -1:
+      buttonColor = red[200]
+      buttonText = 'Naughty'
+      break
+    case 0:
+      buttonColor = '#fff'
+      buttonText = 'Just right 😌'
+      break
+    case 1:
+      buttonColor = green[300]
+      buttonText = "Aren't you sweet"
+      break
+    case 2:
+      buttonColor = green['A400']
+      buttonText = "Santa's Little Helper 😇"
+      break
+  }
+
+  // Functions
   const validate = (values: {
     artist: string
     song: string
@@ -167,34 +173,32 @@ const Home = () => {
               niceLevel = 'Nice'
               break
             case 2:
-                niceLevel = 'Nice'
-                break
+              niceLevel = 'Nice'
+              break
           }
-          setFormData({'Song':songForm.values.song, 'Artist':songForm.values.artist, 'Character':songForm.values.protagonist, 'Holiday':songForm.values.holiday, 'NaughtyLevel':niceLevel})
+          setFormData({
+            song: songForm.values.song,
+            artist: songForm.values.artist,
+            character: songForm.values.protagonist,
+            holiday: songForm.values.holiday,
+            naughtyTier: niceLevel,
+          })
           setRandomState(Math.floor(Math.random() * 5))
           songForm.setFieldValue('holiday', songForm.values.holiday + 1)
           songForm.setFieldValue('protagonist', songForm.values.protagonist + 1)
         })
-
-      // const res = await register(values.email, values.password, values.fname, values.lname);
-      //router.push('/');
     },
   })
 
+  // Use Effects
   useEffect(() => {
-    // console.log(loadingUser.isLoading);
-    // console.log(loadingUser.user);
     if (loadingUser.isLoading) {
       return
     } else if (!loadingUser.isLoading && !loadingUser.user) {
-      // console.log("redirecting to login...");
       router.push('/login')
     }
   }, [loadingUser])
 
-  const width = useWindowSize()
-  let [dropDown, setDropDown] = useState<boolean>(false)
-  let [sliderMargin, setSliderMargin] = useState<boolean>(false)
   useEffect(() => {
     if (width <= 650) {
       setSliderMargin(true)
@@ -236,33 +240,6 @@ const Home = () => {
     setShowShareImage(false)
   }, [showShareImage])
 
-  let [songData, setSongData] = useState<SongDataType>({title:'title',lyrics:'lyrics'})
-  let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
-  let buttonColor
-  let buttonText
-  switch (naughtyLevel) {
-    case -2:
-      buttonColor = red[500]
-      buttonText = 'Ho Ho Ho 👹'
-      break
-    case -1:
-      buttonColor = red[200]
-      buttonText = 'Naughty'
-      break
-    case 0:
-      buttonColor = '#fff'
-      buttonText = 'Just right 😌'
-      break
-    case 1:
-      buttonColor = green[300]
-      buttonText = "Aren't you sweet"
-      break
-    case 2:
-      buttonColor = green['A400']
-      buttonText = "Santa's Little Helper 😇"
-      break
-  }
-
   return loadingUser.isLoading ? (
     <Container>
       <Box
@@ -283,18 +260,21 @@ const Home = () => {
         <meta name='description' content='Generated by create next app' />
         <link rel='stylesheet' href='/app_styles.css' />
       </Head>
+      {/* ------------------- Modals ------------------- */}
+      <ErrorModal setFetchError={setFetchError} fetchError={fetchError} />
+      <ShareModal
+        setShareModal={setShareModal}
+        shareModal={shareModal}
+        shareImage={shareImage}
+        songFile={songFile}
+        songData={songData}
+      />
       <Box component='div' textAlign={'center'}>
-        <ErrorModal setFetchError={setFetchError} fetchError={fetchError} />
-        <ShareModal
-          setShareModal={setShareModal}
-          shareModal={shareModal}
-          shareImage={shareImage}
-          songFile={songFile}
-          Protagonists={Protagonists}
-          songForm={songForm}
-          songData={songData}
-        />
+        {/* ------------------- Navbar  ------------------- */}
         <MenuAppbar />
+        {/* ----------------- Navbar End------------------- */}
+
+        {/* ------------------- Options  ------------------- */}
         <Container
           maxWidth='md'
           className='background_image'
@@ -303,7 +283,8 @@ const Home = () => {
             backgroundColor: 'rgba(9, 12, 36, 0.6)',
           }}
         >
-          <Box component='div' textAlign='center' paddingTop={3}>
+          <Box component='div' textAlign='center' paddingTop={1}>
+            {/* ------------------- General Options  ------------------- */}
             <GeneralOptions
               dropDown={dropDown}
               width={width}
@@ -316,6 +297,7 @@ const Home = () => {
               buttonText={buttonText}
               setNaughtyLevel={setNaughtyLevel}
             />
+            {/* ------------------ General Options End ------------------ */}
             <Divider
               light={true}
               variant={'fullWidth'}
@@ -327,138 +309,51 @@ const Home = () => {
                 border: 'none',
               }}
             />
-            <Box margin={'10px'}>
-              {songData !== null ? (
-                <Typography>Selected: {songData.title}</Typography>
-              ) : (
-                <Typography fontSize={'1.5rem'} fontFamily={'Montserrat'}>
-                  Song Choice
-                </Typography>
-              )}
-            </Box>
-            <Stack
-              direction={{ xs: 'column', sm: 'row' }}
-              justifyContent='center'
-            >
-              <Box
-                width={{ xs: '80%', sm: '40%' }}
-                marginRight={sliderMargin ? 0 : 2.5}
-                margin={sliderMargin ? '0 auto' : '0 2.5 0 0'}
-              >
-                <FormControl id='email' fullWidth>
-                  <TextField
-                    margin='normal'
-                    required
-                    fullWidth
-                    name='Artist'
-                    sx={
-                      validArtist
-                        ? {}
-                        : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
-                    }
-                    label='Enter Artist Name'
-                    onChange={(e) => {
-                      songForm.setFieldValue('artist', e.target.value)
-                      setValidArtist(true)
-                    }}
-                  />
-                </FormControl>
-              </Box>
-              <Box
-                width={{ xs: '80%', sm: '40%' }}
-                margin={sliderMargin ? '0 auto' : '0 0 2.5 0'}
-              >
-                <FormControl id='email' fullWidth>
-                  <TextField
-                    margin='normal'
-                    required
-                    fullWidth
-                    sx={
-                      validSong
-                        ? {}
-                        : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
-                    }
-                    name='Song'
-                    label='Enter Song Name'
-                    onChange={(e) => {
-                      songForm.setFieldValue('song', e.target.value)
-                      setValidSong(true)
-                    }}
-                  />
-                </FormControl>
-              </Box>
-            </Stack>
-            <Button
-              sx={{ backgroundColor: buttonColor }}
-              style={{ marginBottom: 0 }}
-              onClick={
-                isSubmitting
-                  ? () => { }
-                  : async () => {
-                    let isValid = validate(songForm.values)
-                    if (isValid) {
-                      setValidArtist(true)
-                      setValidHoliday(true)
-                      setValidSong(true)
-                      setValidCharacter(true)
-                      songForm.setFieldValue(
-                        'holiday',
-                        songForm.values.holiday - 1
-                      )
-                      songForm.setFieldValue(
-                        'protagonist',
-                        songForm.values.protagonist - 1
-                      )
-                      songForm.submitForm()
-                    }
-                  }
-              }
-            >
-              {isSubmitting ? (
-                <CircularProgress />
-              ) : (
-                <Typography>Generate Song 😊</Typography>
-              )}
-            </Button>
-
+            {/* ------------------- Song Options  ------------------- */}
+            <SongOptions
+              songData={songData}
+              sliderMargin={sliderMargin}
+              songForm={songForm}
+              setValidArtist={setValidArtist}
+              validArtist={validArtist}
+              validSong={validSong}
+              setValidSong={setValidSong}
+            />
+            {/* ---------------- Song Options End ------------------- */}
+            {/* ------------------- Options End -=---------------------- */}
+            {/* --------------- Generate Lyrics Button  ------------ */}
+            <GenerateButton
+              isSubmitting={isSubmitting}
+              setValidArtist={setValidArtist}
+              setValidHoliday={setValidHoliday}
+              setValidSong={setValidSong}
+              setValidCharacter={setValidCharacter}
+              songForm={songForm}
+              validate={validate}
+              buttonColor={buttonColor}
+            />
+            {/* ------------- Generate Lyrics Button End -------------   */}
           </Box>
-          {
-            songData?.lyrics == null ? <></> : <Button
-            onClick={() => {
-              setShowShareImage(true)
-            }}
-          >
-            Share
-          </Button>
-          }
+          {/* ------------------- Share Button  ------------------- */}
+          {songData?.lyrics == null ? (
+            <></>
+          ) : (
+            <Button
+              onClick={() => {
+                setShowShareImage(true)
+              }}
+            >
+              Share
+            </Button>
+          )}
+          {/* --------------- Share Button End  -------------- */}
         </Container>
       </Box>
-      {songData?.lyrics == null ? <Box></Box> : (
-         <Box
-          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
-          marginTop={0}
-          width='100%'
-        >
+      {/* --------------- Lyrics Display  -------------- */}
+      {songData?.lyrics == null ? (
+        <Box></Box>
+      ) : (
+        <Box paddingX={{ xs: 0.5, sm: 8, md: 12 }} marginTop={0} width='100%'>
           <Container>
             <Box width={'100%'} marginBottom={'15px'}>
               <TextField
@@ -475,113 +370,21 @@ const Home = () => {
               />
             </Box>
           </Container>
-
         </Box>
       )}
+      {/* --------------- Lyrics Display End  -------------- */}
+      {/* ---------------  Sharable Image  -------------- */}
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
-        <Box
-          id='ShareableContainer'
-          margin='0 auto'
-          height={'1920px'}
-          width={'1080px'}
-          display={showShareImage ? 'block' : 'none'}
-        >
-          <Box
-            display={'flex'}
-            flexDirection={'column'}
-            justifyContent={'space-between'}
-            sx={{
-              backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
-              backgroundSize: 'cover',
-            }}
-            height={'1920px'}
-            width={'1080px'}
-          >
-            <Box
-              padding={5}
-              height='100%'
-              sx={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
-            >
-              <Stack direction={'column'} height='100%'>
-                <Box height={'7.66%'}>
-                  <Stack
-                    direction={'row'}
-                    sx={{ backgroundColor: lyricImageColors[randomState] }}
-                    justifyContent='start'
-                    alignItems={'center'}
-                  >
-                    <Logo marginX={3} width={'inherit'} accent={lyricLogoColors[randomState]} />
-                    {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
-                    <Divider
-                      orientation='vertical'
-                      flexItem
-                      style={{
-                        width: '2px',
-                        backgroundColor: '#fff',
-                        border: 'none',
-                      }}
-                    />
-                    <Stack
-                      textAlign={'center'}
-                      width={'100%'}
-                      marginX={5}
-                      marginY={2}
-                    >
-                      <Typography
-                        variant={'h1'}
-                        fontSize='2.5rem'
-                        display={'inline'}
-                        sx={{ fontFamily: 'Comfortaa' }}
-                      >
-                        {Protagonists[formData['Character']]} presents
-                      </Typography>
-                      <Typography
-                        variant={'h1'}
-                        fontSize='1.5rem'
-                        display={'inline'}
-                        sx={{ fontFamily: 'Open Sans', letterSpacing: '0.1rem' }}
-                      >
-                        {' '}
-                        {songData.title}
-                      </Typography>
-                    </Stack>
-                  </Stack>
-                </Box>
-                <Box height='87%' marginTop='30px' overflow='hidden' >
-                  <Stack height='100%'>
-                    <Typography
-                      display='block'
-                      fontSize='2rem'
-                      textAlign='center'
-                      whiteSpace='pre-line'
-                      overflow={'hidden'}
-                      dangerouslySetInnerHTML={{ __html: songData.lyrics.substring(0, 1500) }}
-                    >
-                    </Typography>
-                    <Typography textAlign={'center'} fontSize='2rem'>
-                      ...
-                    </Typography>
-                  </Stack>
-                </Box>
-                <Box
-                  sx={{ backgroundColor: lyricImageColors[randomState] }}
-                  textAlign='center'
-                  marginX={4}
-                  height={'10%'}
-                  alignItems='center'
-                  display='flex'
-                >
-                  <Typography variant={'h1'} fontSize='4rem' display={'inline'}>
-                    {`Certified ${formData['NaughtyLevel']} ${Holidays[formData['Holiday']]} song @ holifimusic.com`}
-                  </Typography>
-                </Box>
-              </Stack>
-            </Box>
-          </Box>
-        </Box>
+        <SharableImage
+          showShareImage={showShareImage}
+          randomState={randomState}
+          formData={formData}
+          songData={songData}
+        />
       )}
+      {/* ------------  Sharable Image End -------------- */}
     </Fragment>
   )
 }

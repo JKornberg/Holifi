@@ -4,15 +4,10 @@ import {
   Divider,
   IconButton,
   Modal,
-  OutlinedInput,
-  Stack,
   Typography,
 } from '@mui/material'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { FiShare } from 'react-icons/fi'
-import { Logo } from './logo'
-import { red } from '@mui/material/colors'
-import { toJpeg } from 'html-to-image'
 import { useState } from 'react'
 
 export default function ShareModal(props: {
@@ -20,19 +15,9 @@ export default function ShareModal(props: {
   setShareModal: any
   shareImage: any
   songFile: any
-  Protagonists: any
-  songForm: any
   songData: any
 }) {
-  const {
-    shareModal,
-    setShareModal,
-    shareImage,
-    songFile,
-    songData,
-    Protagonists,
-    songForm,
-  } = props
+  const { shareModal, setShareModal, shareImage, songFile, songData } = props
   const [dataUrl, setDataUrl] = useState(null)
   return (
     <Modal
@@ -91,8 +76,7 @@ export default function ShareModal(props: {
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
           }}
-        >
-        </Box>
+        ></Box>
         <Button
           style={{
             display: 'block',
@@ -106,13 +90,12 @@ export default function ShareModal(props: {
             }
             if (navigator.canShare != undefined && navigator.canShare(share)) {
               navigator.share(share).catch((error) => {}) // do nothing, user cancelled share
-            } else{
-              const link = document.createElement("a");
-              link.download = `Holifi_${songData.title}.jpg`;
+            } else {
+              const link = document.createElement('a')
+              link.download = `Holifi_${songData.title}.jpg`
               link.href = shareImage
-              link.click();
+              link.click()
             }
-
           }}
         >
           <FiShare />

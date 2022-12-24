@@ -39,7 +39,7 @@ export default function GeneralOptions(props: {
   let [holiday, setHoliday] = useState<String>('')
 
   return (
-    <Box margin='0 auto' marginTop={5} alignItems={'center'}>
+    <Box margin='0 auto' marginTop={3} alignItems={'center'}>
       <Typography
         fontSize={'1.5rem'}
         fontFamily={'Montserrat'}
