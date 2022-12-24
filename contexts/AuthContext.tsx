@@ -9,13 +9,13 @@ import {
   confirmPasswordReset,
   User,
 } from 'firebase/auth'
-import { auth } from '../common/utils/firebase/clientApp'
+import { analytics, auth } from '../common/utils/firebase/clientApp'
 import nookies from 'nookies';
 import { AuthContextType, FormatUserType, LoadingUserType } from '../common/types/firebase_types';
 import { formatUser } from '../common/utils/firebase/firebase_helpers';
 import { AppUser } from '../common/classes/appUser';
 import fetch from 'isomorphic-unfetch';
-import { getAnalytics, logEvent } from 'firebase/analytics';
+import {logEvent } from 'firebase/analytics';
 interface Props {
   children: ReactNode
 }
@@ -85,7 +85,6 @@ export default function AuthContextProvider(props: Props) {
         nookies.set(undefined, 'token', token, { path: '/' });
         //await createUser(user.uid, userWithoutToken);
         setLoadingUser({ user: user, isLoading: false });
-        const analytics = getAnalytics();
         logEvent(analytics, 'user_login');
       } else {
         // updateFirestoreDoc('users/'+ user.id, user.toObjectForFirebase());
