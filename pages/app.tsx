@@ -24,6 +24,7 @@ import GenerateButton from '../common/components/Header/GenerateButton'
 import SharableImage from '../common/components/SharableImage'
 // Used to include thumbnail data for safely rendering user models on dashboard
 import html2canvas from 'html2canvas'
+import DisplayedImage from '../common/components/DisplayedImage'
 
 type SongDataType = {
   title: string
@@ -64,16 +65,16 @@ const Home = () => {
   let [formData, setFormData] = useState<formDataType>({
     song: '',
     artist: '',
-    character: -1,
-    holiday: -1,
-    naughtyTier: '',
+    character: 2,
+    holiday: 4,
+    naughtyTier: 'Naughty',
   })
   const width = useWindowSize()
   let [dropDown, setDropDown] = useState<boolean>(false)
   let [sliderMargin, setSliderMargin] = useState<boolean>(false)
   let [songData, setSongData] = useState<SongDataType>({
-    'title': 'test', 'lyrics':
-      `Lipstick junkie
+    title: 'Really long test name by really long artist yea yea yea yea',
+    lyrics: `Lipstick junkie
   Debunked the all in one
   She came back wearing a smile
   Looking like someone drugged me
@@ -130,9 +131,7 @@ const Home = () => {
   Bye-bye, girl
   Bye-bye, girl
   Bye-bye
-  `
-
-
+  `,
   })
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
@@ -350,7 +349,7 @@ const Home = () => {
           style={{ overflow: 'hidden' }}
           sx={{
             backgroundColor: 'rgba(9, 12, 36, 0.6)',
-            paddingBottom: 10,
+            paddingBottom: 2,
           }}
         >
           <Box component='div' textAlign='center' paddingTop={1}>
@@ -436,53 +435,60 @@ const Home = () => {
       {songData?.lyrics == null ? (
         <Box></Box>
       ) : (
-        <Box
-          paddingX={{ xs: 0.5, sm: 8, md: 12 }}
-          paddingTop={10}
-          width='100%'
-          minHeight={'25vh'}
-          sx={{
-            backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
-            boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)',
-          }}
-        >
-          <Container>
-            <Box width={'100%'} marginBottom={'15px'}>
-              <Typography>
-                {Protagonists[formData['character']]}
+        // <Box
+        //   paddingX={{ xs: 0.5, sm: 8, md: 12 }}
+        //   paddingTop={10}
+        //   width='100%'
+        //   minHeight={'25vh'}
+        //   sx={{
+        //     backgroundImage: `url("/lyrics_bg${randomState}.jpg")`,
+        //     boxShadow: 'inset 0 0 0 1000px rgba(0,0,0,.2)',
+        //   }}
+        // >
+        //   <Container>
+        //     <Box width={'100%'} marginBottom={'15px'}>
+        //       <Typography>
+        //         {Protagonists[formData['character']]}
 
-              </Typography>
-              <Typography
-                variant={'h1'}
-                fontSize='2.5rem'
-                display={'inline'}
-                marginX={5}
-              >
-                presents {songData.title}
-              </Typography>
-              <OutlinedInput
-                multiline
-                maxRows={Infinity}
-                fullWidth
-                disabled
-                inputProps={{ style: { textAlign: 'center' } }}
+        //       </Typography>
+        //       <Typography
+        //         variant={'h1'}
+        //         fontSize='2.5rem'
+        //         display={'inline'}
+        //         marginX={5}
+        //       >
+        //         presents {songData.title}
+        //       </Typography>
+        //       <OutlinedInput
+        //         multiline
+        //         maxRows={Infinity}
+        //         fullWidth
+        //         disabled
+        //         inputProps={{ style: { textAlign: 'center' } }}
 
-                sx={{
-                  color: 'fff',
-                  backgroundColor: 'rgba(	9, 12, 36, 0.2)',
-                  '& .MuiOutlinedInput-input.Mui-disabled': {
-                    WebkitTextFillColor: 'white',
-                  },
-                }}
-                value={
-                  songData !== null
-                    ? songData.lyrics
-                    : 'Lyrics will appear here'
-                }
-              />
-            </Box>
-          </Container>
-        </Box>
+        //         sx={{
+        //           color: 'fff',
+        //           backgroundColor: 'rgba(	9, 12, 36, 0.2)',
+        //           '& .MuiOutlinedInput-input.Mui-disabled': {
+        //             WebkitTextFillColor: 'white',
+        //           },
+        //         }}
+        //         value={
+        //           songData !== null
+        //             ? songData.lyrics
+        //             : 'Lyrics will appear here'
+        //         }
+        //       />
+        //     </Box>
+        //   </Container>
+        // </Box>
+        <DisplayedImage
+          Protagonists={Protagonists}
+          showShareImage={showShareImage}
+          randomState={randomState}
+          formData={formData}
+          songData={songData}
+        />
       )}
       {/* --------------- Lyrics Display End  -------------- */}
     </Fragment>
