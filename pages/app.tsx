@@ -71,7 +71,69 @@ const Home = () => {
   const width = useWindowSize()
   let [dropDown, setDropDown] = useState<boolean>(false)
   let [sliderMargin, setSliderMargin] = useState<boolean>(false)
-  let [songData, setSongData] = useState<SongDataType>(null)
+  let [songData, setSongData] = useState<SongDataType>({
+    'title': 'test', 'lyrics':
+      `Lipstick junkie
+  Debunked the all in one
+  She came back wearing a smile
+  Looking like someone drugged me
+  That wanted to unplug me
+  No one here is on trial
+  It's just a turnaround
+  And we go, oh
+  Well, then we go uh, uh, uh, uh
+  Tick-tock, I want to rock you like the '80s
+  Cock blocking isn't allowed
+  Tugboat Sheila is into memorabilia
+  Who said three is a crowd
+  We better get it on the go
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  I said, hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  She knows how to make it loud
+  Rain dance Maggie
+  Advances to the final
+  Who knew that she had the goods
+  Little did I know
+  Her body was one delicious vinyl
+  To your neck of the woods
+  I want to lick a little bit
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  We've got the wrong girl
+  But not for long, girl
+  It's in the song, girl
+  'Cause I'll be gone, girl
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  I said, hey now
+  I want to rock this rowdy crowd
+  She told me to
+  And showed me what to do
+  She knows how to make it loud
+  But not for long, girl
+  It's in the song, girl
+  'Cause I'll be gone, bye-bye-bye, yeah
+  Bye-bye-bye, girl
+  Bye-bye, girl
+  Bye-bye, girl
+  Bye-bye
+  `
+
+
+  })
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
   let buttonText
@@ -386,23 +448,31 @@ const Home = () => {
         >
           <Container>
             <Box width={'100%'} marginBottom={'15px'}>
+              <Typography>
+                {Protagonists[formData['character']]}
+
+              </Typography>
               <Typography
                 variant={'h1'}
                 fontSize='2.5rem'
                 display={'inline'}
                 marginX={5}
               >
-                {Protagonists[formData['character']]} presents {songData.title}
+                presents {songData.title}
               </Typography>
               <OutlinedInput
                 multiline
                 maxRows={Infinity}
                 fullWidth
                 disabled
+                inputProps={{ style: { textAlign: 'center' } }}
+
                 sx={{
                   color: 'fff',
                   backgroundColor: 'rgba(	9, 12, 36, 0.2)',
-                  '&.Mui-disabled': { color: '#fff' },
+                  '& .MuiOutlinedInput-input.Mui-disabled': {
+                    WebkitTextFillColor: 'white',
+                  },
                 }}
                 value={
                   songData !== null
