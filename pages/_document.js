@@ -13,7 +13,6 @@ export default function Document() {
           crossOrigin='anonymous'
         />
 
-
       </Head>
       <body>
         <Main />
