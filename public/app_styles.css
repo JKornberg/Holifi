@@ -24,3 +24,6 @@
     position: relative;
   }
   
+  body{
+    overflow-x: hidden;
+  }

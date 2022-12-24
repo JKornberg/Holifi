@@ -61,7 +61,7 @@ const generateImageWithLyrics = (
   lyrics: string,
   title: string,
   artist: string
-) => {}
+) => { }
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -179,7 +179,7 @@ const Home = () => {
     }
   }, [width])
 
-  let [songData, setSongData] = useState<SongDataType>(null)
+  let [songData, setSongData] = useState<SongDataType>({ lyrics: 'test', title: 'test' })
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let [character, setCharacter] = useState<String>('')
   let [holiday, setHoliday] = useState<String>('')
@@ -332,17 +332,17 @@ const Home = () => {
                         validHoliday
                           ? {}
                           : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                            {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                       }
                       value={holiday}
                       onChange={(e) => {
@@ -382,17 +382,17 @@ const Home = () => {
                         validCharacter
                           ? {}
                           : {
-                              '.MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                                {
-                                  borderColor: '#ef5350',
-                                },
-                              '&:hover .MuiOutlinedInput-notchedOutline': {
-                                borderColor: '#ef5350',
-                              },
-                            }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                            {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                       }
                       value={character}
                       onChange={(e) => {
@@ -481,16 +481,16 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     label='Enter Artist Name'
                     onChange={(e) => {
@@ -513,16 +513,16 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     name='Song'
                     label='Enter Song Name'
@@ -539,25 +539,25 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => {}
+                  ? () => { }
                   : async () => {
-                      let isValid = validate(songForm.values)
-                      if (isValid) {
-                        setValidArtist(true)
-                        setValidHoliday(true)
-                        setValidSong(true)
-                        setValidCharacter(true)
-                        songForm.setFieldValue(
-                          'holiday',
-                          songForm.values.holiday - 1
-                        )
-                        songForm.setFieldValue(
-                          'protagonist',
-                          songForm.values.protagonist - 1
-                        )
-                        songForm.submitForm()
-                      }
+                    let isValid = validate(songForm.values)
+                    if (isValid) {
+                      setValidArtist(true)
+                      setValidHoliday(true)
+                      setValidSong(true)
+                      setValidCharacter(true)
+                      songForm.setFieldValue(
+                        'holiday',
+                        songForm.values.holiday - 1
+                      )
+                      songForm.setFieldValue(
+                        'protagonist',
+                        songForm.values.protagonist - 1
+                      )
+                      songForm.submitForm()
                     }
+                  }
               }
             >
               {isSubmitting ? (
@@ -569,7 +569,6 @@ const Home = () => {
           </Box>
         </Container>
         <Box
-          id='ShareableContainer'
           sx={{
             backgroundImage: 'url("/snow_cabin4.jpg")',
           }}
@@ -605,7 +604,11 @@ const Home = () => {
                       return
                     }
                     toJpeg(element, { quality: 0.95 }).then((dataUrl: any) => {
-                      navigator.share({ url: dataUrl })
+                      var image = new Image();
+                      image.src = dataUrl;
+
+                      var w = window.open("");
+                      w?.document.write(image.outerHTML);
                     })
                   }}
                 >
@@ -629,6 +632,7 @@ const Home = () => {
           }}
           height={'1920px'}
           width={'1080px'}
+          id = 'ShareableContainer'
         >
           <Box
             padding={5}
