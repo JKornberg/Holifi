@@ -33,11 +33,9 @@ import useWindowSize from '../common/hooks/useWindowSize'
 import { AiOutlineCloseCircle } from 'react-icons/ai'
 import { Logo } from '../common/components/Header/logo'
 // Used to include thumbnail data for safely rendering user models on dashboard
-import { toJpeg } from 'html-to-image';
+import { toJpeg } from 'html-to-image'
 
-const
-
-  enum Holidays {
+const enum Holidays {
   'Christmas' = 0,
   'Hanukkah' = 1,
   'Kwanzaa' = 2,
@@ -63,10 +61,7 @@ const generateImageWithLyrics = (
   lyrics: string,
   title: string,
   artist: string
-) => {
-
-}
-
+) => {}
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -337,17 +332,17 @@ const Home = () => {
                         validHoliday
                           ? {}
                           : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                            {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={holiday}
                       onChange={(e) => {
@@ -387,17 +382,17 @@ const Home = () => {
                         validCharacter
                           ? {}
                           : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline':
-                            {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                              '.MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                              '&.Mui-focused .MuiOutlinedInput-notchedOutline':
+                                {
+                                  borderColor: '#ef5350',
+                                },
+                              '&:hover .MuiOutlinedInput-notchedOutline': {
+                                borderColor: '#ef5350',
+                              },
+                            }
                       }
                       value={character}
                       onChange={(e) => {
@@ -486,19 +481,18 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     label='Enter Artist Name'
-                    autoFocus
                     onChange={(e) => {
                       songForm.setFieldValue('artist', e.target.value)
                       setValidArtist(true)
@@ -519,16 +513,16 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                          '.MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                          '&:hover .MuiOutlinedInput-notchedOutline': {
-                            borderColor: '#ef5350',
-                          },
-                        }
+                            '.MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                            '&:hover .MuiOutlinedInput-notchedOutline': {
+                              borderColor: '#ef5350',
+                            },
+                          }
                     }
                     name='Song'
                     label='Enter Song Name'
@@ -545,25 +539,25 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => { }
+                  ? () => {}
                   : async () => {
-                    let isValid = validate(songForm.values)
-                    if (isValid) {
-                      setValidArtist(true)
-                      setValidHoliday(true)
-                      setValidSong(true)
-                      setValidCharacter(true)
-                      songForm.setFieldValue(
-                        'holiday',
-                        songForm.values.holiday - 1
-                      )
-                      songForm.setFieldValue(
-                        'protagonist',
-                        songForm.values.protagonist - 1
-                      )
-                      songForm.submitForm()
+                      let isValid = validate(songForm.values)
+                      if (isValid) {
+                        setValidArtist(true)
+                        setValidHoliday(true)
+                        setValidSong(true)
+                        setValidCharacter(true)
+                        songForm.setFieldValue(
+                          'holiday',
+                          songForm.values.holiday - 1
+                        )
+                        songForm.setFieldValue(
+                          'protagonist',
+                          songForm.values.protagonist - 1
+                        )
+                        songForm.submitForm()
+                      }
                     }
-                  }
               }
             >
               {isSubmitting ? (
@@ -572,17 +566,6 @@ const Home = () => {
                 <Typography>Generate Song 😊</Typography>
               )}
             </Button>
-            {/* <Divider
-              light={true}
-              variant={'fullWidth'}
-              style={{
-                margin: '30px auto',
-                width: '80%',
-                backgroundColor: 'lightgrey',
-                height: '0.5px',
-                border: 'none',
-              }}
-            /> */}
           </Box>
         </Container>
         <Box
@@ -593,7 +576,6 @@ const Home = () => {
           padding={{ xs: 0.5, sm: 8, md: 12 }}
           marginTop={5}
           width='100%'
-
         >
           <Container>
             <Box mt={4} width={'100%'} minHeight='400px'>
@@ -616,78 +598,137 @@ const Home = () => {
                 }
               />
               <Box width='100%' textAlign={'end'}>
-                <Button onClick={
-                  () => {
-                    let element = document.getElementById('ShareableContainer');
-                    if (element == null) { return }
-                    toJpeg(element, { quality: 0.95 })
-                      .then((dataUrl) => {
-
-                        navigator.share({ url: dataUrl });
-                      }
-                      );
-                  }}>Share</Button>
-
+                <Button
+                  onClick={() => {
+                    let element = document.getElementById('ShareableContainer')
+                    if (element == null) {
+                      return
+                    }
+                    toJpeg(element, { quality: 0.95 }).then((dataUrl: any) => {
+                      navigator.share({ url: dataUrl })
+                    })
+                  }}
+                >
+                  Share
+                </Button>
               </Box>
             </Box>
           </Container>
-
         </Box>
       </Box>
-      {
-        (songData?.lyrics == null) ? <Box></Box> :
-
-          <Box display={'flex'} flexDirection={'column'} justifyContent={'space-between'}
-            sx={{
-              backgroundImage: 'url("/lyrics_bg2.png")',
-              backgroundSize: 'cover',
-            }} height={'1920px'} width={'1080px'}>
-            <Box padding={4}>
-              <Stack direction={'row'} sx={{ backgroundColor: '#090c24' }} marginBottom={3} justifyContent='start' alignItems={'center'} >
-
-                <Logo marginX={3} width={'inherit'} />
-                {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
-                <Divider orientation='vertical' flexItem style={{
-                  width: '2px',
-                  backgroundColor: '#fff',
-                  border: 'none',
-                }} />
-                <Stack textAlign={'center'} width={'100%'} marginX={5} marginY={2}>
-                  <Typography variant={'h1'} fontSize='3rem' display={'inline'}
-                    sx={{ fontFamily: 'Sonsie One, cursive' }}
-                  >{Protagonists[songForm.values.protagonist]} presents</Typography>
-                  <Typography variant={'h1'} fontSize='3rem' display={'inline'}> {songData.title}</Typography>
+      {songData?.lyrics == null ? (
+        <Box></Box>
+      ) : (
+        <Box
+          display={'flex'}
+          flexDirection={'column'}
+          justifyContent={'space-between'}
+          sx={{
+            backgroundImage: 'url("/lyrics_bg2.png")',
+            backgroundSize: 'cover',
+          }}
+          height={'1920px'}
+          width={'1080px'}
+        >
+          <Box
+            padding={5}
+            height='100%'
+            sx={{ backgroundColor: 'rgba(0,0,0,0.5)' }}
+          >
+            <Stack direction={'column'} height='100%'>
+              <Box height={'7.66%'}>
+                <Stack
+                  direction={'row'}
+                  sx={{ backgroundColor: '#090c24' }}
+                  justifyContent='start'
+                  alignItems={'center'}
+                >
+                  <Logo marginX={3} width={'inherit'} />
+                  {/* <Typography variant={'h1'} fontSize='4rem' display={'inline'} marginX={5}>Holifi</Typography> */}
+                  <Divider
+                    orientation='vertical'
+                    flexItem
+                    style={{
+                      width: '2px',
+                      backgroundColor: '#fff',
+                      border: 'none',
+                    }}
+                  />
+                  <Stack
+                    textAlign={'center'}
+                    width={'100%'}
+                    marginX={5}
+                    marginY={2}
+                  >
+                    <Typography
+                      variant={'h1'}
+                      fontSize='3rem'
+                      display={'inline'}
+                      sx={{ fontFamily: 'Sonsie One, cursive' }}
+                    >
+                      {Protagonists[songForm.values.protagonist]} presents
+                    </Typography>
+                    <Typography
+                      variant={'h1'}
+                      fontSize='3rem'
+                      display={'inline'}
+                    >
+                      {' '}
+                      {songData.title}
+                    </Typography>
+                  </Stack>
                 </Stack>
-
-              </Stack>
-              <OutlinedInput
-                fullWidth
-                multiline
-                maxRows={Infinity}
-
-                sx={{
-                  backgroundColor: 'rgba(    0,0,0, 0.8)',
-                  textAlign: 'center',
-                  '& .MuiOutlinedInput-input.Mui-disabled': {
-                    WebkitTextFillColor: 'white',
-                  },
-                  fontSize: '2rem'
-
-                }}
-                inputProps={{ style: { textAlign: 'center' } }}
-
-                value={songData.lyrics.substring(0, 800)}
-              />
-
-            </Box>
-            <Box sx={{ backgroundColor: '#090c24' }} textAlign='center' padding={1} marginX={4}>
-
-              <Typography variant={'h1'} fontSize='4rem' display={'inline'}>Certified naughty Christmas song @ holifimusic.com</Typography>
-
-            </Box>
+              </Box>
+              <Box height='87%' marginTop='30px' overflow='hidden'>
+                <Stack height='100%'>
+                  <OutlinedInput
+                    fullWidth
+                    multiline
+                    disabled
+                    maxRows={Infinity}
+                    sx={{
+                      overflow: 'hidden',
+                      backgroundColor: 'rgba(0,0,0,0)',
+                      textAlign: 'center',
+                      '& .MuiOutlinedInput-input.Mui-disabled': {
+                        WebkitTextFillColor: 'white',
+                      },
+                      '.MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(0,0,0,0)',
+                        borderWidth: 0,
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(0,0,0,0)',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'rgba(0,0,0,0)',
+                      },
+                      fontSize: '2rem',
+                    }}
+                    inputProps={{ style: { textAlign: 'center' } }}
+                    value={songData.lyrics.substring(0, 800)}
+                  />
+                  <Typography textAlign={'center'} fontSize='2rem'>
+                    ...
+                  </Typography>
+                </Stack>
+              </Box>
+              <Box
+                sx={{ backgroundColor: '#090c24' }}
+                textAlign='center'
+                marginX={4}
+                height={'10%'}
+                alignItems='center'
+                display='flex'
+              >
+                <Typography variant={'h1'} fontSize='4rem' display={'inline'}>
+                  Certified naughty Christmas song @ holifimusic.com
+                </Typography>
+              </Box>
+            </Stack>
           </Box>
-      }
-
+        </Box>
+      )}
     </Fragment>
   )
 }
