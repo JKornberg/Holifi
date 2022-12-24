@@ -62,6 +62,7 @@ export default function SharableImage(props: {
                 justifyContent='start'
                 alignItems={'center'}
                 height={'auto'}
+                paddingY = {'4px'}
               >
                 <Box
                   display={'block'}
@@ -69,6 +70,7 @@ export default function SharableImage(props: {
                   margin='2px auto'
                   paddingLeft='10px'
                   paddingRight='2px'
+                  height='100%'
                 >
                   <Typography
                     fontSize={{ xs: '1.5rem', sm: '2rem', md: '3rem' }}
@@ -86,16 +88,15 @@ export default function SharableImage(props: {
                     fi
                   </Typography>
                 </Box>
-                <Divider
+                {/* <Divider
                   orientation='vertical'
                   flexItem
                   style={{
-                    height: 'auto',
                     width: '1px',
                     backgroundColor: '#fff',
                     border: 'none',
                   }}
-                />
+                /> */}
                 <Stack textAlign={'center'} width={'100%'} marginX={0.5}>
                   <Typography
                     variant={'h1'}

@@ -73,68 +73,68 @@ const Home = () => {
   const width = useWindowSize()
   let [dropDown, setDropDown] = useState<boolean>(false)
   let [sliderMargin, setSliderMargin] = useState<boolean>(false)
-  // let [songData, setSongData] = useState<SongDataType>({
-  //   title: 'Really long test name by really long artist yea yea yea yea',
-  //   lyrics: `Lipstick junkie
-  // Debunked the all in one
-  // She came back wearing a smile
-  // Looking like someone drugged me
-  // That wanted to unplug me
-  // No one here is on trial
-  // It's just a turnaround
-  // And we go, oh
-  // Well, then we go uh, uh, uh, uh
-  // Tick-tock, I want to rock you like the '80s
-  // Cock blocking isn't allowed
-  // Tugboat Sheila is into memorabilia
-  // Who said three is a crowd
-  // We better get it on the go
-  // Hey now
-  // We've got to make it rain somehow
-  // She told me to
-  // And showed me what to do
-  // How Maggie makes it in her cloud
-  // I said, hey now
-  // We've got to make it rain somehow
-  // She told me to
-  // And showed me what to do
-  // She knows how to make it loud
-  // Rain dance Maggie
-  // Advances to the final
-  // Who knew that she had the goods
-  // Little did I know
-  // Her body was one delicious vinyl
-  // To your neck of the woods
-  // I want to lick a little bit
-  // Hey now
-  // We've got to make it rain somehow
-  // She told me to
-  // And showed me what to do
-  // How Maggie makes it in her cloud
-  // We've got the wrong girl
-  // But not for long, girl
-  // It's in the song, girl
-  // 'Cause I'll be gone, girl
-  // Hey now
-  // We've got to make it rain somehow
-  // She told me to
-  // And showed me what to do
-  // How Maggie makes it in her cloud
-  // I said, hey now
-  // I want to rock this rowdy crowd
-  // She told me to
-  // And showed me what to do
-  // She knows how to make it loud
-  // But not for long, girl
-  // It's in the song, girl
-  // 'Cause I'll be gone, bye-bye-bye, yeah
-  // Bye-bye-bye, girl
-  // Bye-bye, girl
-  // Bye-bye, girl
-  // Bye-bye
-  // `,
-  // })
-  let [songData, setSongData] = useState<SongDataType>(null)
+  let [songData, setSongData] = useState<SongDataType>({
+    title: 'Really long test name by really long artist yea yea yea yea',
+    lyrics: `Lipstick junkie
+  Debunked the all in one
+  She came back wearing a smile
+  Looking like someone drugged me
+  That wanted to unplug me
+  No one here is on trial
+  It's just a turnaround
+  And we go, oh
+  Well, then we go uh, uh, uh, uh
+  Tick-tock, I want to rock you like the '80s
+  Cock blocking isn't allowed
+  Tugboat Sheila is into memorabilia
+  Who said three is a crowd
+  We better get it on the go
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  I said, hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  She knows how to make it loud
+  Rain dance Maggie
+  Advances to the final
+  Who knew that she had the goods
+  Little did I know
+  Her body was one delicious vinyl
+  To your neck of the woods
+  I want to lick a little bit
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  We've got the wrong girl
+  But not for long, girl
+  It's in the song, girl
+  'Cause I'll be gone, girl
+  Hey now
+  We've got to make it rain somehow
+  She told me to
+  And showed me what to do
+  How Maggie makes it in her cloud
+  I said, hey now
+  I want to rock this rowdy crowd
+  She told me to
+  And showed me what to do
+  She knows how to make it loud
+  But not for long, girl
+  It's in the song, girl
+  'Cause I'll be gone, bye-bye-bye, yeah
+  Bye-bye-bye, girl
+  Bye-bye, girl
+  Bye-bye, girl
+  Bye-bye
+  `,
+  })
+  // let [songData, setSongData] = useState<SongDataType>(null)
   let [naughtyLevel, setNaughtyLevel] = useState<number>(0)
   let buttonColor
   let buttonText
