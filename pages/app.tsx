@@ -487,16 +487,17 @@ const Home = () => {
                     >
                       <Typography
                         variant={'h1'}
-                        fontSize='3rem'
+                        fontSize='2.5rem'
                         display={'inline'}
-                        sx={{ fontFamily: 'Sonsie One, cursive' }}
+                        sx={{ fontFamily: 'Comfortaa' }}
                       >
                         {Protagonists[songForm.values.protagonist]} presents
                       </Typography>
                       <Typography
                         variant={'h1'}
-                        fontSize='3rem'
+                        fontSize='1.5rem'
                         display={'inline'}
+                        sx={{ fontFamily: 'Open Sans', letterSpacing: '0.1rem'}}
                       >
                         {' '}
                         {songData.title}

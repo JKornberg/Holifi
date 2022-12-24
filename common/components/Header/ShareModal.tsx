@@ -105,7 +105,7 @@ export default function ShareModal(props: {
               files: [songFile],
             }
             if (navigator.canShare != undefined && navigator.canShare(share)) {
-              navigator.share(share)
+              navigator.share(share).catch((error) => {}) // do nothing, user cancelled share
             } else{
               const link = document.createElement("a");
               link.download = `Holifi_${songData.title}.jpg`;
