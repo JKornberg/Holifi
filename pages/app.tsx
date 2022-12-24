@@ -193,10 +193,15 @@ const Home = () => {
       if (element == null) {
         return
       }
+      window.scrollTo(0,0);
+
       html2canvas(element, {
         scale: 1,
 
-        allowTaint: true, scrollX: 0, scrollY: -window.scrollY
+        allowTaint: true, scrollX: 0, scrollY: -window.scrollY,
+        windowWidth: document.documentElement.offsetWidth,
+        windowHeight: document.documentElement.offsetHeight
+        
       }).then(async (canvas) => {
         let dataUrl = canvas.toDataURL();
         setShareImage(dataUrl)
