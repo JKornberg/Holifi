@@ -12,6 +12,9 @@ import {
   blue,
 } from '@mui/material/colors'
 
+export const lyricImageColors = [red['400'], green['A400']]
+export const lyricLogoColors = [green['A400'], red['400']]
+
 export const InputTextField = styled(TextField)<TextFieldProps>(
   ({ theme }) => ({
     '& .MuiFilledInput-input': {

@@ -16,7 +16,7 @@ const Landing = () => {
         alignItems: 'center',
         justifyContent: 'center',
         height: '100vh',
-        backgroundImage: 'url(/snow_cabin4.jpg)',
+        backgroundImage: 'url(/snow_cabin.jpg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
