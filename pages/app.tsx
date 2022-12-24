@@ -65,7 +65,7 @@ const generateImageWithLyrics = (
   lyrics: string,
   title: string,
   artist: string
-) => {}
+) => { }
 
 const Home = () => {
   // const Home = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
@@ -193,7 +193,10 @@ const Home = () => {
       if (element == null) {
         return
       }
-      html2canvas(element, {scale: 1}).then(async (canvas) => {
+      html2canvas(element, {
+        scale: 1, scrollX: 0,
+        scrollY: -window.scrollY
+      }).then(async (canvas) => {
         let dataUrl = canvas.toDataURL();
         setShareImage(dataUrl)
         const blob = await (await fetch(dataUrl)).blob()
@@ -329,16 +332,16 @@ const Home = () => {
                       validArtist
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     label='Enter Artist Name'
                     onChange={(e) => {
@@ -361,16 +364,16 @@ const Home = () => {
                       validSong
                         ? {}
                         : {
-                            '.MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                            '&:hover .MuiOutlinedInput-notchedOutline': {
-                              borderColor: '#ef5350',
-                            },
-                          }
+                          '.MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                          '&:hover .MuiOutlinedInput-notchedOutline': {
+                            borderColor: '#ef5350',
+                          },
+                        }
                     }
                     name='Song'
                     label='Enter Song Name'
@@ -387,25 +390,25 @@ const Home = () => {
               style={{ marginBottom: 0 }}
               onClick={
                 isSubmitting
-                  ? () => {}
+                  ? () => { }
                   : async () => {
-                      let isValid = validate(songForm.values)
-                      if (isValid) {
-                        setValidArtist(true)
-                        setValidHoliday(true)
-                        setValidSong(true)
-                        setValidCharacter(true)
-                        songForm.setFieldValue(
-                          'holiday',
-                          songForm.values.holiday - 1
-                        )
-                        songForm.setFieldValue(
-                          'protagonist',
-                          songForm.values.protagonist - 1
-                        )
-                        songForm.submitForm()
-                      }
+                    let isValid = validate(songForm.values)
+                    if (isValid) {
+                      setValidArtist(true)
+                      setValidHoliday(true)
+                      setValidSong(true)
+                      setValidCharacter(true)
+                      songForm.setFieldValue(
+                        'holiday',
+                        songForm.values.holiday - 1
+                      )
+                      songForm.setFieldValue(
+                        'protagonist',
+                        songForm.values.protagonist - 1
+                      )
+                      songForm.submitForm()
                     }
+                  }
               }
             >
               {isSubmitting ? (
@@ -449,14 +452,14 @@ const Home = () => {
           </Container>
         </Box> */}
         <Box width='100%' textAlign={'end'}>
-                <Button
-                  onClick={() => {
-                    setShowShareImage(true)
-                  }}
-                >
-                  Share
-                </Button>
-              </Box>
+          <Button
+            onClick={() => {
+              setShowShareImage(true)
+            }}
+          >
+            Share
+          </Button>
+        </Box>
       </Box>
       {songData?.lyrics == null ? (
         <Box></Box>
