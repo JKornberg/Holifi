@@ -27,6 +27,7 @@ import html2canvas from 'html2canvas'
 import DisplayedImage from '../common/components/DisplayedImage'
 import fetch from 'isomorphic-unfetch'
 import Link from 'next/link'
+import { ConsoleView } from 'react-device-detect'
 
 type SongDataType = {
   title: string
@@ -207,6 +208,7 @@ const Home = () => {
       protagonist: 0,
     },
     onSubmit: async (values) => {
+      console.log(values)
       setIsSubmitting(true)
       console.log('Fetching Holified Song...')
       fetch('/api/song/search', {

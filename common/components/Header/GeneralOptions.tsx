@@ -175,7 +175,7 @@ export default function GeneralOptions(props: {
           ]}
           onChange={(e, value) => {
             setNaughtyLevel(value as number)
-            songForm.setFieldValue('naughtyNice', value)
+            songForm.setFieldValue('niceScale', value)
           }}
           defaultValue={0}
         />
