@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/1b7a8381-193d-4e18-bc73-00249dbd93d0/resourceGroups/appsvc_linux_centralus_basic/providers/Microsoft.Web/sites/holifinext",
+    "appService.deploySubpath": "."
+}
