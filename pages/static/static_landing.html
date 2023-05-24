@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel='preconnect' href='https://fonts.googleapis.com' />
+    <link rel='preconnect' href='https://fonts.gstatic.com' crossorigin />
+    <link
+        href='https://fonts.googleapis.com/css2?family=Bad+Script&family=Montserrat&family=Comfortaa&family=Open+Sans:wght@500;700;800&display=swap'
+        rel='stylesheet' crossOrigin='anonymous' />
+    <meta property='og:title' content='Holifi' />
+
+    <meta property='og:description' content='Make holiday themed parodies of your favorite songs with AI!' />
+    <meta property='og:image' content='https://s3.amazonaws.com/holifimusic.com/snow_cabin.jpg' />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Holifi ❄️</title>
+    <link rel="stylesheet" href="static_styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #090c24;
+        }
+
+        .header {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            background-image: url('https://s3.amazonaws.com/holifimusic.com/snow_cabin.jpg');
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: brightness(50%);
+            z-index: -1;
+        }
+
+        .header-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+        }
+
+        .header-content h1 {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .header-content p {
+            font-size: 24px;
+            margin-bottom: 40px;
+        }
+
+        .header-content a,
+        .modal-content a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ef5350;
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+        }
+
+        .header-content a:hover {
+            background-color: #f48583;
+        }
+
+        h1.title {
+            display: inline-block;
+        }
+
+        h1.stylized {
+            color: #ef5350;
+            font-weight: bold;
+            font-family: Bad Script;
+            letter-spacing: 0.1rem;
+        }
+
+        a,
+        button {
+            font-size: '1.2rem';
+            font-weight: 700;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #090c24;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .modal-content p {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .modal-content button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #ef5350;
+            color: black;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .modal-content button:hover,
+        .modal-content a:hover {
+            background-color: rgb(8, 158, 85);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <div class="header-content">
+            <div style="display: inline">
+                <h1 class='title'>Welcome to&nbsp;</h1>
+                <h1 class="stylized title">Holifi</h1>
+            </div>
+            <p>Turn your favorite songs into fun holiday parodies!</p>
+            <a href="#" id="join">Join the Party</a>
+        </div>
+    </div>
+    <div class="modal" id="modal">
+        <div class="modal-content">
+            <p>Unfortunately, Holifi is no longer active due to server costs. Thank you for your interest!</p>
+            <a href="https://github.com/JKornberg/Holifi">Repository</a>
+            <button id="button1">Close</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('join').addEventListener('click', function () {
+            document.getElementById('modal').style.display = 'block';
+        });
+
+        document.getElementById('button1').addEventListener('click', function () {
+            document.getElementById('modal').style.display = 'none';
+        });
+
+    </script>
+</body>
+
+</html>
